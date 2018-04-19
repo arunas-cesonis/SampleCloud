@@ -8,7 +8,8 @@ class App extends Component {
 
 	componentDidMount() {
 		this.callApi()
-			.then(res => this.setState({ response: res.test,
+			.then(res => this.setState({ 
+				response: res.test,
 				res_arg2: res.arg2
 			 }));
 	}
@@ -24,7 +25,7 @@ class App extends Component {
 		<div>
 			<h1>Sample Cloud</h1>
 			<h1>{this.state.response}</h1>
-			<h1>{this.state.res_arg2}</h1>
+			<p>{this.state.res_arg2}</p>
 		</div>
 	    );
 	  }
