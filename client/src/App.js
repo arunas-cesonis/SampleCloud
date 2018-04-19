@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+	state = {
+		response: '',
+		res_arg2: ''
+	};
+
+	componentDidMount() {
+		this.callApi()
+			.then(res => this.setState({ response: res.test,
+				res_arg2: res.arg2
+			 }));
+	}
+
+	callApi = async () => {
+		const response = await fetch('/home');
+		const body = await response.json();
+		return body;
+	};
+
+  	render() {
+    	return (
+		<div>
+			<h1>Sample Cloud</h1>
+			<h1>{this.state.response}</h1>
+			<h1>{this.state.res_arg2}</h1>
+		</div>
+	    );
+	  }
 }
 
 export default App;
