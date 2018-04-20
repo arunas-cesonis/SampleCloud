@@ -1,60 +1,63 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+// Main Class, to segment this later
 class App extends Component {
+
 	constructor(props){
 		super(props);
 		this.state = {
-			messageOfGuest: ''
+			username: '',
+			response: '',
+			res_arg2: ''
 		};
-		this.handleMessageOfGuest = this.handleMessageOfGuest.bind(this);
+		this.handleNewUser = this.handleNewUser.bind(this);
 	}
-	handleMessageOfGuest(event) {
-		this.setState({ messageOfGuest: event.target.value });
+	//state handler (onChange)
+	handleNewUser(event) {
+		this.setState({ username: event.target.value });
 	}
-	state = {
-		response: '',
-		res_arg2: ''
-	};
 
 	componentDidMount() {
 		this.callApi()
 			.then(res => this.setState({ 
-				response: res.test,
-				res_arg2: res.arg2
+				response1: res.arg1,
+				response2: res.arg2
 			 }));
 	}
-
+	//get data from json
 	callApi = async () => {
 		const response = await fetch('/home');
 		const body = await response.json();
 		return body;
 	};
 	addToDb = event => {
-
 		event.preventDefault();
-		this.setState({ messageOfGuest: event.target.value });
-		axios.post('http://localhost:3010/api/newUserRequest', {
-			messageOfGuest: 'asasd',		
+		// Read Inputs
+		this.setState({ username: event.target.value });
+		
+		//Post back to express (server.js)
+		axios.post('http://localhost:3010/api/pushtodb', {
+			username: this.state.username,		
 		})
 		.then(response => {
 			console.log(response, 'added');
 		});
 		this.setState({
-			messageOfGuest: '',
+			username: '',
 		});
 	};
   	render() {
     	return (
 		<div>
 			<h1>Sample Cloud</h1>
-			<h1>{this.state.response}</h1>
-			<p>{this.state.res_arg2}</p>
-			<h1>{this.state.messageOfGuest}</h1>
+			<h1>{this.state.response1}</h1>
+			<p>{this.state.response2}</p>
+			<h1>{this.state.username}</h1>
 			<input type='text'
-				name='messageOfGues'
-				value={this.state.messageOfGues}
-				onChange={this.handleMessageOfGuest} />
+				name='username'
+				value={this.state.username}
+				onChange={this.handleNewUser} />
 			<button type='submit' onClick={this.addToDb}>
 			Submit 
 			</button>

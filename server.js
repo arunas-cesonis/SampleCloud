@@ -8,8 +8,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/api/newUserRequest', (req, res) => {
-	var data = req.body.messageOfGuest;
+app.post('/api/pushtodb', (req, res) => {
+	var data = req.body.username;
 	console.log('received from react: ' + data);
 	res.redirect('/home');
 	
@@ -17,8 +17,8 @@ app.post('/api/newUserRequest', (req, res) => {
 
 app.get('/home', (req, res) => {
 	var obj = {
-		test: 'Test',
-		arg2: 'arg2'
+		arg1: 'argument no #1 from express',
+		arg2: 'argument no #2 from express'
 	}
 	res.send(obj);
 });
