@@ -2,8 +2,9 @@
   "name": "samplecloud",
   "version": "0.1.0",
   "private": true,
-	"proxy": "http://localhost:3010/" ,
+  "proxy": "http://localhost:3010/",
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts": "1.1.4"
