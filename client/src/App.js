@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-// Main Class, to segment this later
 class App extends Component {
 
 	constructor(props){
@@ -27,7 +26,7 @@ class App extends Component {
 	}
 	//get data from json
 	callApi = async () => {
-		const response = await fetch('/home');
+		const response = await fetch('/api/home');
 		const body = await response.json();
 		return body;
 	};

@@ -11,11 +11,11 @@ app.use(cors());
 app.post('/api/pushtodb', (req, res) => {
 	var data = req.body.username;
 	console.log('received from react: ' + data);
-	res.redirect('/home');
+	res.redirect('/api/home');
 	
 });
 
-app.get('/home', (req, res) => {
+app.get('/api/home', (req, res) => {
 	var obj = {
 		arg1: 'argument no #1 from express',
 		arg2: 'argument no #2 from express'
