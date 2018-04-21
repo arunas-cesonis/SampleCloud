@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import upload from './components/Upload';
 
 class App extends Component {
 
@@ -7,8 +8,8 @@ class App extends Component {
 		super(props);
 		this.state = {
 			username: '',
-			response: '',
-			res_arg2: ''
+			response1: '',
+			response2: ''
 		};
 		this.handleNewUser = this.handleNewUser.bind(this);
 	}
