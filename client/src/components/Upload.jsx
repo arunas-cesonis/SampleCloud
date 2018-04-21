@@ -8,10 +8,14 @@ class Upload extends Component {
 		};
 		this.handleUpload = this.handleUpload.bind(this);
 	};
+
+	//Form handler
 	handleUpload(event) {
 		event.preventDefault();
 		const data = new FormData();
 		data.append('file', this.uploadInput.files[0]);
+
+		//To implement later so user can choose their own name + add it to db meta
 		//data.append('filename', this.fileName.value);
 		
 		fetch('http://localhost:3010/upload', {

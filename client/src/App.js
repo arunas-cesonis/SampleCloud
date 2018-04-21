@@ -3,7 +3,6 @@ import axios from 'axios';
 import Upload from './components/Upload.jsx';
 
 class App extends Component {
-
 	constructor(props){
 		super(props);
 		this.state = {
@@ -25,7 +24,7 @@ class App extends Component {
 				response2: res.arg2
 			 }));
 	}
-	//get data from json
+	//get data from express
 	callApi = async () => {
 		const response = await fetch('/api/home');
 		const body = await response.json();
@@ -36,7 +35,6 @@ class App extends Component {
 		// Read Inputs
 		this.setState({ username: event.target.value });
 		
-		//Post back to express (server.js)
 		/* TO FIGURE OUT LATER
 		fetch('http://localhost:3010/api/pushtodb', {
 			method: 'POST',
@@ -45,6 +43,8 @@ class App extends Component {
 			response.json();
 		});
 		*/
+
+		//Post back to express (server.js)
 		axios.post('http://localhost:3010/api/pushtodb', {
 			username: this.state.username,		
 		})
@@ -55,6 +55,7 @@ class App extends Component {
 			username: '',
 		});
 	};
+	// Needs to be segmented into sections/classes 'Header' 'Footer' and etc.
   	render() {
     	return (
 		<div>
