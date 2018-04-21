@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import upload from './components/Upload';
+import Upload from './components/Upload.jsx';
 
 class App extends Component {
 
@@ -37,12 +37,20 @@ class App extends Component {
 		this.setState({ username: event.target.value });
 		
 		//Post back to express (server.js)
+		fetch('http://localhost:3010/api/pushtodb', {
+			method: 'POST',
+			body: this.state.username,
+		}).then(response => {
+			console.log(response, 'added');
+		});
+		/*
 		axios.post('http://localhost:3010/api/pushtodb', {
 			username: this.state.username,		
 		})
 		.then(response => {
 			console.log(response, 'added');
 		});
+		*/
 		this.setState({
 			username: '',
 		});
@@ -61,6 +69,7 @@ class App extends Component {
 			<button type='submit' onClick={this.addToDb}>
 			Submit 
 			</button>
+			<Upload />
 		</div>
 	    );
 	  }
