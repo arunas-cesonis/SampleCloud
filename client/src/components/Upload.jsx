@@ -18,7 +18,7 @@ class Upload extends Component {
 		//To implement later so user can choose their own name + add it to db meta
 		//data.append('filename', this.fileName.value);
 		
-		fetch('http://localhost:3010/upload', {
+		fetch('http://localhost:3010/api/upload', {
 			method: 'POST',
 			body: data,	
 		}).then((response) => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Upload from './components/Upload.jsx';
+import Header from './components/Header.jsx';
 
 class App extends Component {
 	constructor(props){
@@ -32,15 +33,20 @@ class App extends Component {
 	};
 	addToDb = event => {
 		event.preventDefault();
+		let usernameValue = this.state.username;
+
 		// Read Inputs
 		this.setState({ username: event.target.value });
 		
-		/* TO FIGURE OUT LATER
+		// TO FIGURE OUT LATER
+		/*
 		fetch('http://localhost:3010/api/pushtodb', {
 			method: 'POST',
 			body: this.state.username,
 		}).then(response => {
-			response.json();
+			return response.json();
+		}).then(data => {
+			console.log(data);
 		});
 		*/
 
@@ -49,8 +55,9 @@ class App extends Component {
 			username: this.state.username,		
 		})
 		.then(response => {
-			console.log(response, 'added');
-		});
+			console.log(usernameValue, ' has been passed to ../api/pushtodb');
+		}).catch((err) => console.log(err));
+
 		this.setState({
 			username: '',
 		});
@@ -59,6 +66,7 @@ class App extends Component {
   	render() {
     	return (
 		<div>
+			<Header />
 			<h1>Sample Cloud</h1>
 			<h1>{this.state.response1}</h1>
 			<p>{this.state.response2}</p>

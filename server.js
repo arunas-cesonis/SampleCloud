@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.post('/upload', (req, res) => {
+app.post('/api/upload', (req, res) => {
 	let data = req.files.file;
 	// Do something with the file, put it somewhere on the server + ref to db + meta
 	console.log('from /upload route: ', data);
