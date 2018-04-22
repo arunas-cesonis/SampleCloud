@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import '../css/main.css';
+//External Components to be loaded using 'react-router-dom module'
 import Home from './Home.jsx'; 
 import About from './About.jsx'; 
 
+//Basically this is a main Content or Content Loader 
 class Main extends Component {
-	constructor(props){
-		super(props);
-	};
 
 	render(){
 		return (

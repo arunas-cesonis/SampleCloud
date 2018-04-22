@@ -63,13 +63,12 @@ class App extends Component {
 			username: '',
 		});
 	};
-	// Needs to be segmented into sections/classes 'Header' 'Footer' and etc.
+	// Needs to be segmented into components (upload, new user form).
   	render() {
     	return (
 		<div>
 			<Header />
 			<Main />
-			//To Create another two components one for user reg another for file uploads
 			<h1>Sample Cloud</h1>
 			<h1>{this.state.response1}</h1>
 			<p>{this.state.response2}</p>

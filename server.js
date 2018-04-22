@@ -26,6 +26,14 @@ app.post('/api/pushtodb', (req, res) => {
 	
 });
 
+app.get('/api/about', (req, res) => {
+	let obj = {
+		arg1: 'argument no #1 from express',
+		arg2: 'argument no #2 from express'
+	}
+	res.send(obj);
+});
+
 app.get('/api/home', (req, res) => {
 	let obj = {
 		arg1: 'argument no #1 from express',

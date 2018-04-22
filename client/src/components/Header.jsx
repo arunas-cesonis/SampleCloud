@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+// Used Link for loading components
+import { Link } from 'react-router-dom';
 import '../css/header.css';
 
 class Header extends Component {
-	constructor(props){
-		super(props);
-	};
 
 	render(){
 		return (
