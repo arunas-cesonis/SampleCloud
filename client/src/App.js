@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Upload from './components/Upload.jsx';
 import Header from './components/Header.jsx';
+import Main from './components/Main.jsx';
 
 class App extends Component {
 	constructor(props){
@@ -67,6 +68,8 @@ class App extends Component {
     	return (
 		<div>
 			<Header />
+			<Main />
+			//To Create another two components one for user reg another for file uploads
 			<h1>Sample Cloud</h1>
 			<h1>{this.state.response1}</h1>
 			<p>{this.state.response2}</p>
