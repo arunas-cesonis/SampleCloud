@@ -18,7 +18,7 @@ class About extends Component {
 			}));
 	}
 	callApi = async () => {
-		const response = await fetch('/api/home');
+		const response = await fetch('/api/about');
 		const body = await response.json();
 		return body;
 	};	

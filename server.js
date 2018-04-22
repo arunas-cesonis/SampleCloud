@@ -28,8 +28,8 @@ app.post('/api/pushtodb', (req, res) => {
 
 app.get('/api/about', (req, res) => {
 	let obj = {
-		arg1: 'argument no #1 from express',
-		arg2: 'argument no #2 from express'
+		arg1: 'I like blue apples.',
+		arg2: 'There is no way back.'
 	}
 	res.send(obj);
 });
