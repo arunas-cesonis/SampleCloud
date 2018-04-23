@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Upload from './components/Upload.jsx';
 import Header from './components/Header.jsx';
 import Main from './components/Main.jsx';
 
@@ -10,15 +9,14 @@ class App extends Component {
 		this.state = {
 			username: '',
 			response1: '',
-			response2: ''
+			response2: '',
 		};
 		this.handleNewUser = this.handleNewUser.bind(this);
 	}
 	//state handler (onChange)
 	handleNewUser(event) {
 		this.setState({ username: event.target.value });
-	}
-
+	}	
 	componentDidMount() {
 		this.callApi()
 			.then(res => this.setState({ 
@@ -32,11 +30,11 @@ class App extends Component {
 		const body = await response.json();
 		return body;
 	};
+	
 	addToDb = event => {
 		event.preventDefault();
 		let usernameValue = this.state.username;
 
-		// Read Inputs
 		this.setState({ username: event.target.value });
 		
 		// TO FIGURE OUT LATER
@@ -50,7 +48,6 @@ class App extends Component {
 			console.log(data);
 		});
 		*/
-
 		//Post back to express (server.js)
 		axios.post('http://localhost:3010/api/pushtodb', {
 			username: this.state.username,		
@@ -80,7 +77,6 @@ class App extends Component {
 			<button type='submit' onClick={this.addToDb}>
 			Submit 
 			</button>
-			<Upload />
 		</div>
 	    );
 	  }

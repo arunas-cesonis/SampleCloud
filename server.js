@@ -1,29 +1,54 @@
 const express = require('express');
 const bodyParser = require('body-parser'); 
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
+const crypto = require('crypto');
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(fileUpload());
+app.use(cors());
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
 
+encrypt = (data) => {
+  let cipher = crypto.createCipher('aes-256-ecb', 'password');
+  return cipher.update(data, 'utf8', 'hex') + cipher.final('hex');
+}
+
+decrypt = (data) => {
+  let cipher = crypto.createDecipher('aes-256-ecb', 'password');
+  return cipher.update(data, 'hex', 'utf8') + cipher.final('utf8');
+}
+
 app.post('/api/upload', (req, res) => {
 	let data = req.files.file;
+	let b = req.body;
+
 	// Do something with the file, put it somewhere on the server + ref to db + meta
 	console.log('from /upload route: ', data);
+	console.log('body: ', b);
 });
 
 app.post('/api/pushtodb', (req, res) => {
 	let data = req.body.username;
 	console.log('received from react: ' + data);
-	res.redirect('/api/home');
-	
+});
+
+app.get('/login', (req, res) => {
+	let u = req.param('pwd');
+	console.log(u);
+	res.end();
+	//res.redirect('http://localhost:3000');
+});
+
+app.get('/', (req, res) => {
+	res.redirect('http://localhost:3000');
 });
 
 app.get('/api/about', (req, res) => {

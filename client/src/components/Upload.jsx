@@ -6,6 +6,7 @@ class Upload extends Component {
 		super(props);
 		this.state = {
 			sampleURL: '',
+			username: 'UserName',
 			redirectOnSuccess: false,
 		};
 		this.handleUpload = this.handleUpload.bind(this);
@@ -16,10 +17,10 @@ class Upload extends Component {
 		event.preventDefault();
 		const data = new FormData();
 		data.append('file', this.uploadInput.files[0]);
-
+		data.append('filename', this.fileName.value);
+		data.append('username', this.state.username);
 
 		//To implement later so user can choose their own name + add it to db meta
-		//data.append('filename', this.fileName.value);
 		//To figure out error handlers
 		axios.post('http://localhost:3010/api/upload', data); 
 
@@ -45,7 +46,9 @@ class Upload extends Component {
 		}
 		return (
 			<form onSubmit={this.handleUpload}>
+				<h1>{this.state.username}</h1> 
 				<input ref={(ref) => {this.uploadInput = ref; }} type='file' />
+				<input ref={(ref) => {this.fileName = ref; }} type='text' />
 				<br />
 			<button>submit</button>
 			</form>
