@@ -9,8 +9,7 @@ import Login from './Login.jsx';
 
 //Basically this is a main Content or Content Loader 
 class Main extends Component {
-	//<Route path='/upload' component={Upload} />
-	//<Route path='/uploaded' render={() => <h1>File has been uploaded</h1>} />
+
 	render(){
 		return (
 			<div className='mainCont'>			
@@ -18,6 +17,7 @@ class Main extends Component {
 					<Route exact path='/' component={Home} />
 					<Route path='/about' component={About} />
 					<Route path='/login' component={Login} />
+					<Route path='/upload' component={Upload} />
 				</Switch>
 			</div>
 	

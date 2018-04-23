@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { encrypt } from '../js/utils.js';
+import UserPage from './UserPage.jsx';
 
 class Login extends Component {
 	constructor(props){
@@ -8,7 +8,9 @@ class Login extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			serverRes: '',
+			serverUsername: '',
+			serverId: '',
+			serverLogged: false,
 		}
 	}
 
@@ -28,17 +30,24 @@ class Login extends Component {
 		})
 		.then(response => {
 			this.setState({ 
-				serverRes: response.data.id,
+				serverUsername: response.data.name,
+				serverLogged: 	response.data.logged,
 			});
 			console.log(response.data);
 		});
 	}
 
 	render(){
+		if(this.state.serverLogged){
+		return (
+			<div>
+				<UserPage />	
+			</div>
+		);	
+		} else { 
 		return (
 			<div>
 				<h1>Login</h1>
-				<h1>{this.state.serverRes}</h1>
 				<input type='text'
 					onChange={this.updateUsername.bind(this)}	
 					name='username' />
@@ -50,6 +59,7 @@ class Login extends Component {
 				</button>
 			</div>
 		);
+		}
 	}
 }
 

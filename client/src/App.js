@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Header from './components/Header.jsx';
-import Main from './components/Main.jsx';
+//import axios from 'axios';
+import Login from './components/Login.jsx';
 
 class App extends Component {
+	/*
 	constructor(props){
 		super(props);
 		this.state = {
@@ -49,12 +49,7 @@ class App extends Component {
 			username: '',
 		});
 	};
-	// Needs to be segmented into components (upload, new user form).
-  	render() {
-    	return (
-		<div>
-			<Header />
-			<Main />
+		///////////////// RENDER
 			<h1>Sample Cloud</h1>
 			<h1>{this.state.response1}</h1>
 			<p>{this.state.response2}</p>
@@ -66,6 +61,12 @@ class App extends Component {
 			<button type='submit' onClick={this.addToDb}>
 			Submit 
 			</button>
+	*/
+	// Needs to be segmented into components (upload, new user form).
+  	render() {
+    	return (
+		<div>
+			<Login />
 		</div>
 	    );
 	  }

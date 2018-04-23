@@ -50,6 +50,7 @@ app.post('/api/login', (req, res) => {
 	const sessionId = Math.random();
 	res.send({
 		name: username,
+		logged: true,
 		id: sessionId,
 	})
 });
