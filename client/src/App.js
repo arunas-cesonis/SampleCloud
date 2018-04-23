@@ -37,17 +37,6 @@ class App extends Component {
 
 		this.setState({ username: event.target.value });
 		
-		// TO FIGURE OUT LATER
-		/*
-		fetch('http://localhost:3010/api/pushtodb', {
-			method: 'POST',
-			body: this.state.username,
-		}).then(response => {
-			return response.json();
-		}).then(data => {
-			console.log(data);
-		});
-		*/
 		//Post back to express (server.js)
 		axios.post('http://localhost:3010/api/pushtodb', {
 			username: this.state.username,		

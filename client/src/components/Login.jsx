@@ -8,6 +8,7 @@ class Login extends Component {
 		this.state = {
 			username: '',
 			password: '',
+			serverRes: '',
 		}
 	}
 
@@ -21,21 +22,23 @@ class Login extends Component {
 
 	handleLogin = event => {
 		event.preventDefault();
-		console.log('handle called.');
-		console.log('u: ', this.state.username);
-		console.log('p: ', this.state.password);
-		let encryptedPWD = encrypt(this.state.password);	
-		console.log(encryptedPWD);
-		let testURL = 'http://localhost:3010/login?user=paulius&pwd=' + encryptedPWD;
-		console.log('submitted, now redirecting');
-		console.log(testURL);
-		window.location = testURL;
+		axios.post('http://localhost:3010/api/login', {
+			username: this.state.username,
+			password: this.state.password,
+		})
+		.then(response => {
+			this.setState({ 
+				serverRes: response.data.id,
+			});
+			console.log(response.data);
+		});
 	}
 
 	render(){
 		return (
 			<div>
 				<h1>Login</h1>
+				<h1>{this.state.serverRes}</h1>
 				<input type='text'
 					onChange={this.updateUsername.bind(this)}	
 					name='username' />

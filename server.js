@@ -40,15 +40,18 @@ app.post('/api/pushtodb', (req, res) => {
 	console.log('received from react: ' + data);
 });
 
-app.get('/login', (req, res) => {
-	let u = req.param('pwd');
-	console.log(u);
-	res.end();
-	//res.redirect('http://localhost:3000');
-});
+const sessions = {}
 
-app.get('/', (req, res) => {
-	res.redirect('http://localhost:3000');
+app.post('/api/login', (req, res) => {
+	let username = req.param('username');
+	let password = req.param('password');
+	console.log('u: ', username);
+	console.log('p: ', password);
+	const sessionId = Math.random();
+	res.send({
+		name: username,
+		id: sessionId,
+	})
 });
 
 app.get('/api/about', (req, res) => {
