@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import Header from './Header.jsx';
 import Main from './Main.jsx';
 
 class UserPage extends Component {
 	constructor(props){
 		super(props);
+		this.state = {
+			currentUser: this.props.username,
+		};
 	}
 	render() {
+		console.log('From UserPage component. Logged in as: ', this.state.currentUser);
 		return (
 			<div>
-				<Header />
 				<Main />
 			</div>
 		);
