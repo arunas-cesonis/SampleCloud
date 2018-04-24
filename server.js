@@ -33,6 +33,7 @@ app.post('/api/upload', (req, res) => {
 	// Do something with the file, put it somewhere on the server + ref to db + meta
 	console.log('from /upload route: ', data);
 	console.log('body: ', b);
+	res.send('File has been uploaded');
 });
 
 app.post('/api/pushtodb', (req, res) => {

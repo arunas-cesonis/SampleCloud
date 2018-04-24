@@ -6,12 +6,18 @@ class Upload extends Component {
 		super(props);
 		this.state = {
 			sampleURL: '',
-			username: 'UserName',
-			redirectOnSuccess: false,
+			// THE Username Will be used a lot for later
+			username: this.props.name,
+			notifyOnSuccess: false,
 		};
 		this.handleUpload = this.handleUpload.bind(this);
+		this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
 	};
 
+	handleUploadSuccess(event) {
+		event.preventDefault();
+		this.setState({ notifyOnSuccess: false });
+	}
 	//Form handler
 	handleUpload(event) {
 		event.preventDefault();
@@ -22,25 +28,21 @@ class Upload extends Component {
 
 		//To implement later so user can choose their own name + add it to db meta
 		//To figure out error handlers
-		axios.post('http://localhost:3010/api/upload', data); 
-
-		this.setState({ redirectOnSuccess: true });
-
-		/*
-		fetch('http://localhost:3010/api/upload', {
-			method: 'POST',
-			body: data,	
-		}).then((response) => {
-			console.log(data);
-			response.json()
-		});
-		*/
+		axios.post('http://localhost:3010/api/upload', data)
+		.then(response => {
+			console.log(response.data);
+			console.log(this.props.ready);
+			this.setState({ notifyOnSuccess: true });
+		}); 
 	}
+
 	render(){
-		if(this.state.redirectOnSuccess){
+		if(this.state.notifyOnSuccess){
 			return (
 				<div>
 					<h1>Uploaded</h1> 
+					<button onClick={this.handleUploadSuccess}>Ok
+					</button>
 				</div>
 			);	
 		}

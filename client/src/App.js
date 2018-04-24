@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Login from './components/Login.jsx';
 
 class App extends Component {
-	/*
+	/* TO SEGMENT OR USE IT OTHER COMPONENTS, THIS IS JUST A REFERENCE POINT FOR THE FUTURE
 	constructor(props){
 		super(props);
 		this.state = {
@@ -62,7 +62,6 @@ class App extends Component {
 			Submit 
 			</button>
 	*/
-	// Needs to be segmented into components (upload, new user form).
   	render() {
     	return (
 		<div>

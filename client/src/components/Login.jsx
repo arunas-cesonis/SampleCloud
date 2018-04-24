@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Header from './Header.jsx';
 import UserPage from './UserPage.jsx';
+import Register from './Register.jsx';
 
 class Login extends Component {
 	constructor(props){
@@ -54,7 +54,6 @@ class Login extends Component {
 		if(this.state.serverLogged){
 			return (
 				<div>
-					<Header username={this.state.serverUsername} />
 					<UserPage username={this.state.serverUsername}
 						logged={this.state.serverLogged} /> 
 				</div>
@@ -85,10 +84,6 @@ class Login extends Component {
 		}
 	}
 }
-
-const Register = (props) =>
-	<form onSubmit={this.handleRegister}>
-	</form>
 
 export default Login;
 
