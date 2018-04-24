@@ -6,10 +6,12 @@ class UserPage extends Component {
 		super(props);
 		this.state = {
 			currentUser: this.props.username,
+			//I might need to keep this going to maintain the session
+			logged: this.props.logged,
 		};
 	}
 	render() {
-		console.log('From UserPage component. Logged in as: ', this.state.currentUser);
+		console.log('From UserPage component. Logged in as: ', this.state.currentUser, ' ', this.state.logged);
 		return (
 			<div>
 				<Main />

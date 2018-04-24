@@ -28,6 +28,13 @@ class Login extends Component {
 		event.preventDefault();
 	}
 
+	handleRegisterButton = event => {
+		event.preventDefault();
+		this.setState({
+			register: true,
+		});
+	}
+
 	handleLogin = event => {
 		event.preventDefault();
 		axios.post('http://localhost:3010/api/login', {
@@ -48,14 +55,14 @@ class Login extends Component {
 			return (
 				<div>
 					<Header username={this.state.serverUsername} />
-					<UserPage username={this.state.serverUsername} /> 
+					<UserPage username={this.state.serverUsername}
+						logged={this.state.serverLogged} /> 
 				</div>
 			);	
 		} else if (this.state.register) { 
 			console.log('Please register.');	
 			return (
-				<form onSubmit={this.handleRegister}>
-				</form>
+				<Register />
 			);
 		} else {
 			return (
@@ -70,10 +77,20 @@ class Login extends Component {
 					<button type='submit' onClick={this.handleLogin}>
 					Login
 					</button>
+					<button type='submit' onClick={this.handleRegisterButton}>
+					Register
+					</button>
 				</div>
 			);
 		}
 	}
 }
 
+const Register = (props) =>
+	<form onSubmit={this.handleRegister}>
+	</form>
+
 export default Login;
+
+
+
