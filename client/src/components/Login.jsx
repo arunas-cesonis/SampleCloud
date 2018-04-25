@@ -14,6 +14,8 @@ class Login extends Component {
 			serverLogged: false,
 			register: false,
 		}
+		this.updatePassword = this.updatePassword.bind(this);
+		this.updateUsername = this.updateUsername.bind(this);
 	}
 
 	updatePassword = event => {
@@ -68,10 +70,10 @@ class Login extends Component {
 				<div>
 					<h1>Login</h1>
 					<input type='text'
-						onChange={this.updateUsername.bind(this)}	
+						onChange={this.updateUsername}	
 						name='username' />
 					<input type='password'
-						onChange={this.updatePassword.bind(this)}	
+						onChange={this.updatePassword}	
 						name='password' />
 					<button type='submit' onClick={this.handleLogin}>
 					Login

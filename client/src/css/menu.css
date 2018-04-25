@@ -18,3 +18,7 @@ li .navItem:hover {
 	background-color: #455060;
 	color: white;
 }
+li .navItem.active {
+	background-color: #b51b1b;
+	color: white;
+}
