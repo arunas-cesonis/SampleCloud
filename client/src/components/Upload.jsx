@@ -16,7 +16,7 @@ class Upload extends Component {
 
 	handleUploadSuccess(event) {
 		event.preventDefault();
-		this.setState({ notifyOnSuccess: false });
+			this.setState({ notifyOnSuccess: false });
 	}
 	//Form handler
 	handleUpload(event) {

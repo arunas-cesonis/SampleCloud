@@ -1,0 +1,20 @@
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #f1f1f1;
+}
+li {
+	float: left;
+}
+li .navItem {
+	display: block;
+	color: #000;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+li .navItem:hover {
+	background-color: #555;
+	color: white;
+}
