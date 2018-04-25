@@ -8,7 +8,7 @@ class Menu extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			homeActive: false,
+			homeActive: true,
 			aboutActive: false,
 			browseActive: false,
 			uploadActive: false,
