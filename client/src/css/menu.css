@@ -3,7 +3,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #f1f1f1;
+	background-color: #3a77d8;
 }
 li {
 	float: left;
@@ -15,6 +15,6 @@ li .navItem {
 	text-decoration: none;
 }
 li .navItem:hover {
-	background-color: #555;
+	background-color: #455060;
 	color: white;
 }
