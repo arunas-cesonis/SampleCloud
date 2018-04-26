@@ -14,7 +14,7 @@ class Menu extends Component {
 			uploadActive: false,
 		}
 	}
-
+	// TO Find a better way of achieving this.
 	handleButton = (arg, event) => {
 		if(arg === 'home'){
 			this.setState({

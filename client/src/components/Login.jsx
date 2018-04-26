@@ -11,7 +11,7 @@ class Login extends Component {
 			password: '',
 			serverUsername: '',
 			serverId: '',
-			serverLogged: false,
+			serverSuccess: false,
 			register: false,
 		}
 		this.updatePassword = this.updatePassword.bind(this);
@@ -46,18 +46,18 @@ class Login extends Component {
 		.then(response => {
 			this.setState({ 
 				serverUsername: response.data.name,
-				serverLogged: 	response.data.logged,
+				serverSuccess: 	response.data.success,
 			});
 			console.log(response.data);
 		});
 	}
 
 	render(){
-		if(this.state.serverLogged){
+		if(this.state.serverSuccess){
 			return (
 				<div>
 					<UserPage username={this.state.serverUsername}
-						logged={this.state.serverLogged} /> 
+						logged={this.state.serverSuccess} /> 
 				</div>
 			);	
 		} else if (this.state.register) { 
@@ -69,15 +69,17 @@ class Login extends Component {
 			return (
 				<div>
 					<h1>Login</h1>
-					<input type='text'
-						onChange={this.updateUsername}	
-						name='username' />
-					<input type='password'
-						onChange={this.updatePassword}	
-						name='password' />
-					<button type='submit' onClick={this.handleLogin}>
-					Login
-					</button>
+					<form >
+						<input type='text'
+							onChange={this.updateUsername}	
+							name='username' />
+						<input type='password'
+							onChange={this.updatePassword}	
+							name='password' />
+						<button type='submit' onClick={this.handleLogin}>
+						Sign In
+						</button>
+					</form>
 					<button type='submit' onClick={this.handleRegisterButton}>
 					Register
 					</button>
