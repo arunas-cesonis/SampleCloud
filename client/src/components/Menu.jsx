@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link, withRouter} from 'react-router-dom';
 import classNames from 'classnames';
 import MenuItem from './MenuItem.jsx';
+import '../css/menu.css';
 
 class Menu extends Component {
 	constructor(props){
