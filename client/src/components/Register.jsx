@@ -27,7 +27,7 @@ class Register extends Component {
         let errorMsg = '';
 
         if(password.length < 6){
-            console.log('Password must be longer');
+            console.log('Password is to short');
             this.setState({ passwordValid: true });
             errorMsg += 'Password must be at least 6 chars long.'
         } else {
@@ -40,7 +40,7 @@ class Register extends Component {
 	render(){
 		return (
             <form onSubmit={this.handleRegister.bind(this)}>
-                <h1>{this.state.error}</h1>
+                <p>{this.state.error}</p>
                 <input type='text' ref={(ref) => {this.username = ref}} placeholder='Username:' /> 
                 <input type='password' 
                     className={classNames({ invalid: this.state.passwordValid})}

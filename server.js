@@ -32,6 +32,9 @@ app.post('/api/upload', (req, res) => {
 
 	// Do something with the file, put it somewhere on the server + ref to db + meta
 	console.log('from /upload route: ', data);
+    console.log('file name: ', data.name);
+    console.log('username: ', b.username);
+    console.log('desired file name: ', b.filename);
 	console.log('body: ', b);
 	res.send('File has been uploaded');
 });
