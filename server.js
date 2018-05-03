@@ -44,6 +44,21 @@ app.post('/api/pushtodb', (req, res) => {
 	console.log('received from react: ' + data);
 });
 
+app.post('/api/checkUsername', (req, res) => {
+    let username = req.param('username');
+    console.log('/api/checkUsername req: ', username);
+    // To check against DB if this username is taken or not and return true or false.
+    if(username.length > 4){
+        res.send({
+            free: true,
+        });
+    } else {
+        res.send({
+            free: false,
+        });
+
+    }
+});
 const sessions = {}
 
 app.post('/api/login', (req, res) => {

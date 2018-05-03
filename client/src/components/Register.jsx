@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import '../css/register.css';
 import EmailInput from './EmailInput.jsx';
 import PasswordInput from './PasswordInput.jsx';
+import UsernameInput from './UsernameInput.jsx';
 
 class Register extends Component {
     constructor(props){
         super(props);
         this.state = {
             email: '',
-            emailNotValid: false,
             password: '',
+            username: '',
+            emailNotValid: false,
             passwordNotValid: false,
-            passswordError: '',
+            usernameNotValid: false,
+            usernameFree: false,
             emailError: '',
+            passswordError: '',
+            usernameError: '',
         };
         this.handleEmail = this.handleEmail.bind(this);
         this.handleForm = this.handleForm.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
+        this.handleUsername = this.handleUsername.bind(this);
     }
     /*
     handleRegister(event){
@@ -30,17 +37,28 @@ class Register extends Component {
     */
     handleForm(e){
         e.preventDefault();
-        const passwordNotValid = this.state.passwordNotValid; 
         const emailNotValid = this.state.emailNotValid; 
+        const passwordNotValid = this.state.passwordNotValid; 
+        const usernameNotValid = this.state.usernameNotValid; 
         console.log('From form: ', emailNotValid);
-        if(passwordNotValid){
+        this.setState({
+            emailError: '',
+            passwordError: '',
+            usernameError: '',
+        })
+        if(passwordNotValid || this.state.password === ''){
             this.setState({
                 passwordError: 'Password must be at least 6 chars long and contain an upper case.',
             })
         }
-        if(emailNotValid){
+        if(emailNotValid || this.state.email === ''){
             this.setState({
                 emailError: 'Please enter a valid email address.',
+            })
+        }
+        if(usernameNotValid || this.state.username === ''){
+            this.setState({
+                usernameError: 'You can not use this name. Please choose another one.',
             })
         }
         console.log('The form has been submitted.');
@@ -78,16 +96,33 @@ class Register extends Component {
             });
         }
     }
+    handleUsername(usernameInputVal){
+        const usernameFree = this.state.usernameFree;
+        this.setState({ username: usernameInputVal });
+        axios.post('http://localhost:3010/api/checkUsername', {
+            username: usernameInputVal, 
+        }).then(response =>{
+            this.setState({ usernameFree: response.data.free });
+        });
+        console.log('Username is free: ', usernameFree);
+        if(usernameFree){
+            this.setState({ usernameNotValid: false });
+        } else {
+            this.setState({ usernameNotValid: true });
+        }
+    }
 	render(){
         const email = this.state.email;
-        const emailNotValid = this.state.emailNotValid;
         const password = this.state.password;
+        const username = this.state.username;
+        const emailNotValid = this.state.emailNotValid;
         const passwordNotValid = this.state.passwordNotValid;
+        const usernameNotValid = this.state.usernameNotValid;
 
 		return ( 
-            <fieldset>
+            <form onSubmit={this.handleForm}>
+                <fieldset>
                 <legend>Register Form</legend>
-                <form onSubmit={this.handleForm}>
                     <p className='error_msg'>{this.state.emailError}</p>
                     <EmailInput
                         emailNotValid={emailNotValid}
@@ -100,9 +135,16 @@ class Register extends Component {
                         passwordCheck={this.handlePassword}
                         password={password}
                     />
+                    <p className='error_msg'>{this.state.usernameError}</p>
+                    <UsernameInput
+                        usernameNotValid={usernameNotValid}
+                        usernameCheck={this.handleUsername}
+                        username={username}
+                    />
+                    <br />
                     <button>Submit</button>
+                </fieldset>
                 </form>
-            </fieldset>
 		);
 	}
 }

@@ -42,8 +42,7 @@ class Login extends Component {
 		axios.post('http://localhost:3010/api/login', {
 			username: this.state.username,
 			password: this.state.password,
-		})
-		.then(response => {
+		}).then(response => {
 			this.setState({ 
 				serverUsername: response.data.name,
 				serverSuccess: 	response.data.success,
