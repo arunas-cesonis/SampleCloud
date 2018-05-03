@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import '../css/register.css';
 import EmailInput from './EmailInput.jsx';
+import PasswordInput from './PasswordInput.jsx';
 
 class Register extends Component {
     constructor(props){
         super(props);
         this.state = {
             email: '',
-            emailValid: false,
-            /* OLD STUFF
-            email: 'email',
+            emailNotValid: false,
             password: '',
-            username: '',
-            formValid: false,
-            passwordValid: '',
-            error: '',
-            */
+            passwordNotValid: false,
         };
         this.handleEmail = this.handleEmail.bind(this);
         this.handleForm = this.handleForm.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
     }
     /*
     update(arg, event){
@@ -46,6 +41,7 @@ class Register extends Component {
         }
     }
     /////// THIS WAS INSIDE MY FORM /////////////
+    //.... TO REVIEW ref={(ref) => {var = ref}} 
                 <p>{this.state.error}</p>
                 <input type='text' 
                     ref={(ref) => {this.username = ref}} 
@@ -55,34 +51,48 @@ class Register extends Component {
                     ref={(ref) => {this.password = ref}} 
                     placeholder='Password:' 
                 /> 
-                <input type='text' 
-                    ref={(ref) => {this.email = ref}} 
-                    placeholder='Email:' 
-                /> 
     */
     handleForm(e){
         e.preventDefault();
-        console.log('form has been submitted.');
+        console.log('The form has been submitted.');
     }
     handleEmail(emailInputVal){
         const validatedEmail = emailInputVal;
-        if(validatedEmail.match(/([.]net|[.]com)/) && validatedEmail.indexOf("@") > -1 && validatedEmail.match(/^[\S]+$/)){
-            this.setState({ email: validatedEmail, emailValid: false });
+        if(validatedEmail.match(/([.]net|[.]com)/) && 
+            validatedEmail.indexOf("@") > -1 && 
+            validatedEmail.match(/^[\S]+$/)){
+            this.setState({ email: validatedEmail, emailNotValid: false });
             console.log('This is a valid email address.');
         } else {
-            this.setState({ email: validatedEmail, emailValid: true });
+            this.setState({ email: validatedEmail, emailNotValid: true });
             console.log('This email address considered to be invalid.');
+        }
+    }
+    handlePassword(passwordInputVal){
+        console.log('passwordInputVal: ', passwordInputVal);
+        if(passwordInputVal.length > 6){
+            this.setState({ password: passwordInputVal, passwordNotValid: false });
+        } else {
+            this.setState({ password: passwordInputVal, passwordNotValid: true });
         }
     }
 	render(){
         const email = this.state.email;
-        const emailValid = this.state.emailValid;
+        const emailNotValid = this.state.emailNotValid;
+        const password = this.state.password;
+        const passwordNotValid = this.state.passwordNotValid;
+
 		return ( 
             <form onSubmit={this.handleForm}>
                 <EmailInput
-                    emailValid={emailValid}
+                    emailNotValid={emailNotValid}
                     emailCheck={this.handleEmail}
                     email={email}
+                />
+                <PasswordInput
+                    passwordNotValid={passwordNotValid}
+                    passwordCheck={this.handlePassword}
+                    password={password}
                 />
                 <button>Submit</button>
             </form>

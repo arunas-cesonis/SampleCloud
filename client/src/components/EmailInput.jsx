@@ -10,12 +10,13 @@ class EmailInput extends Component {
         this.props.emailCheck(e.target.value);
     }
     render(){
-        const emailValid = this.props.emailValid;
+        const emailNotValid = this.props.emailNotValid;
         const email = this.props.email;
-        console.log('email valid?: ', emailValid);
+        console.log('email valid?: ', emailNotValid);
         return(
             <input 
-                className={classNames({ invalid: emailValid})}
+                placeholder='Email Address:'
+                className={classNames({ invalid: emailNotValid})}
                 onChange={this.handleEmailCheck}
                 value={email}
             />

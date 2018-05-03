@@ -27,7 +27,10 @@ class Menu extends Component {
         	<ul>
 			{navItems.map((element, i) => 
                 <li key={i}>
-                    <Link className={classNames('navItem', { active: currentLocation === element.path})} to={element.path}>{element.name}</Link>
+                    <Link 
+                        className={classNames('navItem', { active: currentLocation === element.path})} 
+                        to={element.path}>{element.name}
+                    </Link>
                 </li>
 			)}
 
