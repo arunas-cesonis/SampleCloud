@@ -11,49 +11,38 @@ class Register extends Component {
             emailNotValid: false,
             password: '',
             passwordNotValid: false,
+            passswordError: '',
+            emailError: '',
         };
         this.handleEmail = this.handleEmail.bind(this);
         this.handleForm = this.handleForm.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
     }
     /*
-    update(arg, event){
-        console.log(arg);
-    }
-    */
-    /*
     handleRegister(event){
-        event.preventDefault();
-        const username = this.username.value;
+        // Access REF
         const password = this.password.value;
-        const email = this.password.email;
-        let errorMsg = '';
-
-        if(password.length < 6){
-            console.log('Password is to short');
-            this.setState({ passwordValid: true });
-            errorMsg += 'Password must be at least 6 chars long.'
-        } else {
-            this.setState({ passwordValid: false });
-        }
-        if(errorMsg.length > 2){
-            this.setState({ error: errorMsg });
-        }
     }
-    /////// THIS WAS INSIDE MY FORM /////////////
     //.... TO REVIEW ref={(ref) => {var = ref}} 
-                <p>{this.state.error}</p>
-                <input type='text' 
-                    ref={(ref) => {this.username = ref}} 
-                    placeholder='Username:' /> 
                 <input type='password' 
-                    className={classNames({ invalid: this.state.passwordValid})}
                     ref={(ref) => {this.password = ref}} 
-                    placeholder='Password:' 
                 /> 
     */
     handleForm(e){
         e.preventDefault();
+        const passwordNotValid = this.state.passwordNotValid; 
+        const emailNotValid = this.state.emailNotValid; 
+        console.log('From form: ', emailNotValid);
+        if(passwordNotValid){
+            this.setState({
+                passwordError: 'Password must be at least 6 chars long and contain an upper case.',
+            })
+        }
+        if(emailNotValid){
+            this.setState({
+                emailError: 'Please enter a valid email address.',
+            })
+        }
         console.log('The form has been submitted.');
     }
     handleEmail(emailInputVal){
@@ -61,19 +50,32 @@ class Register extends Component {
         if(validatedEmail.match(/([.]net|[.]com)/) && 
             validatedEmail.indexOf("@") > -1 && 
             validatedEmail.match(/^[\S]+$/)){
-            this.setState({ email: validatedEmail, emailNotValid: false });
+            this.setState({ 
+                email: validatedEmail, 
+                emailNotValid: false,
+            });
             console.log('This is a valid email address.');
         } else {
-            this.setState({ email: validatedEmail, emailNotValid: true });
+            this.setState({ 
+                email: validatedEmail, 
+                emailNotValid: true,
+            });
             console.log('This email address considered to be invalid.');
         }
     }
     handlePassword(passwordInputVal){
-        console.log('passwordInputVal: ', passwordInputVal);
-        if(passwordInputVal.length > 6){
-            this.setState({ password: passwordInputVal, passwordNotValid: false });
+        const validatedPassword = passwordInputVal;
+        console.log('passwordInputVal: ', validatedPassword);
+        if(validatedPassword.length > 6 && validatedPassword.match(/[A-Z]/)){
+            this.setState({ 
+                password: validatedPassword, 
+                passwordNotValid: false, 
+            });
         } else {
-            this.setState({ password: passwordInputVal, passwordNotValid: true });
+            this.setState({ 
+                password: validatedPassword, 
+                passwordNotValid: true 
+            });
         }
     }
 	render(){
@@ -83,19 +85,24 @@ class Register extends Component {
         const passwordNotValid = this.state.passwordNotValid;
 
 		return ( 
-            <form onSubmit={this.handleForm}>
-                <EmailInput
-                    emailNotValid={emailNotValid}
-                    emailCheck={this.handleEmail}
-                    email={email}
-                />
-                <PasswordInput
-                    passwordNotValid={passwordNotValid}
-                    passwordCheck={this.handlePassword}
-                    password={password}
-                />
-                <button>Submit</button>
-            </form>
+            <fieldset>
+                <legend>Register Form</legend>
+                <form onSubmit={this.handleForm}>
+                    <p className='error_msg'>{this.state.emailError}</p>
+                    <EmailInput
+                        emailNotValid={emailNotValid}
+                        emailCheck={this.handleEmail}
+                        email={email}
+                    />
+                    <p className='error_msg'>{this.state.passwordError}</p>
+                    <PasswordInput
+                        passwordNotValid={passwordNotValid}
+                        passwordCheck={this.handlePassword}
+                        password={password}
+                    />
+                    <button>Submit</button>
+                </form>
+            </fieldset>
 		);
 	}
 }

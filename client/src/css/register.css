@@ -4,3 +4,10 @@ input {
 input.invalid {
     border-color: red;
 }
+p {
+    padding: 0;
+    margin: 0;
+}
+.error_msg {
+    color: red;
+}
