@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/register.css';
-import Input from './Input.jsx';
+import Input from './RegInput.jsx';
+import Login from './Login.jsx';
+
+function test(a){
+    console.log(a);
+}
 
 class Register extends Component {
     constructor(props){
@@ -17,11 +22,14 @@ class Register extends Component {
             emailError: '',
             passswordError: '',
             usernameError: '',
+            regSuccess: false,
+            redirectLogin: false,
         };
         this.handleEmail = this.handleEmail.bind(this);
         this.handleForm = this.handleForm.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
+        this.handleRegOk = this.handleRegOk.bind(this);
     }
     /*
     handleRegister(event){
@@ -35,6 +43,7 @@ class Register extends Component {
     */
     handleForm(e){
         e.preventDefault();
+        test('lalal');
         const email = this.state.email;
         const password = this.state.password;
         const username = this.state.username;
@@ -72,6 +81,12 @@ class Register extends Component {
             }).then(response => {
                 console.log('res: ', response.data);
             });
+            this.setState({ 
+                regSuccess: true, 
+                username: '',
+                password: '',
+                email: '',
+            });
         } else {
             console.log('Failed!');
         }
@@ -95,15 +110,14 @@ class Register extends Component {
         }
     }
     handlePassword(passwordInputVal){
-        const validatedPassword = passwordInputVal;
-        if(validatedPassword.length > 6 && validatedPassword.match(/[A-Z]/)){
+        if(passwordInputVal.length > 6 && passwordInputVal.match(/[A-Z]/)){
             this.setState({ 
-                password: validatedPassword, 
+                password: passwordInputVal, 
                 passwordNotValid: false, 
             });
         } else {
             this.setState({ 
-                password: validatedPassword, 
+                password: passwordInputVal, 
                 passwordNotValid: true 
             });
         }
@@ -113,7 +127,7 @@ class Register extends Component {
         this.setState({ username: usernameInputVal });
         axios.post('http://localhost:3010/api/checkUsername', {
             username: usernameInputVal, 
-        }).then(response =>{
+        }).then(response => {
             this.setState({ usernameFree: response.data.free });
         });
         if(usernameFree){
@@ -122,6 +136,16 @@ class Register extends Component {
             this.setState({ usernameNotValid: true });
         }
     }
+    handleRegOk(e){
+        e.preventDefault();
+        this.setState({ 
+            redirectLogin: true, 
+            regSuccess: false,
+        });
+    }
+    validationHelper(valid, itemState){
+        /// TO IMPLEMENT LATER
+    }
 	render(){
         const email = this.state.email;
         const password = this.state.password;
@@ -129,38 +153,51 @@ class Register extends Component {
         const emailNotValid = this.state.emailNotValid;
         const passwordNotValid = this.state.passwordNotValid;
         const usernameNotValid = this.state.usernameNotValid;
-
+        const regSuccess = this.state.regSuccess;
+        const redirectLogin = this.state.redirectLogin;
+        if(regSuccess){
+            return (
+                <div>
+                    <h1>Form has been submitted.</h1>
+                    <button onClick={this.handleRegOk}>OK</button>
+                </div>
+            );
+        } else if(redirectLogin){
+            return (
+                <Login />
+            );
+        }
 		return ( 
             <form onSubmit={this.handleForm}>
                 <fieldset>
                 <legend>Register Form</legend>
                     <h1>Part 2</h1>
                     <Input
+                        label={'Username:'}
                         id={'username'}
                         error={this.state.usernameError}
                         type={'text'}
-                        label={'Username:'}
                         notValid={usernameNotValid}
                         check={this.handleUsername} 
-                        username={username}
+                        val={username}
                     />
                     <Input
+                        label={'Email:'}
                         id={'email'}
                         error={this.state.emailError}
                         type={'text'}
-                        label={'Email:'}
                         notValid={emailNotValid}
                         check={this.handleEmail} 
-                        username={email}
+                        val={email}
                     />
                     <Input
+                        label={'Password:'}
                         id={'password'}
                         error={this.state.passwordError}
                         type={'password'}
-                        label={'Password:'}
                         notValid={passwordNotValid}
                         check={this.handlePassword} 
-                        username={password}
+                        val={password}
                     />
                     <br />
                     <button>Submit</button>

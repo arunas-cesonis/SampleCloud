@@ -17,7 +17,7 @@ class About extends Component {
 				response2: res.arg2,
 			}));
 	}
-	callApi = async () => {
+	callApi = async function() {
 		const response = await fetch('/api/about');
 		const body = await response.json();
 		return body;

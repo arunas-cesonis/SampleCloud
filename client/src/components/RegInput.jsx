@@ -5,12 +5,20 @@ class Input extends Component {
     constructor(props){
         super(props);
         this.handleCheck = this.handleCheck.bind(this);
+        this.displayLabel = this.displayLabel.bind(this);
     }
     handleCheck(e){
         this.props.check(e.target.value);
     }
+    displayLabel(error, label){
+        if(!error){
+            return label;    
+        } else {
+            return error;
+        }
+    }
     render(){
-        const username = this.props.username;
+        const val = this.props.val;
         const notValid = this.props.notValid;
         const type = this.props.type;
         const error = this.props.error;
@@ -18,15 +26,16 @@ class Input extends Component {
         const label = this.props.label;
         return(
             <div>
-                <p className='error_msg'>{error}</p>
-                <label htmlFor={id}>{label}</label>
+                <label 
+                    className={classNames({ error: error })} 
+                    htmlFor={id}>{this.displayLabel(error, label)}</label>
                 <br />
                 <input
                     id={id}
                     type={type}
                     className={classNames({ invalid: notValid })} 
                     onChange={this.handleCheck}
-                    value={username}
+                    value={val}
                 />
             </div>
         );

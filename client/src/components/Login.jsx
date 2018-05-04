@@ -16,29 +16,27 @@ class Login extends Component {
 		}
 		this.updatePassword = this.updatePassword.bind(this);
 		this.updateUsername = this.updateUsername.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleRegisterButton = this.handleRegisterButton.bind(this);
 	}
 
-	updatePassword = event => {
-		this.setState({password: event.target.value});
+	updatePassword(e) {
+		this.setState({password: e.target.value});
 	}
 
-	updateUsername = event => {
-		this.setState({username: event.target.value});
+	updateUsername(e) {
+		this.setState({username: e.target.value});
 	}
 
-	handleRegister = event => {
-		event.preventDefault();
-	}
-
-	handleRegisterButton = event => {
-		event.preventDefault();
+	handleRegisterButton(e) {
+		e.preventDefault();
 		this.setState({
 			register: true,
 		});
 	}
 
-	handleLogin = event => {
-		event.preventDefault();
+	handleLogin(e) {
+		e.preventDefault();
 		axios.post('http://localhost:3010/api/login', {
 			username: this.state.username,
 			password: this.state.password,

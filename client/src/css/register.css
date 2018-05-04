@@ -1,6 +1,10 @@
 label {
     font-size: 10px;
 }
+label.error {
+    color: red;
+    font-size: 10px;
+}
 input {
     border-color: black;
 }
