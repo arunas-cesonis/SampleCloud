@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../css/register.css';
-import EmailInput from './EmailInput.jsx';
-import PasswordInput from './PasswordInput.jsx';
-import UsernameInput from './UsernameInput.jsx';
+import Input from './Input.jsx';
 
 class Register extends Component {
     constructor(props){
@@ -72,7 +70,7 @@ class Register extends Component {
                 email: email,
                 password: password,
             }).then(response => {
-                console.log(response.data);
+                console.log('res: ', response.data);
             });
         } else {
             console.log('Failed!');
@@ -124,6 +122,23 @@ class Register extends Component {
             this.setState({ usernameNotValid: true });
         }
     }
+    /* TMP
+                    <EmailInput
+                        emailNotValid={emailNotValid}
+                        emailCheck={this.handleEmail}
+                        email={email}
+                    />
+                    <PasswordInput
+                        passwordNotValid={passwordNotValid}
+                        passwordCheck={this.handlePassword}
+                        password={password}
+                    />
+                    <UsernameInput
+                        usernameNotValid={usernameNotValid}
+                        usernameCheck={this.handleUsername}
+                        username={username}
+                    />
+    */
 	render(){
         const email = this.state.email;
         const password = this.state.password;
@@ -136,23 +151,30 @@ class Register extends Component {
             <form onSubmit={this.handleForm}>
                 <fieldset>
                 <legend>Register Form</legend>
+                    <h1>Part 2</h1>
+                    <p className='error_msg'>{this.state.usernameError}</p>
+                    <Input
+                        type={'text'}
+                        label={'Username:'}
+                        notValid={usernameNotValid}
+                        check={this.handleUsername} 
+                        username={username}
+                    />
                     <p className='error_msg'>{this.state.emailError}</p>
-                    <EmailInput
-                        emailNotValid={emailNotValid}
-                        emailCheck={this.handleEmail}
-                        email={email}
+                    <Input
+                        type={'email'}
+                        label={'Email:'}
+                        notValid={emailNotValid}
+                        check={this.handleEmail} 
+                        username={email}
                     />
                     <p className='error_msg'>{this.state.passwordError}</p>
-                    <PasswordInput
-                        passwordNotValid={passwordNotValid}
-                        passwordCheck={this.handlePassword}
-                        password={password}
-                    />
-                    <p className='error_msg'>{this.state.usernameError}</p>
-                    <UsernameInput
-                        usernameNotValid={usernameNotValid}
-                        usernameCheck={this.handleUsername}
-                        username={username}
+                    <Input
+                        type={'password'}
+                        label={'Password:'}
+                        notValid={passwordNotValid}
+                        check={this.handlePassword} 
+                        username={password}
                     />
                     <br />
                     <button>Submit</button>

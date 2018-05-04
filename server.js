@@ -49,7 +49,7 @@ app.post('/api/reg/received', (req, res) => {
     console.log('U:', b.username);
     console.log('P:', b.password);
     console.log('E:', b.email);
-    res.send('User has been added.');
+    res.send('The user has been added.');
 });
 
 app.post('/api/checkUsername', (req, res) => {
