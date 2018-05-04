@@ -122,23 +122,6 @@ class Register extends Component {
             this.setState({ usernameNotValid: true });
         }
     }
-    /* TMP
-                    <EmailInput
-                        emailNotValid={emailNotValid}
-                        emailCheck={this.handleEmail}
-                        email={email}
-                    />
-                    <PasswordInput
-                        passwordNotValid={passwordNotValid}
-                        passwordCheck={this.handlePassword}
-                        password={password}
-                    />
-                    <UsernameInput
-                        usernameNotValid={usernameNotValid}
-                        usernameCheck={this.handleUsername}
-                        username={username}
-                    />
-    */
 	render(){
         const email = this.state.email;
         const password = this.state.password;
@@ -152,24 +135,27 @@ class Register extends Component {
                 <fieldset>
                 <legend>Register Form</legend>
                     <h1>Part 2</h1>
-                    <p className='error_msg'>{this.state.usernameError}</p>
                     <Input
+                        id={'username'}
+                        error={this.state.usernameError}
                         type={'text'}
                         label={'Username:'}
                         notValid={usernameNotValid}
                         check={this.handleUsername} 
                         username={username}
                     />
-                    <p className='error_msg'>{this.state.emailError}</p>
                     <Input
-                        type={'email'}
+                        id={'email'}
+                        error={this.state.emailError}
+                        type={'text'}
                         label={'Email:'}
                         notValid={emailNotValid}
                         check={this.handleEmail} 
                         username={email}
                     />
-                    <p className='error_msg'>{this.state.passwordError}</p>
                     <Input
+                        id={'password'}
+                        error={this.state.passwordError}
                         type={'password'}
                         label={'Password:'}
                         notValid={passwordNotValid}

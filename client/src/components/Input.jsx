@@ -12,16 +12,23 @@ class Input extends Component {
     render(){
         const username = this.props.username;
         const notValid = this.props.notValid;
-        const placeholder = this.props.label;
         const type = this.props.type;
+        const error = this.props.error;
+        const id = this.props.id;
+        const label = this.props.label;
         return(
-            <input
-                type={type}
-                placeholder={placeholder}
-                className={classNames({ invalid: notValid })} 
-                onChange={this.handleCheck}
-                value={username}
-            />
+            <div>
+                <p className='error_msg'>{error}</p>
+                <label htmlFor={id}>{label}</label>
+                <br />
+                <input
+                    id={id}
+                    type={type}
+                    className={classNames({ invalid: notValid })} 
+                    onChange={this.handleCheck}
+                    value={username}
+                />
+            </div>
         );
     }   
 }
