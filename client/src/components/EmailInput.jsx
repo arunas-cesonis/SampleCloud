@@ -12,7 +12,6 @@ class EmailInput extends Component {
     render(){
         const emailNotValid = this.props.emailNotValid;
         const email = this.props.email;
-        console.log('email valid?: ', emailNotValid);
         return(
             <input 
                 placeholder='Email Address:'

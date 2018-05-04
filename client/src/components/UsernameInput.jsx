@@ -14,6 +14,7 @@ class UsernameInput extends Component {
         const usernameNotValid = this.props.usernameNotValid;
         return(
             <input
+                placeholder={'Username:'}
                 className={classNames({ invalid: usernameNotValid })} 
                 onChange={this.handleUsernameCheck}
                 value={username}

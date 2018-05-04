@@ -40,15 +40,23 @@ app.post('/api/upload', (req, res) => {
 });
 
 app.post('/api/pushtodb', (req, res) => {
-	let data = req.body.username;
+	const data = req.body.username;
 	console.log('received from react: ' + data);
 });
 
+app.post('/api/reg/received', (req, res) => {
+    const b = req.body;
+    console.log('U:', b.username);
+    console.log('P:', b.password);
+    console.log('E:', b.email);
+    res.send('User has been added.');
+});
+
 app.post('/api/checkUsername', (req, res) => {
-    let username = req.param('username');
-    console.log('/api/checkUsername req: ', username);
+    const b = req.body;
+    console.log('/api/checkUsername req: ', b.username);
     // To check against DB if this username is taken or not and return true or false.
-    if(username.length > 4){
+    if(b.username.length > 4){
         res.send({
             free: true,
         });
@@ -62,13 +70,12 @@ app.post('/api/checkUsername', (req, res) => {
 const sessions = {}
 
 app.post('/api/login', (req, res) => {
-	let username = req.param('username');
-	let password = req.param('password');
-	console.log('u: ', username);
-	console.log('p: ', password);
+    const b = req.body;
+	console.log('u: ', b.username);
+	console.log('p: ', b.password);
 	const sessionId = Math.random();
 	res.send({
-		name: username,
+		name: b.username,
 		success: true,
 		id: sessionId,
 	})

@@ -37,10 +37,12 @@ class Register extends Component {
     */
     handleForm(e){
         e.preventDefault();
+        const email = this.state.email;
+        const password = this.state.password;
+        const username = this.state.username;
         const emailNotValid = this.state.emailNotValid; 
         const passwordNotValid = this.state.passwordNotValid; 
         const usernameNotValid = this.state.usernameNotValid; 
-        console.log('From form: ', emailNotValid);
         this.setState({
             emailError: '',
             passwordError: '',
@@ -61,11 +63,24 @@ class Register extends Component {
                 usernameError: 'You can not use this name. Please choose another one.',
             })
         }
-        console.log('The form has been submitted.');
+        if(!usernameNotValid && !passwordNotValid && !emailNotValid){
+            console.log('The form has been submitted.');
+            /// POST TO server.js.
+            console.log('Push to DB.');
+            axios.post('/api/reg/received', {
+                username: username,
+                email: email,
+                password: password,
+            }).then(response => {
+                console.log(response.data);
+            });
+        } else {
+            console.log('Failed!');
+        }
     }
     handleEmail(emailInputVal){
         const validatedEmail = emailInputVal;
-        if(validatedEmail.match(/([.]net|[.]com)/) && 
+        if(validatedEmail.match(/([.]net|[.]com)|[.]co[.]uk|[.]live|[.]lt|[.]io/) && 
             validatedEmail.indexOf("@") > -1 && 
             validatedEmail.match(/^[\S]+$/)){
             this.setState({ 
@@ -83,7 +98,6 @@ class Register extends Component {
     }
     handlePassword(passwordInputVal){
         const validatedPassword = passwordInputVal;
-        console.log('passwordInputVal: ', validatedPassword);
         if(validatedPassword.length > 6 && validatedPassword.match(/[A-Z]/)){
             this.setState({ 
                 password: validatedPassword, 
@@ -104,7 +118,6 @@ class Register extends Component {
         }).then(response =>{
             this.setState({ usernameFree: response.data.free });
         });
-        console.log('Username is free: ', usernameFree);
         if(usernameFree){
             this.setState({ usernameNotValid: false });
         } else {
