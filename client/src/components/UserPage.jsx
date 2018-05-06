@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header.jsx';
 import Content from './Content.jsx';
+import ReactDOM from 'react-dom';
 
 class UserPage extends Component {
 	constructor(props){

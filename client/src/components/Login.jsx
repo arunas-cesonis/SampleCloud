@@ -13,13 +13,12 @@ class Login extends Component {
 			password: '',
 			serverUsername: '',
 			serverSuccess: false,
-			register: false,
             error: '',
             title: '',
 		}
 		this.updatePassword = this.updatePassword.bind(this);
 		this.updateUsername = this.updateUsername.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
+        this.handleForm = this.handleForm.bind(this);
 	}
 	updatePassword(passwordInputVal) {
 		this.setState({password: passwordInputVal});
@@ -27,7 +26,7 @@ class Login extends Component {
 	updateUsername(usernameInputVal) {
 		this.setState({username: usernameInputVal});
 	}
-	handleLogin(e) {
+	handleForm(e) {
 		e.preventDefault();
 		axios.post('http://localhost:3010/api/login', {
 			username: this.state.username,
@@ -99,7 +98,7 @@ class Login extends Component {
                             <br />
                             <button 
                                 type='submit' 
-                                onClick={this.handleLogin}
+                                onClick={this.handleForm}
                             >
 						    Sign In
 						    </button>
