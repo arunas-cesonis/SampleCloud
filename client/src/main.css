@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300');
 body {
+    font-family: 'Releway', sans-serif;
 	padding: 0;
 	margin: 0px;
 	display: block;
@@ -9,4 +11,8 @@ body {
 }
 h1 {
         margin: 0px;
+}
+fieldset {
+    position: absolute;
+    left: 20%;
 }

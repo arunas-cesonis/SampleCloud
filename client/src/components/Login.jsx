@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import UserPage from './UserPage.jsx';
 import Register from './Register.jsx';
-import LoginInput from './LoginInput.jsx';
+import Input from './LoginInput.jsx';
 
 class Login extends Component {
 	constructor(props){
@@ -20,22 +20,18 @@ class Login extends Component {
         this.handleLogin = this.handleLogin.bind(this);
         this.handleRegisterButton = this.handleRegisterButton.bind(this);
 	}
-
 	updatePassword(passwordInputVal) {
 		this.setState({password: passwordInputVal});
 	}
-
 	updateUsername(usernameInputVal) {
 		this.setState({username: usernameInputVal});
 	}
-
 	handleRegisterButton(e) {
 		e.preventDefault();
 		this.setState({
 			register: true,
 		});
 	}
-
 	handleLogin(e) {
 		e.preventDefault();
 		axios.post('http://localhost:3010/api/login', {
@@ -53,7 +49,6 @@ class Login extends Component {
             })
         }
 	}
-
 	render(){
         const username = this.state.username;
         const password = this.state.password;
@@ -61,8 +56,10 @@ class Login extends Component {
 		if(this.state.serverSuccess){
 			return (
 				<div>
-					<UserPage username={this.state.serverUsername}
-						logged={this.state.serverSuccess} /> 
+                    <UserPage 
+                        username={this.state.serverUsername}
+                        logged={this.state.serverSuccess} 
+                    /> 
 				</div>
 			);	
 		} else if (this.state.register) { 
@@ -75,7 +72,7 @@ class Login extends Component {
                     <fieldset>
                         <form>
                             <h1>Login</h1>
-                            <LoginInput 
+                            <Input 
                                 error={error}
                                 type={'text'}
                                 update={this.updateUsername}	
@@ -83,13 +80,14 @@ class Login extends Component {
                                 id={'username'}
                                 val={username}
                             />
-                            <LoginInput
+                            <Input
                             type={'password'}
 							update={this.updatePassword}	
                             label={'Password:'} 
                             id={'password'}
                             val={password}
                             />
+                            <br />
                             <button 
                                 type='submit' 
                                 onClick={this.handleLogin}
