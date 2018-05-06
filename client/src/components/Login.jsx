@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import UserPage from './UserPage.jsx';
 import Register from './Register.jsx';
+import LoginInput from './LoginInput.jsx';
 
 class Login extends Component {
 	constructor(props){
@@ -20,12 +21,12 @@ class Login extends Component {
         this.handleRegisterButton = this.handleRegisterButton.bind(this);
 	}
 
-	updatePassword(e) {
-		this.setState({password: e.target.value});
+	updatePassword(passwordInputVal) {
+		this.setState({password: passwordInputVal});
 	}
 
-	updateUsername(e) {
-		this.setState({username: e.target.value});
+	updateUsername(usernameInputVal) {
+		this.setState({username: usernameInputVal});
 	}
 
 	handleRegisterButton(e) {
@@ -50,6 +51,8 @@ class Login extends Component {
 	}
 
 	render(){
+        const username = this.state.username;
+        const password = this.state.password;
 		if(this.state.serverSuccess){
 			return (
 				<div>
@@ -58,28 +61,41 @@ class Login extends Component {
 				</div>
 			);	
 		} else if (this.state.register) { 
-			console.log('Please register.');	
 			return (
 				<Register />
 			);
 		} else {
 			return (
 				<div>
-					<h1>Login</h1>
 					<form >
-						<input type='text'
-							onChange={this.updateUsername}	
-							name='username' />
-						<input type='password'
-							onChange={this.updatePassword}	
-							name='password' />
-						<button type='submit' onClick={this.handleLogin}>
+					    <h1>Login</h1>
+                        <LoginInput 
+                            type={'text'}
+							update={this.updateUsername}	
+                            label={'Username:'} 
+                            id={'username'}
+                            val={username}
+                        />
+                        <LoginInput
+                            type={'password'}
+							update={this.updatePassword}	
+                            label={'Password:'} 
+                            id={'password'}
+                            val={password}
+                        />
+                        <button 
+                            type='submit' 
+                            onClick={this.handleLogin}
+                        >
 						Sign In
 						</button>
+					    <button 
+                            type='submit' 
+                            onClick={this.handleRegisterButton}
+                        >
+                        Sign Up
+                        </button>
 					</form>
-					<button type='submit' onClick={this.handleRegisterButton}>
-					Register
-					</button>
 				</div>
 			);
 		}
