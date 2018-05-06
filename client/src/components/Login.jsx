@@ -19,7 +19,7 @@ class Login extends Component {
 		this.updatePassword = this.updatePassword.bind(this);
 		this.updateUsername = this.updateUsername.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
-        this.handleRegisterButton = this.handleRegisterButton.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
 	}
 	updatePassword(passwordInputVal) {
 		this.setState({password: passwordInputVal});
@@ -27,7 +27,7 @@ class Login extends Component {
 	updateUsername(usernameInputVal) {
 		this.setState({username: usernameInputVal});
 	}
-	handleRegisterButton(e) {
+	handleRegister(e) {
 		e.preventDefault();
 		this.setState({
 			register: true,
@@ -50,8 +50,15 @@ class Login extends Component {
             })
         }
 	}
+    componentDidMount(){
+        console.log('Login.jsx, mounted');
+    }
+    componentWillUnmount(){
+        console.log('Login.jsx, UnMounted');
+    }
     mountRegister(){
-        ReactDOM.render( <Register />, document.getElementById('reg'));
+        ReactDOM.render(<Register />, document.getElementById('reg'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('login'));
     }
 	render(){
         const username = this.state.username;
@@ -98,15 +105,14 @@ class Login extends Component {
                             >
 						    Sign In
 						    </button>
-					        <button 
+                            <button 
                                 type='submit' 
-                                onClick={this.mountRegister}
+                                onClick={this.handleRegister}
                             >
-                            Sign Up
-                            </button>
+						    Sign Up
+						    </button>
 					    </form>
                     </fieldset>
-                    <div id='reg'></div>
 				</div>
 			);
 		}
