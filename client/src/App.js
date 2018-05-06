@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
 //import axios from 'axios';
 import Login from './components/Login.jsx';
-import Register from './components/Register.jsx';
 import ReactDOM from 'react-dom';
 
 class App extends Component {
-    constructor(props){
-        super(props);
-    }
-    mountLogin(){
-        ReactDOM.render( <Login />, document.getElementById('login'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-    }
-    mountRegister(){
-
-    }
+    //Should load a Main class and main will handle Login and Register components.
   	render() {
     	return (
 		<div>
