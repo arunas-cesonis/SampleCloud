@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import axios from 'axios';
 import Login from './components/Login.jsx';
+import Main from './components/Main.jsx';
 import ReactDOM from 'react-dom';
 
 class App extends Component {
@@ -8,7 +9,7 @@ class App extends Component {
   	render() {
     	return (
 		<div>
-            <Login />
+            <Main />
 		</div>
 	    );
 	  }

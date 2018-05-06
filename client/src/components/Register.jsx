@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
 import Input from './RegInput.jsx';
-import Login from './Login.jsx';
-
-function handleRegOk(){
-    ReactDOM.unmountComponentAtNode(document.getElementById('reg'));
-    ReactDOM.render(
-        <Login registered={'Registration was successful.'}/>,
-        document.getElementById('root')
-    );
-}
 
 class Register extends Component {
     constructor(props){
@@ -31,7 +21,6 @@ class Register extends Component {
         this.handleForm = this.handleForm.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
-        //this.handleRegOk = this.handleRegOk.bind(this);
     }
     /*
     handleRegister(event){
@@ -90,7 +79,8 @@ class Register extends Component {
                 password: '',
                 email: '',
             });
-            handleRegOk();
+            // Executing mount function in the Main class
+            this.props.regSuccess();
         } else {
             console.log('Failed!');
         }

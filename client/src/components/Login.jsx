@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import UserPage from './UserPage.jsx';
-import Register from './Register.jsx';
 import Input from './LoginInput.jsx';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 
 // THIS Class might need to be rewriten into something like 'Main' or etc.
 class Login extends Component {
@@ -21,7 +17,6 @@ class Login extends Component {
 		this.updatePassword = this.updatePassword.bind(this);
 		this.updateUsername = this.updateUsername.bind(this);
         this.handleForm = this.handleForm.bind(this);
-        this.mountUserPage = this.mountUserPage.bind(this);
 	}
 	updatePassword(passwordInputVal) {
 		this.setState({password: passwordInputVal});
@@ -44,28 +39,14 @@ class Login extends Component {
                     error: 'Username and password combination is incorrect',
                 })
             } else {
-                this.mountUserPage();
+                //Object needs to be updated and polished.
+                this.props.mountUserPage({
+                    username: this.state.serverUsername, 
+                    success: this.state.serverSuccess
+                });
             }
 		});
 	}
-    mountRegister(){
-        ReactDOM.render(<Register />, document.getElementById('reg'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-    }
-    mountUserPage(){
-                console.log('trying to mount user page');
-        ReactDOM.render((
-            <BrowserRouter>
-                <UserPage
-                        username={this.state.serverUsername}
-                        logged={this.state.serverSuccess} 
-                />
-            </BrowserRouter>
-        ), document.getElementById('userpage'));
-        //Main class should be linked with the 'root' html element
-        ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-
-    }
     componentDidMount(){
         const reg = this.props.registered;
         if(reg){
@@ -99,11 +80,11 @@ class Login extends Component {
                             val={username}
                         />
                         <Input
-                        type={'password'}
-                        update={this.updatePassword}	
-                        label={'Password:'} 
-                        id={'password'}
-                        val={password}
+                            type={'password'}
+                            update={this.updatePassword}	
+                            label={'Password:'} 
+                            id={'password'}
+                            val={password}
                         />
                         <br />
                         <button 
@@ -114,7 +95,7 @@ class Login extends Component {
                         </button>
                         <button 
                             type='submit' 
-                            onClick={this.mountRegister.bind(this)}
+                            onClick={this.props.mountReg}
                         >
                         Sign Up
                         </button>
