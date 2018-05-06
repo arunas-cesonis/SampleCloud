@@ -11,6 +11,12 @@ class UserPage extends Component {
 			logged: this.props.logged,
 		};
 	}
+    componentDidMount(){
+        console.log('UserPage.jsx Mounted.');
+    }
+    componentWillUnmount(){
+        console.log('UserPage.jsx UnMounted.');
+    }
 	render() {
 		console.log('From UserPage component. Logged in as: ',
 			this.state.currentUser, ' ', this.state.logged);

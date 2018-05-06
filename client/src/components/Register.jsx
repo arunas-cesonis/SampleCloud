@@ -134,7 +134,7 @@ class Register extends Component {
         /// TO IMPLEMENT LATER
     }
     componentDidMount(){
-        console.log('Register.jsx mounted.');
+        console.log('Register.jsx Mounted.');
     }
     componentWillUnmount(){
         console.log('Register.jsx UnMounted.');

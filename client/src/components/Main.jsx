@@ -5,12 +5,28 @@ import Register from './Register.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import UserPage from './UserPage.jsx';
 
+
 class Main extends Component {
     constructor(props){
         super(props);
         this.mountRegister = this.mountRegister.bind(this);
         this.regSuccess = this.regSuccess.bind(this);
         this.mountUserPage = this.mountUserPage.bind(this);
+        this.mountLogin = this.mountLogin.bind(this);
+    }
+    mountLogin(newUser){
+        let msg = '';
+        if(newUser){
+            msg = 'Registration has been completed, you may login.';
+        }
+        ReactDOM.render((
+            <Login 
+                mountUserPage={this.mountUserPage}
+                mountReg={this.mountRegister}
+                registered={msg}
+            />
+        ), document.getElementById('login'));
+
     }
     mountUserPage(userDetails){
         console.log('trying to mount user page');
@@ -25,13 +41,7 @@ class Main extends Component {
         ReactDOM.unmountComponentAtNode(document.getElementById('login'));
     }
     regSuccess(){
-        ReactDOM.render((
-            <Login 
-                mountUserPage={this.mountUserPage}
-                mountReg={this.mountRegister}
-                registered={'Registration has been completed, you may login.'}
-            />
-        ), document.getElementById('login'));
+        this.mountLogin(true);
         ReactDOM.unmountComponentAtNode(document.getElementById('reg'));
     }
     mountRegister(e){
@@ -46,12 +56,7 @@ class Main extends Component {
     }
     componentDidMount(){
         console.log('Mounting Main.');
-        ReactDOM.render((
-            <Login 
-                mountUserPage={this.mountUserPage}
-                mountReg={this.mountRegister}
-            />
-        ), document.getElementById('login'));
+        this.mountLogin(false);
     }
     render(){
         return (
