@@ -50,15 +50,15 @@ class Login extends Component {
             })
         }
 	}
+    mountRegister(){
+        ReactDOM.render(<Register />, document.getElementById('reg'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+    }
     componentDidMount(){
         console.log('Login.jsx, mounted');
     }
     componentWillUnmount(){
         console.log('Login.jsx, UnMounted');
-    }
-    mountRegister(){
-        ReactDOM.render(<Register />, document.getElementById('reg'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('login'));
     }
 	render(){
         const username = this.state.username;
@@ -107,7 +107,7 @@ class Login extends Component {
 						    </button>
                             <button 
                                 type='submit' 
-                                onClick={this.handleRegister}
+                                onClick={this.mountRegister.bind(this)}
                             >
 						    Sign Up
 						    </button>

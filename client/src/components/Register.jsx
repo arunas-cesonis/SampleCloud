@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ReactDOM from 'react-dom';
 import Input from './RegInput.jsx';
 import Login from './Login.jsx';
 
-function test(a){
-    console.log(a);
+function handleRegOk(){
+    ReactDOM.unmountComponentAtNode(document.getElementById('reg'));
+    ReactDOM.render(<Login />, document.getElementById('root'));
 }
-
 class Register extends Component {
     constructor(props){
         super(props);
@@ -21,14 +22,12 @@ class Register extends Component {
             emailError: '',
             passswordError: '',
             usernameError: '',
-            regSuccess: false,
-            redirectLogin: false,
         };
         this.handleEmail = this.handleEmail.bind(this);
         this.handleForm = this.handleForm.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.handleUsername = this.handleUsername.bind(this);
-        this.handleRegOk = this.handleRegOk.bind(this);
+        //this.handleRegOk = this.handleRegOk.bind(this);
     }
     /*
     handleRegister(event){
@@ -42,7 +41,6 @@ class Register extends Component {
     */
     handleForm(e){
         e.preventDefault();
-        test('lalal');
         const email = this.state.email;
         const password = this.state.password;
         const username = this.state.username;
@@ -72,7 +70,7 @@ class Register extends Component {
                 usernameError: 'You can not use this name. Please choose another one.',
             })
         }
-        if(!usernameNotValid && !passwordNotValid && !emailNotValid && username.lenght > 2){
+        if((!usernameNotValid && !passwordNotValid && !emailNotValid) || username.lenght > 2 ){
             console.log('The form has been submitted.');
             /// POST TO server.js.
             console.log('Push to DB.');
@@ -84,11 +82,11 @@ class Register extends Component {
                 console.log('res: ', response.data);
             });
             this.setState({ 
-                regSuccess: true, 
                 username: '',
                 password: '',
                 email: '',
             });
+            handleRegOk();
         } else {
             console.log('Failed!');
         }
@@ -138,15 +136,14 @@ class Register extends Component {
             this.setState({ usernameNotValid: true });
         }
     }
-    handleRegOk(e){
-        e.preventDefault();
-        this.setState({ 
-            redirectLogin: true, 
-            regSuccess: false,
-        });
-    }
     validationHelper(valid, itemState){
         /// TO IMPLEMENT LATER
+    }
+    componentDidMount(){
+        console.log('Register.jsx mounted.');
+    }
+    componentWillUnmount(){
+        console.log('Register.jsx UnMounted.');
     }
 	render(){
         const email = this.state.email;
@@ -155,20 +152,6 @@ class Register extends Component {
         const emailNotValid = this.state.emailNotValid;
         const passwordNotValid = this.state.passwordNotValid;
         const usernameNotValid = this.state.usernameNotValid;
-        const regSuccess = this.state.regSuccess;
-        const redirectLogin = this.state.redirectLogin;
-        if(regSuccess){
-            return (
-                <div>
-                    <h1>Form has been submitted.</h1>
-                    <button onClick={this.handleRegOk}>OK</button>
-                </div>
-            );
-        } else if(redirectLogin){
-            return (
-                <Login />
-            );
-        }
 		return ( 
             <form onSubmit={this.handleForm}>
                 <fieldset>
@@ -207,9 +190,6 @@ class Register extends Component {
                 </form>
 		);
 	}
-    componentDidMount(){
-        console.log('Register.jsx has been mounted.');
-    }
 }
 
 export default Register;
