@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import '../css/register.css';
 import Input from './RegInput.jsx';
 import Login from './Login.jsx';
 
@@ -57,16 +56,19 @@ class Register extends Component {
         })
         if(passwordNotValid || this.state.password === ''){
             this.setState({
+                passwordNotValid: true,
                 passwordError: 'Password must be at least 6 chars long and contain an upper case.',
             })
         }
         if(emailNotValid || this.state.email === ''){
             this.setState({
+                emailNotValid: true,
                 emailError: 'Please enter a valid email address.',
             })
         }
         if(usernameNotValid || this.state.username === ''){
             this.setState({
+                usernameNotValid: true,
                 usernameError: 'You can not use this name. Please choose another one.',
             })
         }

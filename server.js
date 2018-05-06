@@ -76,7 +76,7 @@ app.post('/api/login', (req, res) => {
 	const sessionId = Math.random();
 	res.send({
 		name: b.username,
-		success: true,
+		success: false,
 		id: sessionId,
 	})
 });

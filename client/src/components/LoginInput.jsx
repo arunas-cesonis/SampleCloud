@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/login.css';
 
 class LoginInput extends Component {
     constructor(props){
@@ -13,11 +14,14 @@ class LoginInput extends Component {
         const type = this.props.type;
         const id = this.props.id;
         const label = this.props.label;
+        const error = this.props.error;
         return (
             <div>
-                <label htmlFor={id}>{label}</label>
+                <p className='error_msg'>{error}</p>
+                <label className='loginLabel' htmlFor={id}>{label}</label>
                 <br />
                 <input
+                    className='login'
                     id={id}
                     type={type}
                     onChange={this.update}

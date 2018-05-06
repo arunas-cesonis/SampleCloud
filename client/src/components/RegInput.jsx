@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import '../css/register.css';
 
 class Input extends Component {
     constructor(props){
@@ -27,13 +28,14 @@ class Input extends Component {
         return(
             <div>
                 <label 
-                    className={classNames({ error: error })} 
+                    className={classNames('regLabel', { error: error })} 
                     htmlFor={id}>{this.displayLabel(error, label)}</label>
                 <br />
                 <input
+                    className='registerInput'
                     id={id}
                     type={type}
-                    className={classNames({ invalid: notValid })} 
+                    className={classNames('registerInput', { invalid: notValid })} 
                     onChange={this.handleCheck}
                     value={val}
                 />

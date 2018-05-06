@@ -1,14 +1,19 @@
-label {
+.regLabel {
     font-size: 10px;
 }
-label.error {
+.regLabel.error {
     color: red;
     font-size: 10px;
 }
-input {
-    border-color: black;
+.registerInput:focus {
+    outline: 0;
 }
-input.invalid {
+.registerInput {
+    border: 0;
+    border-bottom: 2px solid #1976D2;
+    padding: 2px;
+}
+.registerInput.invalid {
     border-color: red;
 }
 fieldset {

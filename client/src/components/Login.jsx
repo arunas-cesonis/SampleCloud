@@ -11,9 +11,9 @@ class Login extends Component {
 			username: '',
 			password: '',
 			serverUsername: '',
-			serverId: '',
 			serverSuccess: false,
 			register: false,
+            error: '',
 		}
 		this.updatePassword = this.updatePassword.bind(this);
 		this.updateUsername = this.updateUsername.bind(this);
@@ -46,13 +46,18 @@ class Login extends Component {
 				serverUsername: response.data.name,
 				serverSuccess: 	response.data.success,
 			});
-			console.log(response.data);
 		});
+        if(!this.state.serverSuccess){
+            this.setState({
+                error: 'Username and password combination is incorrect',
+            })
+        }
 	}
 
 	render(){
         const username = this.state.username;
         const password = this.state.password;
+        const error = this.state.error;
 		if(this.state.serverSuccess){
 			return (
 				<div>
@@ -67,35 +72,38 @@ class Login extends Component {
 		} else {
 			return (
 				<div>
-					<form >
-					    <h1>Login</h1>
-                        <LoginInput 
-                            type={'text'}
-							update={this.updateUsername}	
-                            label={'Username:'} 
-                            id={'username'}
-                            val={username}
-                        />
-                        <LoginInput
+                    <fieldset>
+                        <form>
+                            <h1>Login</h1>
+                            <LoginInput 
+                                error={error}
+                                type={'text'}
+                                update={this.updateUsername}	
+                                label={'Username:'} 
+                                id={'username'}
+                                val={username}
+                            />
+                            <LoginInput
                             type={'password'}
 							update={this.updatePassword}	
                             label={'Password:'} 
                             id={'password'}
                             val={password}
-                        />
-                        <button 
-                            type='submit' 
-                            onClick={this.handleLogin}
-                        >
-						Sign In
-						</button>
-					    <button 
-                            type='submit' 
-                            onClick={this.handleRegisterButton}
-                        >
-                        Sign Up
-                        </button>
-					</form>
+                            />
+                            <button 
+                                type='submit' 
+                                onClick={this.handleLogin}
+                            >
+						    Sign In
+						    </button>
+					        <button 
+                                type='submit' 
+                                onClick={this.handleRegisterButton}
+                            >
+                            Sign Up
+                            </button>
+					    </form>
+                    </fieldset>
 				</div>
 			);
 		}

@@ -1,0 +1,11 @@
+.loginLabel {
+    font-size: 10px;
+}
+.login {
+    border: 0;
+    border-bottom: 2px solid #1976D2;
+    padding: 2px;
+}
+.login:focus {
+    outline: 0;
+}
