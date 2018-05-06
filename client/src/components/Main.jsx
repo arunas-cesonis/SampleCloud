@@ -39,6 +39,7 @@ class Main extends Component {
                 </BrowserRouter>
         ), document.getElementById('userpage'));
         ReactDOM.unmountComponentAtNode(document.getElementById('login'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('root'));
     }
     regSuccess(){
         this.mountLogin(true);
@@ -55,8 +56,11 @@ class Main extends Component {
         ReactDOM.unmountComponentAtNode(document.getElementById('login'));
     }
     componentDidMount(){
-        console.log('Mounting Main.');
+        console.log('Main.jsx Mounted.');
         this.mountLogin(false);
+    }
+    componentWillUnmount(){
+        console.log('Main.jsx UnMounted.');
     }
     render(){
         return (
