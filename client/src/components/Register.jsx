@@ -207,6 +207,9 @@ class Register extends Component {
                 </form>
 		);
 	}
+    componentDidMount(){
+        console.log('Register.jsx has been mounted.');
+    }
 }
 
 export default Register;

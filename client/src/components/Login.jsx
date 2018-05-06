@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserPage from './UserPage.jsx';
 import Register from './Register.jsx';
 import Input from './LoginInput.jsx';
+import ReactDOM from 'react-dom';
 
 class Login extends Component {
 	constructor(props){
@@ -49,6 +50,9 @@ class Login extends Component {
             })
         }
 	}
+    mountRegister(){
+        ReactDOM.render( <Register />, document.getElementById('reg'));
+    }
 	render(){
         const username = this.state.username;
         const password = this.state.password;
@@ -96,12 +100,13 @@ class Login extends Component {
 						    </button>
 					        <button 
                                 type='submit' 
-                                onClick={this.handleRegisterButton}
+                                onClick={this.mountRegister}
                             >
                             Sign Up
                             </button>
 					    </form>
                     </fieldset>
+                    <div id='reg'></div>
 				</div>
 			);
 		}

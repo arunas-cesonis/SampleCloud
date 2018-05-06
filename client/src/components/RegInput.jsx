@@ -32,7 +32,6 @@ class Input extends Component {
                     htmlFor={id}>{this.displayLabel(error, label)}</label>
                 <br />
                 <input
-                    className='registerInput'
                     id={id}
                     type={type}
                     className={classNames('registerInput', { invalid: notValid })} 
