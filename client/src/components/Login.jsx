@@ -15,23 +15,17 @@ class Login extends Component {
 			serverSuccess: false,
 			register: false,
             error: '',
+            title: '',
 		}
 		this.updatePassword = this.updatePassword.bind(this);
 		this.updateUsername = this.updateUsername.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
-        this.handleRegister = this.handleRegister.bind(this);
 	}
 	updatePassword(passwordInputVal) {
 		this.setState({password: passwordInputVal});
 	}
 	updateUsername(usernameInputVal) {
 		this.setState({username: usernameInputVal});
-	}
-	handleRegister(e) {
-		e.preventDefault();
-		this.setState({
-			register: true,
-		});
 	}
 	handleLogin(e) {
 		e.preventDefault();
@@ -55,6 +49,12 @@ class Login extends Component {
         ReactDOM.unmountComponentAtNode(document.getElementById('root'));
     }
     componentDidMount(){
+        const reg = this.props.registered;
+        if(reg){
+            this.setState({ title: reg });
+        } else {
+            this.setState({ title: 'Login Form' });
+        }
         console.log('Login.jsx, mounted');
     }
     componentWillUnmount(){
@@ -64,6 +64,8 @@ class Login extends Component {
         const username = this.state.username;
         const password = this.state.password;
         const error = this.state.error;
+        const title = this.state.title;
+
 		if(this.state.serverSuccess){
 			return (
 				<div>
@@ -73,16 +75,12 @@ class Login extends Component {
                     /> 
 				</div>
 			);	
-		} else if (this.state.register) { 
-			return (
-				<Register />
-			);
 		} else {
 			return (
 				<div>
                     <fieldset>
                         <form>
-                            <h1>Login</h1>
+                            <p>{title}</p>
                             <Input 
                                 error={error}
                                 type={'text'}

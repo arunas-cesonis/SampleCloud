@@ -6,7 +6,10 @@ import Login from './Login.jsx';
 
 function handleRegOk(){
     ReactDOM.unmountComponentAtNode(document.getElementById('reg'));
-    ReactDOM.render(<Login />, document.getElementById('root'));
+    ReactDOM.render(
+        <Login registered={'Registration was successful.'}/>,
+        document.getElementById('root')
+    );
 }
 class Register extends Component {
     constructor(props){
