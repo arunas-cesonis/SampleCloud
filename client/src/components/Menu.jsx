@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 //Using Link for updating URL, Content.jsx will pick them up al will load the req cont
 import { Link, withRouter} from 'react-router-dom';
 import classNames from 'classnames';
-import MenuItem from './MenuItem.jsx';
 import '../css/menu.css';
 
 class Menu extends Component {
@@ -27,18 +26,26 @@ class Menu extends Component {
         	<ul>
 			{navItems.map((element, i) => 
                 <li key={i}>
-                    <Link 
-                        className={classNames('navItem', { active: currentLocation === element.path})} 
-                        to={element.path}>{element.name}
-                    </Link>
+                    <Item
+                        to={element.path}
+                        name={element.name}
+                        current={currentLocation}
+                    />
                 </li>
 			)}
-
-				<MenuItem name='Test' to='/' />
 			</ul>
 		);
 	}
 }
+
+//Move to a new file.
+const Item = (props) => 
+    <Link
+        className={classNames('navItem', { active: props.current === props.to})}
+        to={props.to}
+    >{props.name}
+    </Link>
+
 
 //In oder to use withRouter the component has to wrapped in it
 export default withRouter(Menu);
