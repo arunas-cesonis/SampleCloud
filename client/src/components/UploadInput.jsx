@@ -21,9 +21,14 @@ class UploadInput extends Component {
         const val = this.props.val;
         const valid = this.props.valid;
         const addClass = this.props.addClass;
+        const id = this.props.id;
+        const label = this.props.label;
         return (
             <div>
+                <label className='uploadLabel' htmlFor={id}>{label}</label>
+                <br />
                 <input
+                    id={id}
                     type={type}
                     onChange={this.update}
                     value={val}

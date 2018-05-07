@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Input from './UploadInput.jsx';
-import classNames from 'classnames';
 import '../css/upload.css';
 import axios from 'axios';
 
@@ -15,6 +14,7 @@ class Upload extends Component {
                 file: '',
                 fileName: '',
             },
+            error: '',
 		};
 		this.handleUpload = this.handleUpload.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -40,18 +40,27 @@ class Upload extends Component {
 
 	handleUpload(event) {
 		event.preventDefault();
+        this.setState({ error: '' });
 		const data = new FormData();
-        console.log('Real name: ', this.state.uploadData.file.name);
-		data.append('file', this.state.uploadData.file);
-		data.append('filename', this.state.uploadData.fileName);
-		data.append('username', this.state.username);
-
-		//To implement later so user can choose their own name + add it to db meta
-		//To figure out error handlers
-		axios.post('http://localhost:3010/api/upload', data)
-		.then(response => {
-			console.log('Server res: ', response.data);
-		}); 
+        const notValid = this.state.nameNotValid;
+        const userFileName = this.state.uploadData.fileName;
+        const origFileName = this.state.uploadData.file.name;
+        //Very basic validation
+        if(!notValid && userFileName.length > 0 && origFileName != null){
+            data.append('file', this.state.uploadData.file);
+            data.append('filename', this.state.uploadData.fileName); 
+            data.append('username', this.state.username);
+            //To implement later so user can choose their own name + add it to db meta
+            //To figure out error handlers
+            axios.post('http://localhost:3010/api/upload', data)
+            .then(response => {
+                console.log('Server res: ', response.data);
+            }); 
+        } else {
+            this.setState({
+                error: 'Specify filename with no white spaces and include a file.',
+            })
+        }
 	}
 
     componentDidMount(){
@@ -63,13 +72,19 @@ class Upload extends Component {
         console.log('Upload data from Render:', this.state.uploadData);
 		return (
 			<form>
+                <fieldset>
                 <h1>Part 2</h1>
+                <p className='error_msg'>{this.state.error}</p>
                 <Input 
+                    id={'file'}
+                    label={'File:'}
                     type={'file'}
                     upload={this.handleFile}
                     addClass={false}
                 />
                 <Input 
+                    id={'filename'}
+                    label={'File Name:'}
                     type={'text'}
                     filename={this.handleFileName}
                     val={this.state.uploadData.fileName}
@@ -81,6 +96,7 @@ class Upload extends Component {
                     onClick={this.handleUpload}
                 >submit
                 </button>
+                </fieldset>
 			</form>
 		);
 	}

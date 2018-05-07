@@ -1,3 +1,10 @@
+.uploadLabel {
+        font-size: 10px;
+    }
+.uploadLabel.error {
+    color: red;
+    font-size: 10px;
+}
 .uploadInput {
     border: 0;
     border-bottom: 2px solid #1976D2;
