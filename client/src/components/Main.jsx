@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
-import { BrowserRouter } from 'react-router-dom';
 import UserPage from './UserPage.jsx';
 
 

@@ -15,6 +15,7 @@ class Content extends Component {
 			ready: true,
 		};
 	}
+
 	uploadSamples(username){
 
 	}
@@ -28,18 +29,22 @@ class Content extends Component {
 					<Route exact path='/' 
 						component={Home} 
 					/>
-					<Route path='/about' component={About} />
-					<Route path='/upload' 
-						render={(props) => <Upload {...props}  
-						name={this.state.username}
-						readyUpload={this.state.ready} />}
+                    <Route 
+                        path='/about' 
+                        component={About} 
+                    />
+                    <Route 
+                        path='/upload' 
+                        render={(props) => 
+                            <Upload {...props}  
+						    name={this.state.username}
+                        />}
 					/>
 				</Switch>
+            <div id='upload'></div>
 			</div>
-	
 		);
 	}
-
 }
 
 export default Content;
