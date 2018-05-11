@@ -15,10 +15,13 @@ class Upload extends Component {
                 fileName: '',
             },
             error: '',
+            uploaded: '',
+            msg: '',
 		};
 		this.handleUpload = this.handleUpload.bind(this);
         this.handleFile = this.handleFile.bind(this);
         this.handleFileName = this.handleFileName.bind(this);
+        this.handleUploadOk = this.handleUploadOk.bind(this);
 	};
 
     handleFile(file){
@@ -56,6 +59,10 @@ class Upload extends Component {
             .then(response => {
                 console.log('Server res: ', response.data);
             }); 
+            this.setState({ 
+                uploaded: true,
+                msg: 'The file has been successfully uploaded.',
+            })
         } else {
             this.setState({
                 error: 'Specify filename with no white spaces and include a file.',
@@ -66,39 +73,52 @@ class Upload extends Component {
     componentDidMount(){
         console.log('Upload.jsx Mounted.');
     }
+    
+    handleUploadOk(){
+        this.setState({ 
+            msg: 'File has been uploaded',
+            uploaded: false 
+        });
+    }
 
 	render(){
         const notValid = this.state.nameNotValid; 
         console.log('Upload data from Render:', this.state.uploadData);
-		return (
-			<form>
-                <fieldset>
-                <h1>Part 2</h1>
-                <p className='error_msg'>{this.state.error}</p>
-                <Input 
-                    id={'file'}
-                    label={'File:'}
-                    type={'file'}
-                    upload={this.handleFile}
-                    addClass={false}
-                />
-                <Input 
-                    id={'filename'}
-                    label={'File Name:'}
-                    type={'text'}
-                    filename={this.handleFileName}
-                    val={this.state.uploadData.fileName}
-                    valid={notValid}
-                    addClass={true}
-                />
-				<br />
-			    <button 
-                    onClick={this.handleUpload}
-                >submit
-                </button>
-                </fieldset>
-			</form>
-		);
+        if(this.state.uploaded){
+            return (
+                <div>
+                    <p>{this.state.msg}</p>
+                    <button onClick={this.handleUploadOk}>Ok</button>
+                </div>
+            );
+        } else {
+            return (
+                <form>
+                    <p className='error_msg'>{this.state.error}</p>
+                    <Input 
+                        id={'file'}
+                        label={'File:'}
+                        type={'file'}
+                        upload={this.handleFile}
+                        addClass={false}
+                    />
+                    <Input 
+                        id={'filename'}
+                        label={'File Name:'}
+                        type={'text'}
+                        filename={this.handleFileName}
+                        val={this.state.uploadData.fileName}
+                        valid={notValid}
+                        addClass={true}
+                    />
+                    <br />
+                    <button 
+                        onClick={this.handleUpload}
+                    >submit
+                    </button>
+                </form>
+            );
+        }
 	}
 
     componentWillUnmount(){

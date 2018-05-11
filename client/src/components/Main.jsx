@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import Login from './Login.jsx';
-import Register from './Register.jsx';
 import UserPage from './UserPage.jsx';
+import Register from './Register.jsx';
+import Login from './Login.jsx';
+import { BrowserRouter } from 'react-router-dom'
 
 
 class Main extends Component {
@@ -14,6 +14,7 @@ class Main extends Component {
         this.mountUserPage = this.mountUserPage.bind(this);
         this.mountLogin = this.mountLogin.bind(this);
     }
+
     mountLogin(newUser){
         let msg = '';
         if(newUser){
@@ -26,8 +27,8 @@ class Main extends Component {
                 registered={msg}
             />
         ), document.getElementById('login'));
-
     }
+
     mountUserPage(userDetails){
         console.log('trying to mount user page');
         ReactDOM.render((
@@ -35,16 +36,18 @@ class Main extends Component {
                     <UserPage
                         username={userDetails.username}
                         logged={userDetails.success}
-                />
+                    />
                 </BrowserRouter>
         ), document.getElementById('userpage'));
         ReactDOM.unmountComponentAtNode(document.getElementById('login'));
         ReactDOM.unmountComponentAtNode(document.getElementById('root'));
     }
+
     regSuccess(){
         this.mountLogin(true);
         ReactDOM.unmountComponentAtNode(document.getElementById('reg'));
     }
+    
     mountRegister(e){
         e.preventDefault();
         console.log('Mounting Register.');
@@ -55,19 +58,22 @@ class Main extends Component {
         ), document.getElementById('reg'));
         ReactDOM.unmountComponentAtNode(document.getElementById('login'));
     }
+
     componentDidMount(){
         console.log('Main.jsx Mounted.');
         this.mountLogin(false);
     }
-    componentWillUnmount(){
-        console.log('Main.jsx UnMounted.');
-    }
-    render(){
+
+    render() {
         return (
             <div>
                 <h1>Main Class</h1>
             </div>
         );
+    }
+
+    componentWillUnmount(){
+        console.log('Main.jsx UnMounted.');
     }
 }
 

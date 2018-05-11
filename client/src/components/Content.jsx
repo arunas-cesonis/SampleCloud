@@ -12,7 +12,6 @@ class Content extends Component {
 		super(props);
 		this.state = {
 			username: this.props.username,
-			ready: true,
 		};
 	}
 
@@ -24,7 +23,6 @@ class Content extends Component {
 	render(){
 		return (
 			<div className='mainCont'>			
-			<h1>U:{this.props.username}</h1>
 				<Switch>
 					<Route exact path='/' 
 						component={Home} 

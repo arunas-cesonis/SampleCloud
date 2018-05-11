@@ -18,12 +18,15 @@ class Login extends Component {
 		this.updateUsername = this.updateUsername.bind(this);
         this.handleForm = this.handleForm.bind(this);
 	}
+
 	updatePassword(passwordInputVal) {
 		this.setState({password: passwordInputVal});
 	}
+
 	updateUsername(usernameInputVal) {
 		this.setState({username: usernameInputVal});
 	}
+
 	handleForm(e) {
 		e.preventDefault();
 		axios.post('http://localhost:3010/api/login', {
@@ -47,6 +50,7 @@ class Login extends Component {
             }
 		});
 	}
+
     componentDidMount(){
         const reg = this.props.registered;
         if(reg){
@@ -56,10 +60,12 @@ class Login extends Component {
         }
         console.log('Login.jsx, mounted');
     }
+
     componentWillUnmount(){
         // Clear some states and etc. To implement later.
         console.log('Login.jsx, UnMounted');
     }
+
 	render(){
         const username = this.state.username;
         const password = this.state.password;
