@@ -89,6 +89,24 @@ app.get('/api/about', (req, res) => {
 	res.send(obj);
 });
 
+app.get('/api/browse/users/list', (req, res) => {
+    let sampleObj = [
+        {
+            email: 'Snare@snare.com',
+            username: 'John',
+        },
+        {
+            email: 'HiHat@hot.com',
+            username: 'Lucy',
+        },
+        {
+            email: 'ppo@gmail.com',
+            username: 'Paul',
+        },
+    ]
+    res.send(sampleObj);
+});
+
 app.get('/api/home', (req, res) => {
 	let obj = {
 		arg1: 'argument no #1 from express',

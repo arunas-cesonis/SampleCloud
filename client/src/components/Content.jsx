@@ -5,6 +5,7 @@ import '../css/main.css';
 import Home from './Home.jsx'; 
 import About from './About.jsx'; 
 import Upload from './Upload.jsx';
+import Browse from './Browse.jsx';
 
 //Basically this is a main Content or Content Loader 
 class Content extends Component {
@@ -30,6 +31,12 @@ class Content extends Component {
                     <Route 
                         path='/about' 
                         component={About} 
+                    />
+                    <Route 
+                        path='/browse'
+                        render={(props) =>
+                                <Browse
+                                />}
                     />
                     <Route 
                         path='/upload' 

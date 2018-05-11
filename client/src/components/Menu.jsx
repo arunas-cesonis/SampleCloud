@@ -23,9 +23,9 @@ class Menu extends Component {
 		]
         // To move Menu item into a new file/component
 		return (
-        	<ul>
+        	<ul className='navBar'>
 			{navItems.map((element, i) => 
-                <li key={i}>
+                <li className='navLi' key={i}>
                     <Item
                         to={element.path}
                         name={element.name}
@@ -41,7 +41,7 @@ class Menu extends Component {
 //Move to a new file.
 const Item = (props) => 
     <Link
-        className={classNames('navItem', { active: props.current === props.to})}
+        className={classNames('navItem', {active: props.current === props.to})}
         to={props.to}
     >{props.name}
     </Link>

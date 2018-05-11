@@ -1,0 +1,15 @@
+.br_main {
+    background-color: blue;
+    float: left;
+    width: 100%;
+}
+.br_main .br_ulist {
+    background-color: white;
+    width: 50%;
+    height: 100px;
+}
+.br_main .br_flist {
+    background-color: purple;
+    width: 50%;
+    height: 300px;
+}

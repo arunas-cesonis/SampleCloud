@@ -1,24 +1,24 @@
-ul {
+.navBar {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 	background-color: #dae2ef;
 }
-li {
+.navLi {
 	float: left;
 }
-li .navItem {
+.navLi .navItem {
 	display: block;
 	color: #000;
 	padding: 8px 16px;
 	text-decoration: none;
 }
-li .navItem:hover {
+.navLi .navItem:hover {
 	background-color: #455060;
 	color: white;
 }
-li .navItem.active {
+.navLi .navItem.active {
 	background-color: #b51b1b;
 	color: white;
 }

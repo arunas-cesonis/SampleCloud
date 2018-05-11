@@ -9,9 +9,9 @@ class Register extends Component {
             email: '',
             password: '',
             username: '',
-            emailNotValid: false,
-            passwordNotValid: false,
-            usernameNotValid: false,
+            emailNotValid: true,
+            passwordNotValid: true,
+            usernameNotValid: true,
             usernameFree: false,
             emailError: '',
             passswordError: '',
@@ -63,7 +63,7 @@ class Register extends Component {
                 usernameError: 'You can not use this name. Please choose another one.',
             })
         }
-        if((!usernameNotValid && !passwordNotValid && !emailNotValid) || username.lenght > 2 ){
+        if((!usernameNotValid && !passwordNotValid && !emailNotValid)){
             console.log('The form has been submitted.');
             /// POST TO server.js.
             console.log('Push to DB.');
