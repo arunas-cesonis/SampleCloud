@@ -140,13 +140,16 @@ app.post('/api/browse/getfiles', (req, res) => {
         },
     ]
 
-    let index = 0; 
-    sampleObj.map((file, i) => {
+    const i = sampleObj.findIndex(file => file.username === b.username); 
+    /*
+    let i = 0; 
+    sampleObj.map((file, index) => {
         if(file.username == b.username){
-            index = i;
+            i = index;
         }
     });
-    const userFiles = Object.values(sampleObj[index].files);
+    */
+    const userFiles = Object.values(sampleObj[i].files);
     console.log('Server: ', userFiles);
     res.send(userFiles);
 });

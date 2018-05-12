@@ -3,20 +3,36 @@
     float: left;
     width: 100%;
 }
-.br_main .br_ulist {
-    background-color: white;
-    width: 50%;
-    height: 100px;
-}
 .br_main .br_flist {
     background-color: purple;
-    width: 50%;
+    width: 70%;
     height: 300px;
+}
+.br_flist .br_samplesBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: green;
+}
+.br_main .br_ulist {
+    background-color: white;
+    width: 30%;
+    height: 100px;
+}
+.br_flist .br_ftitle {
+    font-size: 24px;
+    width: 100%;
+    background-color: yellow;
 }
 .br_ulist .br_itemsBar {
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+.br_flist .br_file {
+    display: block;
+    background-color: #dae2ef;
 }
 .br_itemsBar .br_item {
     display: block;

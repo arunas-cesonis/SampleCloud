@@ -22,6 +22,7 @@ class UsersList extends Component {
                 this.setState({ users });
             });
     }
+
     getFiles(username){
         console.log('On Click');
         axios.post('http://localhost:3010/api/browse/getfiles',{
