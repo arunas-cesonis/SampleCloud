@@ -23,6 +23,9 @@
     background-color: #dae2ef;
     text-align: center;
 }
+.br_item.active {
+   background-color: red; 
+}
 .br_itemsBar .br_item:hover {
     background-color: #455060;
     color: white;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import FilesList from './FilesList.jsx';
+import classNames from 'classnames';
 
 class UsersList extends Component {
     constructor(props){
@@ -8,6 +9,7 @@ class UsersList extends Component {
         this.state = {
             users: [],
             fileList: [],
+            currentUser: '',
         }
         this.getFiles = this.getFiles.bind(this);
     }
@@ -27,8 +29,11 @@ class UsersList extends Component {
         }).then(res => {
                 const fileList = res.data;
                 console.log(fileList);
-                this.setState({ fileList });
+            this.setState({ 
+                fileList,
+                currentUser: username,
             });
+        });
     }
 
     render() {
@@ -39,7 +44,10 @@ class UsersList extends Component {
                     <ul className='br_itemsBar'>
                         {this.state.users.map((user, i) =>
                         <li 
-                            className='br_item' 
+                            className={classNames(
+                                'br_item', 
+                                {active: user.username === this.state.currentUser},
+                            )} 
                             onClick={() => this.getFiles(user.username)}
                             key={i}>{user.username}
                         </li>)}
@@ -47,6 +55,7 @@ class UsersList extends Component {
                 </div>
                 <FilesList 
                     listFiles={this.state.fileList}
+                    currentUser={this.state.currentUser}
                 />
             </div>
         );

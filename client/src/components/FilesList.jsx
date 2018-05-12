@@ -6,13 +6,17 @@ class FilesList extends Component {
         super(props);
         this.state = {
             files: [],
+            username: '',
         }
     }
     render() {
         const files = this.props.listFiles;
+        const username = this.props.currentUser;
+        console.log('From FilesList.jsx: ', this.props.currentUser);
         return (
             <div className='br_main br_flist'>
                 <h1>Files List</h1>
+                <p>{username}</p>
                 <ul>
                     {files.map((file, i) =>
                     <li key={i}>{file}</li>)}

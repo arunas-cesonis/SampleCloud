@@ -146,7 +146,6 @@ app.post('/api/browse/getfiles', (req, res) => {
             index = i;
         }
     });
-    console.log('index: ', index);
     const userFiles = Object.values(sampleObj[index].files);
     console.log('Server: ', userFiles);
     res.send(userFiles);
