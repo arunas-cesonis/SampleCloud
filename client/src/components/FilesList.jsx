@@ -15,7 +15,7 @@ class FilesList extends Component {
                 <h1>Files List</h1>
                 <ul>
                     {files.map((file, i) =>
-                    <li key={i}>{file.files.file1}</li>)}
+                    <li key={i}>{file}</li>)}
                 </ul>
             </div>
         );

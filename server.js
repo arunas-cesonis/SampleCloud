@@ -139,8 +139,16 @@ app.post('/api/browse/getfiles', (req, res) => {
             }
         },
     ]
-    const userFiles = sampleObj.filter(el => 
-            el.username === b.username);
+
+    let index = 0; 
+    sampleObj.map((file, i) => {
+        if(file.username == b.username){
+            index = i;
+        }
+    });
+    console.log('index: ', index);
+    const userFiles = Object.values(sampleObj[index].files);
+    console.log('Server: ', userFiles);
     res.send(userFiles);
 });
 
