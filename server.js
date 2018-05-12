@@ -89,6 +89,7 @@ app.get('/api/about', (req, res) => {
 	res.send(obj);
 });
 
+//JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.get('/api/browse/users/list', (req, res) => {
     let sampleObj = [
         {
@@ -104,6 +105,44 @@ app.get('/api/browse/users/list', (req, res) => {
             username: 'Paul',
         },
     ]
+    res.send(sampleObj);
+});
+//JUST FOR TESTING, WILL BE INTEGRATED WITH DB
+app.post('/api/browse/getfiles', (req, res) => {
+    const b = req.body;
+    let sampleObj = [
+        {
+            username: 'John',
+            files: 
+            {
+                'file1': 'industrial',
+                'file2': 'barking',
+                'file3': 'wind',
+            }
+        },
+        {
+            username: 'Lucy',
+            files: 
+            {
+                'file1': 'crazyWav',
+                'file2': 'spooky',
+                'file3': 'terminator',
+            }
+        },
+        {
+            username: 'Paul',
+            files: 
+            {
+                'file1': 'snare20',
+                'file2': 'snare20',
+                'file3': 'kick20',
+            }
+        },
+    ]
+    const result = sampleObj.filter(el => 
+            el.username === b.username);
+    console.log('filtered:', result);
+    console.log('post:', b.username);
     res.send(sampleObj);
 });
 

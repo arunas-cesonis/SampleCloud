@@ -13,3 +13,17 @@
     width: 50%;
     height: 300px;
 }
+.br_ulist .br_itemsBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.br_itemsBar .br_item {
+    display: block;
+    background-color: #dae2ef;
+    text-align: center;
+}
+.br_itemsBar .br_item:hover {
+    background-color: #455060;
+    color: white;
+}
