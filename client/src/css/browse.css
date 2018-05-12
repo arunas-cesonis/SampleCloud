@@ -34,6 +34,9 @@
     display: block;
     background-color: #dae2ef;
 }
+.br_file.active {
+   background-color: red; 
+}
 .br_itemsBar .br_item {
     display: block;
     background-color: #dae2ef;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import classNames from 'classnames';
 
 class FilesList extends Component {
     constructor(props){
@@ -7,14 +7,19 @@ class FilesList extends Component {
         this.state = {
             files: [],
             username: '',
+            currentSample: '',
         }
         this.displayName = this.displayName.bind(this);
         this.handleFile = this.handleFile.bind(this);
     }
 
-    handleFile(sample){
+    handleFile(sample, username){
+        //Check the db and get the sample URL or something like that
         console.log('Handling Sample');
         console.log('Sample: ', sample);
+        console.log('Username: ', username);
+        this.setState({ currentSample: sample });
+        this.props.handlePlay(sample, username);
     }
 
     displayName(username){
@@ -35,11 +40,11 @@ class FilesList extends Component {
                 </div>
                 <ul className='br_samplesBar'>
                     {files.map((file, i) =>
-                    <li className='br_file' key={i}>{file}</li>)}
-                    {files.map((file, i) =>
                     <Item 
                         key={i} 
                         file={file}
+                        currentSample={this.state.currentSample}
+                        username={username}
                         handler={this.handleFile}
                     />)}
                 </ul>
@@ -51,12 +56,11 @@ class FilesList extends Component {
 const Item = (props) => { 
     return (
         <li
-            className='br_file'
-            onClick={() => props.handler(props.file)}
+            className={classNames('br_file', {active: props.file === props.currentSample})} 
+            onClick={() => props.handler(props.file, props.username)}
         >{props.file}
         </li>
     );
 }
-
 
 export default FilesList

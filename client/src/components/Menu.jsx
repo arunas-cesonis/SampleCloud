@@ -47,5 +47,5 @@ const Item = (props) =>
     </Link>
 
 
-//In oder to use withRouter the component has to wrapped in it
+//In oder to use withRouter the component has to be wrapped in it
 export default withRouter(Menu);

@@ -12,6 +12,7 @@ class UsersList extends Component {
             currentUser: '',
         }
         this.getFiles = this.getFiles.bind(this);
+        this.handlePlay = this.handlePlay.bind(this);
     }
 
     componentDidMount(){
@@ -37,6 +38,11 @@ class UsersList extends Component {
         });
     }
 
+    handlePlay(sample, username){
+        console.log('Back to UsersList.jsx: ');
+        console.log('Data:', sample, username);
+    }
+
     render() {
         return (
             <div>
@@ -57,6 +63,7 @@ class UsersList extends Component {
                 <FilesList 
                     listFiles={this.state.fileList}
                     currentUser={this.state.currentUser}
+                    handlePlay={this.handlePlay}
                 />
             </div>
         );
