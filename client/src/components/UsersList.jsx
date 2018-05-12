@@ -27,7 +27,7 @@ class UsersList extends Component {
         }).then(res => {
                 const fileList = res.data;
                 console.log(fileList);
-            //this.setState({ fileList });
+                this.setState({ fileList });
             });
     }
 

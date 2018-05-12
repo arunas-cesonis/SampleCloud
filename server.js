@@ -139,11 +139,9 @@ app.post('/api/browse/getfiles', (req, res) => {
             }
         },
     ]
-    const result = sampleObj.filter(el => 
+    const userFiles = sampleObj.filter(el => 
             el.username === b.username);
-    console.log('filtered:', result);
-    console.log('post:', b.username);
-    res.send(sampleObj);
+    res.send(userFiles);
 });
 
 app.get('/api/home', (req, res) => {
