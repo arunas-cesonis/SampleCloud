@@ -7,19 +7,17 @@ class FilesList extends Component {
         this.state = {
             files: [],
             username: '',
-            currentSample: '',
         }
         this.displayName = this.displayName.bind(this);
         this.handleFile = this.handleFile.bind(this);
     }
 
-    handleFile(sample, username){
+    handleFile(sampleURL, username){
         //Check the db and get the sample URL or something like that
         console.log('Handling Sample');
-        console.log('Sample: ', sample);
+        console.log('Sample: ', sampleURL);
         console.log('Username: ', username);
-        this.setState({ currentSample: sample });
-        this.props.handlePlay(sample, username);
+        this.props.handlePlay(sampleURL, username);
     }
 
     displayName(username){
@@ -31,7 +29,7 @@ class FilesList extends Component {
     render() {
         const files = this.props.listFiles;
         const username = this.props.currentUser;
-        console.log('From FilesList.jsx: ', this.props.currentUser);
+
         return (
             <div className='br_main br_flist'>
                 <h1>Files List</h1>

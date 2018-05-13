@@ -8,17 +8,21 @@
     width: 70%;
     height: 300px;
 }
+.br_main .br_ulist {
+    background-color: white;
+    width: 30%;
+    height: 300px;
+}
+.br_main .br_player {
+    background-color: cyan;
+    width: 100%;
+}
 .br_flist .br_samplesBar {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 100%;
     background-color: green;
-}
-.br_main .br_ulist {
-    background-color: white;
-    width: 30%;
-    height: 100px;
 }
 .br_flist .br_ftitle {
     font-size: 24px;

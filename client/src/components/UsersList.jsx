@@ -8,11 +8,8 @@ class UsersList extends Component {
         super(props);
         this.state = {
             users: [],
-            fileList: [],
             currentUser: '',
         }
-        this.getFiles = this.getFiles.bind(this);
-        this.handlePlay = this.handlePlay.bind(this);
     }
 
     componentDidMount(){
@@ -24,26 +21,10 @@ class UsersList extends Component {
             });
     }
 
-    getFiles(username){
-        console.log('On Click');
-        axios.post('http://localhost:3010/api/browse/getfiles',{
-            username: username
-        }).then(res => {
-                const fileList = res.data;
-                console.log(fileList);
-            this.setState({ 
-                fileList,
-                currentUser: username,
-            });
-        });
-    }
-
-    handlePlay(sample, username){
-        console.log('Back to UsersList.jsx: ');
-        console.log('Data:', sample, username);
-    }
-
     render() {
+        const currentUser = this.props.currentUser;
+        const getFiles = this.props.getFiles;
+
         return (
             <div>
                 <div className='br_main br_ulist'>
@@ -53,18 +34,13 @@ class UsersList extends Component {
                         <li 
                             className={classNames(
                                 'br_item', 
-                                {active: user.username === this.state.currentUser},
+                                {active: user.username === this.props.currentUser},
                             )} 
-                            onClick={() => this.getFiles(user.username)}
+                            onClick={() => getFiles(user.username)}
                             key={i}>{user.username}
                         </li>)}
                     </ul>
                 </div>
-                <FilesList 
-                    listFiles={this.state.fileList}
-                    currentUser={this.state.currentUser}
-                    handlePlay={this.handlePlay}
-                />
             </div>
         );
     }
