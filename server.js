@@ -6,7 +6,63 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 
 const app = express();
-
+//MY TMP DB FOR TESTING
+const sampleObj = [
+        {
+            email: '',
+            username: 'John',
+            files: 
+            {
+                'file1': 'industrial',
+                'file2': 'barking',
+                'file3': 'wind',
+                'file4': 'noise1000',
+                'file5': 'fq78hz',
+                'file6': 'wild_bass',
+            }
+        },
+        {
+            email: '',
+            username: 'Jack',
+            files: 
+            {
+                'file1': 'HH',
+                'file2': 'OHH',
+                'file3': 'Crash',
+                'file4': 'Ride',
+            }
+        },
+        {
+            email: '',
+            username: 'Joe',
+            files: 
+            {
+                'file1': 'industrial',
+                'file2': 'barking',
+                'file3': 'wind',
+            }
+        },
+        {
+            email: '',
+            username: 'Lucy',
+            files: 
+            {
+                'file1': 'industrial',
+                'file2': 'barking',
+                'file3': 'wind',
+            }
+        },
+        {
+            email: '',
+            username: 'Paul',
+            files: 
+            {
+                'file1': 'industrial',
+                'file2': 'barking',
+                'file3': 'wind',
+            }
+        },
+];
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(fileUpload());
@@ -90,56 +146,13 @@ app.get('/api/about', (req, res) => {
 });
 
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
+
 app.get('/api/browse/users/list', (req, res) => {
-    let sampleObj = [
-        {
-            email: 'Snare@snare.com',
-            username: 'John',
-        },
-        {
-            email: 'HiHat@hot.com',
-            username: 'Lucy',
-        },
-        {
-            email: 'ppo@gmail.com',
-            username: 'Paul',
-        },
-    ]
     res.send(sampleObj);
 });
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.post('/api/browse/getfiles', (req, res) => {
     const b = req.body;
-    let sampleObj = [
-        {
-            username: 'John',
-            files: 
-            {
-                'file1': 'industrial',
-                'file2': 'barking',
-                'file3': 'wind',
-            }
-        },
-        {
-            username: 'Lucy',
-            files: 
-            {
-                'file1': 'crazyWav',
-                'file2': 'spooky',
-                'file3': 'terminator',
-            }
-        },
-        {
-            username: 'Paul',
-            files: 
-            {
-                'file1': 'snare20',
-                'file2': 'snare20',
-                'file3': 'kick20',
-            }
-        },
-    ]
-
     const i = sampleObj.findIndex(file => file.username === b.username); 
     /*
     let i = 0; 

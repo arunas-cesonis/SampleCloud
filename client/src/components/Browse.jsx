@@ -11,7 +11,7 @@ class Browse extends Component {
         this.state = {
             fileList: [],
             currentUser: '',
-            
+            sampleURL: '',
         }
         this.getFiles = this.getFiles.bind(this);
         this.handlePlay = this.handlePlay.bind(this);
@@ -33,11 +33,13 @@ class Browse extends Component {
 
     handlePlay(sampleURL, username){
         console.log('From Browse.jsx: ', sampleURL, username);
+        this.setState({ sampleURL: 'Playing c:/music/data/' + sampleURL })
     }
 
     render() {
         const currentUser = this.state.currentUser;
         const fileList = this.state.fileList;
+        const sampleURL = this.state.sampleURL;
 
         return (
             <div className='br_main'>
@@ -51,7 +53,9 @@ class Browse extends Component {
                     listFiles={fileList}
                     handlePlay={this.handlePlay}
                 />
-                <Player />
+                <Player 
+                    sampleURL={sampleURL}
+                />
             </div>
         );
     }
