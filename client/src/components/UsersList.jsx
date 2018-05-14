@@ -26,23 +26,21 @@ class UsersList extends Component {
         const getFiles = this.props.getFiles;
 
         return (
-            <div>
-                <div className='br_main br_ulist'>
-                    <h1>UsersList</h1>
-                    <ul className='br_itemsBar'>
-                        {this.state.users.map((user, i) =>
-                        <li 
-                            className={classNames(
-                                'br_item', 
-                                {active: user.username === this.props.currentUser},
-                            )} 
-                            onClick={() => getFiles(user.username)}
-                            key={i}>{user.username}
-                        </li>)}
-                    </ul>
-                </div>
+            <div className='br_ulist'>
+                <div className='utitle'>users:</div>
+                <ul className='br_itemsBar'>
+                    {this.state.users.map((user, i) =>
+                    <li 
+                        className={classNames(
+                            'br_item', 
+                            {active: user.username === this.props.currentUser},
+                        )} 
+                        onClick={() => getFiles(user.username)}
+                        key={i}>{user.username}
+                    </li>)}
+                </ul>
             </div>
-        );
+    );
     }
 }
 

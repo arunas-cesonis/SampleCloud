@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/userpage.css';
 import Header from './Header.jsx';
 import Content from './Content.jsx';
 
@@ -22,10 +23,12 @@ class UserPage extends Component {
 			this.state.currentUser, ' ', this.state.logged);
 		return (
 			<div>
-				<Header />
-				<Content 
-					username={this.state.currentUser} 
-				/>
+                <div className='userPageCont'>
+                    <Header />
+                    <Content 
+                        username={this.state.currentUser} 
+                    />
+                </div>
 			</div>
 		);
 	}

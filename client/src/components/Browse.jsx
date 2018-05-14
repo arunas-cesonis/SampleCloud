@@ -43,7 +43,9 @@ class Browse extends Component {
 
         return (
             <div className='br_main'>
-                <h1>Browse</h1>
+                <Player 
+                    sampleURL={sampleURL}
+                />
                 <UsersList 
                     getFiles={this.getFiles}
                     currentUser={currentUser}
@@ -52,9 +54,6 @@ class Browse extends Component {
                     currentUser={currentUser}
                     listFiles={fileList}
                     handlePlay={this.handlePlay}
-                />
-                <Player 
-                    sampleURL={sampleURL}
                 />
             </div>
         );

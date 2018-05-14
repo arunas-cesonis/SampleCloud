@@ -1,24 +1,33 @@
 .navBar {
+    z-index: 99;
+    position: fixed;
+    width: 100%;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	background-color: #dae2ef;
+	background-color: #131528;
 }
 .navLi {
+    position: relative;
 	float: left;
+    right: -30%;
 }
 .navLi .navItem {
 	display: block;
 	color: #000;
 	padding: 8px 16px;
 	text-decoration: none;
+    text-align: center;
+    color: #57bdbf;
+    font-weight: bold;
+    transition: all .3s ease-in;
 }
 .navLi .navItem:hover {
 	background-color: #455060;
 	color: white;
 }
 .navLi .navItem.active {
-	background-color: #b51b1b;
+	background-color: #3a7e95;
 	color: white;
 }

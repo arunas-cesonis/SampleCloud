@@ -7,6 +7,7 @@ class FilesList extends Component {
         this.state = {
             files: [],
             username: '',
+            currentSample: '',
         }
         this.displayName = this.displayName.bind(this);
         this.handleFile = this.handleFile.bind(this);
@@ -17,6 +18,7 @@ class FilesList extends Component {
         console.log('Handling Sample');
         console.log('Sample: ', sampleURL);
         console.log('Username: ', username);
+        this.setState({ currentSample: sampleURL }); 
         this.props.handlePlay(sampleURL, username);
     }
 
@@ -31,8 +33,7 @@ class FilesList extends Component {
         const username = this.props.currentUser;
 
         return (
-            <div className='br_main br_flist'>
-                <h1>Files List</h1>
+            <div className='br_flist'>
                 <div className='br_ftitle'>
                     {this.displayName(username)}
                 </div>

@@ -1,21 +1,29 @@
-.br_main {
+.br_cont .br_main {
+    position: relative;
     background-color: blue;
-    float: left;
     width: 100%;
 }
 .br_main .br_flist {
-    background-color: purple;
-    width: 70%;
-    height: 300px;
+    background-color: #010224;
+    width: 500px;
+    height: 200px;
+    float: left;
 }
-.br_main .br_ulist {
-    background-color: white;
-    width: 30%;
-    height: 300px;
+.br_main > .br_ulist {
+    background-color: #010224;
+    width: 150px;
+    height: 200px;
+    color: white;
+    float: left;
 }
-.br_main .br_player {
-    background-color: cyan;
-    width: 100%;
+.br_ulist .utitle {
+    padding: 5px 0 5px 50px;
+    font-weight: bold;
+}
+.br_main > .br_player {
+    background-color: #b9e8ff; 
+    width: 650px;
+    height: 40px;
 }
 .br_flist .br_samplesBar {
     list-style-type: none;
@@ -27,27 +35,33 @@
 .br_flist .br_ftitle {
     font-size: 24px;
     width: 100%;
-    background-color: yellow;
+    background-color: #f1f10b;
 }
 .br_ulist .br_itemsBar {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
+.br_flist .br_file:hover {
+    background-color: #f1f10b;
+}
 .br_flist .br_file {
+    padding: 5px 10px;
     display: block;
     background-color: #dae2ef;
 }
 .br_file.active {
-   background-color: red; 
+    background-color: #f1f10b;
 }
 .br_itemsBar .br_item {
     display: block;
-    background-color: #dae2ef;
+    background-color: #393b6d;
     text-align: center;
+    transition: all .2s ease-in;
 }
 .br_item.active {
-   background-color: red; 
+   background-color: #48b7b6; 
+   color: black;
 }
 .br_itemsBar .br_item:hover {
     background-color: #455060;
