@@ -25,9 +25,13 @@ class UserPage extends Component {
 			<div>
                 <div className='userPageCont'>
                     <Header />
+                    <div className='userPageCol1'></div>
+                    <div className='UserPageCol2'>
                     <Content 
                         username={this.state.currentUser} 
                     />
+                    </div>
+                    <div className='UserPageCol3'></div>
                 </div>
 			</div>
 		);
