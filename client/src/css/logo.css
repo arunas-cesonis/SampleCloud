@@ -1,6 +1,31 @@
-.logoCont {
+.logo {
     width: 100%;
-    height: 420px;
     margin: 0;
     padding: 0;
+}
+.overlayCont {
+    position: absolute;
+    top: 37%;
+    width: 100%;
+}
+.overlayGreen {
+    padding: 40px 0;
+    text-align: center;
+    color: white;
+    background: rgba(107, 186, 167, 0.5);
+    z-index: 99;
+    width: 100%;
+    height: 200px;
+}
+.overlay {
+    padding: 40px 0;
+    text-align: center;
+    color: white;
+    background: rgba(108, 100, 139, 0.5);
+    z-index: 99;
+    width: 100%;
+    height: 200px;
+}
+.overlay > h1 {
+    font-family: 'Concert-One';
 }

@@ -1,20 +1,13 @@
-.userPageCont {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    width: 100%;
+@media only screen and (min-width: 950px) {
+    .userCont {
+        padding: 0 8%;    
+    }
 }
-.userPageCont > .userPageCol1 {
-    width: 10%;
-    float: left;
-    height: 100%;
+@media only screen and (max-width: 949px) {
+    .userCont {
+        padding: 0;
+    }
 }
-.userPageCont > .userPageCol2 {
-    float: left;
-    width: 80%;
-    height: 100%;
-}
-.userPageCont > .userPageCol3 {
-    width: 10%;
-    float: left;
+.userCont {
+
 }

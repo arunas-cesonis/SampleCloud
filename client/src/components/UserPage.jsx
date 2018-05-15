@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../css/userpage.css';
 import Header from './Header.jsx';
 import Content from './Content.jsx';
+import '../css/userpage.css';
 
 class UserPage extends Component {
 	constructor(props){
@@ -22,17 +22,11 @@ class UserPage extends Component {
 		console.log('From UserPage component. Logged in as: ',
 			this.state.currentUser, ' ', this.state.logged);
 		return (
-			<div>
-                <div className='userPageCont'>
-                    <Header />
-                    <div className='userPageCol1'></div>
-                    <div className='UserPageCol2'>
-                    <Content 
-                        username={this.state.currentUser} 
-                    />
-                    </div>
-                    <div className='UserPageCol3'></div>
-                </div>
+			<div className='userCont'>
+                <Header />
+                <Content 
+                    username={this.state.currentUser} 
+                />
 			</div>
 		);
 	}

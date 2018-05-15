@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import FilesList from './FilesList.jsx';
 import classNames from 'classnames';
 
 class UsersList extends Component {

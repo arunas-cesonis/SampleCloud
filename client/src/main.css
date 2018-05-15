@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:300');
 body {
-    font-family: 'Releway', sans-serif;
 	padding: 0;
 	margin: 0px;
 	display: block;
+}
+* {
+    font-family: 'Autour-One';
 }
 #root {
 	padding: 0px;
