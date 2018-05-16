@@ -14,6 +14,7 @@ class Player extends Component {
         this.state = {
             stopTimer: false,
             timeLeft: 0,
+            progress: 0,
         }
         this.handlePlay = this.handlePlay.bind(this);
         this.handlePause = this.handlePause.bind(this);
@@ -35,22 +36,33 @@ class Player extends Component {
 
     calcTime(){
         this.setState({ stopTimer: false});
-        const total = this.refs.player.duration;
-        const played = this.refs.player.currentTime;
+        const total = Math.ceil(this.refs.player.duration);
+        const played = Math.ceil(this.refs.player.currentTime);
+        let pos = 0;
+
+        //Progress Bar
+        pos = (played * 100) / total;
+
         let timeLeft = total - played;
         let timer = setInterval(() => {
             if(this.state.stopTimer){
-                console.log('state.stopTimer is TRUE.');
                 clearInterval(timer);
+                timeLeft = 0;
+                pos = 100;
             } else {
                 timeLeft--;
+                pos = Math.ceil(((total - timeLeft) * 100) / total); 
                 if(timeLeft <= 0){
                     timeLeft = 0;
                     clearInterval(timer);
                 }
             }
-            this.setState({ timeLeft: timeLeft });
+            this.setState({ 
+                timeLeft: timeLeft, 
+                progress: pos,
+            });
             console.log('time left: ', timeLeft);
+            console.log('% played: ', pos);
         }, 1000);
     }
 
@@ -73,6 +85,12 @@ class Player extends Component {
                 >Pause 
                 </button>
                 <p>Time left: {this.state.timeLeft}</p>
+                <div className='br_progress_cont'>
+                    <div 
+                        className='br_progress'
+                        style={{width: this.state.progress+'%'}}
+                    ></div>
+                </div>
                 <audio
                     onPlay={this.calcTime.bind(this)}
                     onEnded={this.handleEnded.bind(this)}
