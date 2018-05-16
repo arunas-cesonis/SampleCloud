@@ -23,7 +23,7 @@ class Content extends Component {
 	// CHECK {...props} - This is the way to pass props using Route module.
 	render(){
 		return (
-			<div className='mainCont'>			
+            <div> 
 				<Switch>
 					<Route exact path='/' 
 						component={Home} 

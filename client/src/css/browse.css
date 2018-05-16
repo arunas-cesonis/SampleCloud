@@ -1,15 +1,24 @@
-.br_cont .br_main {
-    position: relative;
-    background-color: blue;
+.br_container {
+    width: 100%;
+    height: 500px;
+    background-color: red;
+}
+.test {
+    overflow: hidden;
     width: 100%;
 }
-.br_main .br_flist {
+.br_container .br_middle {
+    width: 70%;
+    margin: 0 auto;
+    height: 300px;
+}
+.br_flist {
     background-color: #010224;
-    width: 500px;
+    width: calc(100% - 150px);
     height: 200px;
     float: left;
 }
-.br_main > .br_ulist {
+.br_ulist {
     background-color: #010224;
     width: 150px;
     height: 200px;
@@ -20,10 +29,10 @@
     padding: 5px 0 5px 50px;
     font-weight: bold;
 }
-.br_main > .br_player {
+.br_player {
     background-color: #b9e8ff; 
-    width: 650px;
-    height: 40px;
+    width: 100%;
+    height: 140px;
 }
 .br_flist .br_samplesBar {
     list-style-type: none;

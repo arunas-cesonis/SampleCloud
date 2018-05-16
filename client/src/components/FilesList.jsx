@@ -13,12 +13,14 @@ class FilesList extends Component {
         this.handleFile = this.handleFile.bind(this);
     }
 
-    handleFile(sampleURL, username){
+    handleFile(sample, username){
         //Check the db and get the sample URL or something like that
+        const webURL = 'http://localhost:3000/uploads';
+        const sampleURL = webURL + '/' + username.toLowerCase() + '/' + sample.toLowerCase();
         console.log('Handling Sample');
         console.log('Sample: ', sampleURL);
         console.log('Username: ', username);
-        this.setState({ currentSample: sampleURL }); 
+        this.setState({ currentSample: sample }); 
         this.props.handlePlay(sampleURL, username);
     }
 

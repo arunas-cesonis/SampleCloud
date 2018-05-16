@@ -27,11 +27,11 @@ class Logo extends Component {
                 <Carousel
                     onSlideEnd={this.showText}
                     controls={false}
-                    interval={1000}
+                    interval={3000}
                     indicators={false}
                 >
                     <Carousel.Item>
-                        <img className='logo' src='/img/slide3.jpeg' />
+                        <img className='logo' src='/img/slide2.jpeg' />
                         <Carousel.Caption bsClass='overlayCont'>
                             <div className='overlay'>
                                 <h1>WELCOME<br/>To<br/>SampleCloud.Live</h1>
@@ -39,7 +39,7 @@ class Logo extends Component {
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img className='logo' src='/img/slide2.jpeg' />
+                        <img className='logo' src='/img/slide3.jpeg' />
                         <Carousel.Caption bsClass='overlayCont'>
                             <div className='overlayGreen'>
                                 <h1>SampleCloud.Live</h1>

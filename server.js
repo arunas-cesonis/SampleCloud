@@ -57,7 +57,7 @@ const sampleObj = [
             username: 'Paul',
             files: 
             {
-                'file1': 'industrial',
+                'file1': 'industrial.mp3',
                 'file2': 'barking',
                 'file3': 'wind',
             }

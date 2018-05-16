@@ -33,7 +33,7 @@ class Browse extends Component {
 
     handlePlay(sampleURL, username){
         console.log('From Browse.jsx: ', sampleURL, username);
-        this.setState({ sampleURL: 'Playing c:/music/data/' + sampleURL })
+        this.setState({ sampleURL: 'Playing: ', sampleURL })
     }
 
     render() {
@@ -42,19 +42,21 @@ class Browse extends Component {
         const sampleURL = this.state.sampleURL;
 
         return (
-            <div className='br_main'>
-                <Player 
-                    sampleURL={sampleURL}
-                />
-                <UsersList 
-                    getFiles={this.getFiles}
-                    currentUser={currentUser}
-                />
-                <FilesList
-                    currentUser={currentUser}
-                    listFiles={fileList}
-                    handlePlay={this.handlePlay}
-                />
+            <div className='br_container'> 
+                <div className='br_middle'>
+                    <Player 
+                        sampleURL={sampleURL}
+                    />
+                    <UsersList 
+                        getFiles={this.getFiles}
+                        currentUser={currentUser}
+                    />
+                    <FilesList
+                        currentUser={currentUser}
+                        listFiles={fileList}
+                        handlePlay={this.handlePlay}
+                    />
+                </div>
             </div>
         );
     }
