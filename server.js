@@ -146,10 +146,10 @@ app.get('/api/about', (req, res) => {
 });
 
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
-
 app.get('/api/browse/users/list', (req, res) => {
     res.send(sampleObj);
 });
+
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.post('/api/browse/getfiles', (req, res) => {
     const b = req.body;

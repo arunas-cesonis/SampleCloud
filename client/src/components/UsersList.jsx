@@ -39,7 +39,7 @@ class UsersList extends Component {
                     </li>)}
                 </ul>
             </div>
-    );
+        );
     }
 }
 
