@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Input from "./LoginInput.jsx";
+import React, { Component } from 'react';
+import axios from 'axios';
+import Input from './LoginInput.jsx';
 
 // THIS Class might need to be rewriten into something like 'Main' or etc.
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      serverUsername: "",
+      username: '',
+      password: '',
+      serverUsername: '',
       serverSuccess: false,
-      error: "",
-      title: ""
+      error: '',
+      title: ''
     };
     this.updatePassword = this.updatePassword.bind(this);
     this.updateUsername = this.updateUsername.bind(this);
@@ -30,7 +30,7 @@ class Login extends Component {
   handleForm(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:3010/api/login", {
+      .post('http://localhost:3010/api/login', {
         username: this.state.username,
         password: this.state.password
       })
@@ -41,7 +41,7 @@ class Login extends Component {
         });
         if (!this.state.serverSuccess) {
           this.setState({
-            error: "Username and password combination is incorrect"
+            error: 'Username and password combination is incorrect'
           });
         } else {
           //Object needs to be updated and polished.
@@ -58,14 +58,14 @@ class Login extends Component {
     if (reg) {
       this.setState({ title: reg });
     } else {
-      this.setState({ title: "Login Form" });
+      this.setState({ title: 'Login Form' });
     }
-    console.log("Login.jsx, mounted");
+    console.log('Login.jsx, mounted');
   }
 
   componentWillUnmount() {
     // Clear some states and etc. To implement later.
-    console.log("Login.jsx, UnMounted");
+    console.log('Login.jsx, UnMounted');
   }
 
   render() {
@@ -81,17 +81,17 @@ class Login extends Component {
             <p>{title}</p>
             <Input
               error={error}
-              type={"text"}
+              type={'text'}
               update={this.updateUsername}
-              label={"Username:"}
-              id={"username"}
+              label={'Username:'}
+              id={'username'}
               val={username}
             />
             <Input
-              type={"password"}
+              type={'password'}
               update={this.updatePassword}
-              label={"Password:"}
-              id={"password"}
+              label={'Password:'}
+              id={'password'}
               val={password}
             />
             <br />

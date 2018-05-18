@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class About extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      response1: "",
-      response2: ""
+      response1: '',
+      response2: ''
     };
   }
   //Get data from Express route
@@ -19,7 +19,7 @@ class About extends Component {
     );
   }
   callApi = async function() {
-    const response = await fetch("/api/about");
+    const response = await fetch('/api/about');
     const body = await response.json();
     return body;
   };

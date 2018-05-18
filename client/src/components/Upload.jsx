@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import Input from "./UploadInput.jsx";
-import "../css/upload.css";
-import axios from "axios";
+import React, { Component } from 'react';
+import Input from './UploadInput.jsx';
+import '../css/upload.css';
+import axios from 'axios';
 
 class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sampleURL: "",
+      sampleURL: '',
       username: this.props.name,
       nameNotValid: false,
       uploadData: {
-        file: "",
-        fileName: ""
+        file: '',
+        fileName: ''
       },
-      error: "",
-      uploaded: "",
-      msg: ""
+      error: '',
+      uploaded: '',
+      msg: ''
     };
     this.handleUpload = this.handleUpload.bind(this);
     this.handleFile = this.handleFile.bind(this);
@@ -36,53 +36,53 @@ class Upload extends Component {
     if (fileName.match(/\s/g)) {
       this.setState({ uploadData, nameNotValid: true });
     } else {
-      console.log("no white space detected.");
+      console.log('no white space detected.');
       this.setState({ uploadData, nameNotValid: false });
     }
   }
 
   handleUpload(event) {
     event.preventDefault();
-    this.setState({ error: "" });
+    this.setState({ error: '' });
     const data = new FormData();
     const notValid = this.state.nameNotValid;
     const userFileName = this.state.uploadData.fileName;
     const origFileName = this.state.uploadData.file.name;
     //Very basic validation
     if (!notValid && userFileName.length > 0 && origFileName != null) {
-      data.append("file", this.state.uploadData.file);
-      data.append("filename", this.state.uploadData.fileName);
-      data.append("username", this.state.username);
+      data.append('file', this.state.uploadData.file);
+      data.append('filename', this.state.uploadData.fileName);
+      data.append('username', this.state.username);
       //To implement later so user can choose their own name + add it to db meta
       //To figure out error handlers
-      axios.post("http://localhost:3010/api/upload", data).then(response => {
-        console.log("Server res: ", response.data);
+      axios.post('http://localhost:3010/api/upload', data).then(response => {
+        console.log('Server res: ', response.data);
       });
       this.setState({
         uploaded: true,
-        msg: "The file has been successfully uploaded."
+        msg: 'The file has been successfully uploaded.'
       });
     } else {
       this.setState({
-        error: "Specify filename with no white spaces and include a file."
+        error: 'Specify filename with no white spaces and include a file.'
       });
     }
   }
 
   componentDidMount() {
-    console.log("Upload.jsx Mounted.");
+    console.log('Upload.jsx Mounted.');
   }
 
   handleUploadOk() {
     this.setState({
-      msg: "File has been uploaded",
+      msg: 'File has been uploaded',
       uploaded: false
     });
   }
 
   render() {
     const notValid = this.state.nameNotValid;
-    console.log("Upload data from Render:", this.state.uploadData);
+    console.log('Upload data from Render:', this.state.uploadData);
     if (this.state.uploaded) {
       return (
         <div>
@@ -95,16 +95,16 @@ class Upload extends Component {
         <form>
           <p className="error_msg">{this.state.error}</p>
           <Input
-            id={"file"}
-            label={"File:"}
-            type={"file"}
+            id={'file'}
+            label={'File:'}
+            type={'file'}
             upload={this.handleFile}
             addClass={false}
           />
           <Input
-            id={"filename"}
-            label={"File Name:"}
-            type={"text"}
+            id={'filename'}
+            label={'File Name:'}
+            type={'text'}
             filename={this.handleFileName}
             val={this.state.uploadData.fileName}
             valid={notValid}
@@ -118,7 +118,7 @@ class Upload extends Component {
   }
 
   componentWillUnmount() {
-    console.log("Upload.jsx Unmounted.");
+    console.log('Upload.jsx Unmounted.');
   }
 }
 

@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Input from "./RegInput.jsx";
+import React, { Component } from 'react';
+import axios from 'axios';
+import Input from './RegInput.jsx';
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
-      username: "",
+      email: '',
+      password: '',
+      username: '',
       emailNotValid: true,
       passwordNotValid: true,
       usernameNotValid: true,
       usernameFree: false,
-      emailError: "",
-      passswordError: "",
-      usernameError: ""
+      emailError: '',
+      passswordError: '',
+      usernameError: ''
     };
     this.handleEmail = this.handleEmail.bind(this);
     this.handleForm = this.handleForm.bind(this);
@@ -41,71 +41,71 @@ class Register extends Component {
     const passwordNotValid = this.state.passwordNotValid;
     const usernameNotValid = this.state.usernameNotValid;
     this.setState({
-      emailError: "",
-      passwordError: "",
-      usernameError: ""
+      emailError: '',
+      passwordError: '',
+      usernameError: ''
     });
-    if (passwordNotValid || this.state.password === "") {
+    if (passwordNotValid || this.state.password === '') {
       this.setState({
         passwordNotValid: true,
         passwordError:
-          "Password must be at least 6 chars long and contain an upper case."
+          'Password must be at least 6 chars long and contain an upper case.'
       });
     }
-    if (emailNotValid || this.state.email === "") {
+    if (emailNotValid || this.state.email === '') {
       this.setState({
         emailNotValid: true,
-        emailError: "Please enter a valid email address."
+        emailError: 'Please enter a valid email address.'
       });
     }
-    if (usernameNotValid || this.state.username === "") {
+    if (usernameNotValid || this.state.username === '') {
       this.setState({
         usernameNotValid: true,
-        usernameError: "You can not use this name. Please choose another one."
+        usernameError: 'You can not use this name. Please choose another one.'
       });
     }
     if (!usernameNotValid && !passwordNotValid && !emailNotValid) {
-      console.log("The form has been submitted.");
+      console.log('The form has been submitted.');
       /// POST TO server.js.
-      console.log("Push to DB.");
+      console.log('Push to DB.');
       axios
-        .post("/api/reg/received", {
+        .post('/api/reg/received', {
           username: username,
           email: email,
           password: password
         })
         .then(response => {
-          console.log("res: ", response.data);
+          console.log('res: ', response.data);
         });
       this.setState({
-        username: "",
-        password: "",
-        email: ""
+        username: '',
+        password: '',
+        email: ''
       });
       // Executing mount function in the Main class
       this.props.regSuccess();
     } else {
-      console.log("Failed!");
+      console.log('Failed!');
     }
   }
   handleEmail(emailInputVal) {
     const validatedEmail = emailInputVal;
     if (
       validatedEmail.match(/([.]net|[.]com)|[.]co[.]uk|[.]live|[.]lt|[.]io/) &&
-      validatedEmail.indexOf("@") > -1 &&
+      validatedEmail.indexOf('@') > -1 &&
       validatedEmail.match(/^[\S]+$/)
     ) {
       this.setState({
         email: validatedEmail,
         emailNotValid: false
       });
-      console.log("This is a valid email address.");
+      console.log('This is a valid email address.');
     } else {
       this.setState({
         email: validatedEmail,
         emailNotValid: true
       });
-      console.log("This email address considered to be invalid.");
+      console.log('This email address considered to be invalid.');
     }
   }
   handlePassword(passwordInputVal) {
@@ -125,7 +125,7 @@ class Register extends Component {
     const usernameFree = this.state.usernameFree;
     this.setState({ username: usernameInputVal });
     axios
-      .post("http://localhost:3010/api/checkUsername", {
+      .post('http://localhost:3010/api/checkUsername', {
         username: usernameInputVal
       })
       .then(response => {
@@ -141,10 +141,10 @@ class Register extends Component {
     /// TO IMPLEMENT LATER
   }
   componentDidMount() {
-    console.log("Register.jsx Mounted.");
+    console.log('Register.jsx Mounted.');
   }
   componentWillUnmount() {
-    console.log("Register.jsx UnMounted.");
+    console.log('Register.jsx UnMounted.');
   }
   render() {
     const email = this.state.email;
@@ -159,28 +159,28 @@ class Register extends Component {
           <legend>Register Form</legend>
           <h1>Part 2</h1>
           <Input
-            label={"Username:"}
-            id={"username"}
+            label={'Username:'}
+            id={'username'}
             error={this.state.usernameError}
-            type={"text"}
+            type={'text'}
             notValid={usernameNotValid}
             check={this.handleUsername}
             val={username}
           />
           <Input
-            label={"Email:"}
-            id={"email"}
+            label={'Email:'}
+            id={'email'}
             error={this.state.emailError}
-            type={"text"}
+            type={'text'}
             notValid={emailNotValid}
             check={this.handleEmail}
             val={email}
           />
           <Input
-            label={"Password:"}
-            id={"password"}
+            label={'Password:'}
+            id={'password'}
             error={this.state.passwordError}
-            type={"password"}
+            type={'password'}
             notValid={passwordNotValid}
             check={this.handlePassword}
             val={password}

@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import "../css/logo.css";
-import { Carousel } from "react-bootstrap";
+import React, { Component } from 'react';
+import '../css/logo.css';
+import { Carousel } from 'react-bootstrap';
 
 class Logo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      caption: "",
+      caption: '',
       index: 0
     };
     this.showText = this.showText.bind(this);
@@ -19,7 +19,7 @@ class Logo extends Component {
     } else {
       this.setState({ index: i + 1 });
     }
-    console.log("onSlideEnd. index = ", i);
+    console.log('onSlideEnd. index = ', i);
   }
   render() {
     return (

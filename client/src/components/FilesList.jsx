@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import classNames from "classnames";
+import React, { Component } from 'react';
+import classNames from 'classnames';
 
 class FilesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       files: [],
-      username: "",
-      currentSample: ""
+      username: '',
+      currentSample: ''
     };
     this.displayName = this.displayName.bind(this);
     this.handleFile = this.handleFile.bind(this);
@@ -15,19 +15,19 @@ class FilesList extends Component {
 
   handleFile(sample, username) {
     //Check the db and get the sample URL or something like that
-    const webURL = "http://localhost:3000/uploads";
+    const webURL = 'http://localhost:3000/uploads';
     const sampleURL =
-      webURL + "/" + username.toLowerCase() + "/" + sample.toLowerCase();
-    console.log("Handling Sample");
-    console.log("Sample: ", sampleURL);
-    console.log("Username: ", username);
+      webURL + '/' + username.toLowerCase() + '/' + sample.toLowerCase();
+    console.log('Handling Sample');
+    console.log('Sample: ', sampleURL);
+    console.log('Username: ', username);
     this.setState({ currentSample: sample });
     this.props.handlePlay(sampleURL, username);
   }
 
   displayName(username) {
     if (username) {
-      return "Viewing: " + username;
+      return 'Viewing: ' + username;
     }
   }
 
@@ -57,7 +57,7 @@ class FilesList extends Component {
 const Item = props => {
   return (
     <li
-      className={classNames("br_file", {
+      className={classNames('br_file', {
         active: props.file === props.currentSample
       })}
       onClick={() => props.handler(props.file, props.username)}

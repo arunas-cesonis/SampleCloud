@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 const checkURL = url => {
   if (url) {
@@ -60,13 +60,13 @@ class Player extends Component {
         timeLeft: timeLeft,
         progress: pos
       });
-      console.log("time left: ", timeLeft);
-      console.log("% played: ", pos);
+      console.log('time left: ', timeLeft);
+      console.log('% played: ', pos);
     }, 1000);
   }
 
   handleEnded() {
-    console.log("ended");
+    console.log('ended');
     this.setState({
       stopTimer: true
     });
@@ -83,7 +83,7 @@ class Player extends Component {
         <div className="br_progress_cont">
           <div
             className="br_progress"
-            style={{ width: this.state.progress + "%" }}
+            style={{ width: this.state.progress + '%' }}
           />
         </div>
         <audio

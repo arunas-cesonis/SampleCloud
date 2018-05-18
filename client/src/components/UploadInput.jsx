@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import classNames from "classnames";
-import "../css/upload.css";
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import '../css/upload.css';
 
 class UploadInput extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class UploadInput extends Component {
   }
 
   update(e) {
-    if (this.props.type === "file") {
+    if (this.props.type === 'file') {
       this.props.upload(e.target.files[0]);
     } else {
       this.props.filename(e.target.value);

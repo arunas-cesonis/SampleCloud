@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 //Using Link for updating URL, Content.jsx will pick them up al will load the req cont
-import { Link, withRouter } from "react-router-dom";
-import classNames from "classnames";
-import "../css/menu.css";
+import { Link, withRouter } from 'react-router-dom';
+import classNames from 'classnames';
+import '../css/menu.css';
 
 class Menu extends Component {
   constructor(props) {
@@ -15,10 +15,10 @@ class Menu extends Component {
     const currentLocation = this.props.location.pathname;
     console.log(currentLocation);
     const navItems = [
-      { path: "/", name: "Home" },
-      { path: "/about", name: "About" },
-      { path: "/browse", name: "Browse" },
-      { path: "/upload", name: "Upload" }
+      { path: '/', name: 'Home' },
+      { path: '/about', name: 'About' },
+      { path: '/browse', name: 'Browse' },
+      { path: '/upload', name: 'Upload' }
     ];
     // To move Menu item into a new file/component
     return (
@@ -40,7 +40,7 @@ class Menu extends Component {
 //Move to a new file.
 const Item = props => (
   <Link
-    className={classNames("navItem", { active: props.current === props.to })}
+    className={classNames('navItem', { active: props.current === props.to })}
     to={props.to}
   >
     {props.name}

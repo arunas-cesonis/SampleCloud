@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import UserPage from "./UserPage.jsx";
-import Register from "./Register.jsx";
-import Login from "./Login.jsx";
-import { BrowserRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import UserPage from './UserPage.jsx';
+import Register from './Register.jsx';
+import Login from './Login.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
 class Main extends Component {
   constructor(props) {
@@ -15,9 +15,9 @@ class Main extends Component {
   }
 
   mountLogin(newUser) {
-    let msg = "";
+    let msg = '';
     if (newUser) {
-      msg = "Registration has been completed, you may login.";
+      msg = 'Registration has been completed, you may login.';
     }
     ReactDOM.render(
       <Login
@@ -25,12 +25,12 @@ class Main extends Component {
         mountReg={this.mountRegister}
         registered={msg}
       />,
-      document.getElementById("login")
+      document.getElementById('login')
     );
   }
 
   mountUserPage(userDetails) {
-    console.log("trying to mount user page");
+    console.log('trying to mount user page');
     ReactDOM.render(
       <BrowserRouter>
         <UserPage
@@ -38,29 +38,29 @@ class Main extends Component {
           logged={userDetails.success}
         />
       </BrowserRouter>,
-      document.getElementById("userpage")
+      document.getElementById('userpage')
     );
-    ReactDOM.unmountComponentAtNode(document.getElementById("login"));
-    ReactDOM.unmountComponentAtNode(document.getElementById("root"));
+    ReactDOM.unmountComponentAtNode(document.getElementById('login'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('root'));
   }
 
   regSuccess() {
     this.mountLogin(true);
-    ReactDOM.unmountComponentAtNode(document.getElementById("reg"));
+    ReactDOM.unmountComponentAtNode(document.getElementById('reg'));
   }
 
   mountRegister(e) {
     e.preventDefault();
-    console.log("Mounting Register.");
+    console.log('Mounting Register.');
     ReactDOM.render(
       <Register regSuccess={this.regSuccess} />,
-      document.getElementById("reg")
+      document.getElementById('reg')
     );
-    ReactDOM.unmountComponentAtNode(document.getElementById("login"));
+    ReactDOM.unmountComponentAtNode(document.getElementById('login'));
   }
 
   componentDidMount() {
-    console.log("Main.jsx Mounted.");
+    console.log('Main.jsx Mounted.');
     this.mountLogin(false);
   }
 
@@ -73,7 +73,7 @@ class Main extends Component {
   }
 
   componentWillUnmount() {
-    console.log("Main.jsx UnMounted.");
+    console.log('Main.jsx UnMounted.');
   }
 }
 

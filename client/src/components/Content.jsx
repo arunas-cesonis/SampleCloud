@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
-import "../css/main.css";
+import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import '../css/main.css';
 //External Components to be loaded using 'react-router-dom module'
-import Home from "./Home.jsx";
-import About from "./About.jsx";
-import Upload from "./Upload.jsx";
-import Browse from "./Browse.jsx";
+import Home from './Home.jsx';
+import About from './About.jsx';
+import Upload from './Upload.jsx';
+import Browse from './Browse.jsx';
 
 //Basically this is a main Content or Content Loader
 class Content extends Component {
