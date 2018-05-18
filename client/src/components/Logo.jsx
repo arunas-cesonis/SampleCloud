@@ -19,7 +19,6 @@ class Logo extends Component {
     } else {
       this.setState({ index: i + 1 });
     }
-    console.log('onSlideEnd. index = ', i);
   }
   render() {
     return (

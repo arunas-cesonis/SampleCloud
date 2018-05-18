@@ -13,11 +13,13 @@ class Player extends Component {
     super(props);
     this.state = {
       stopTimer: false,
+      resetTimer: false,
       timeLeft: 0,
       progress: 0
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
+    this.getMousePos = this.getMousePos.bind(this);
   }
 
   handlePause() {
@@ -29,15 +31,36 @@ class Player extends Component {
     }
   }
 
-  handlePlay() {
+  handlePlay(fromPoint) {
     const sample = this.props.sampleURL;
     if (checkURL(sample)) {
+      if(fromPoint > 0){
+        console.log('Is not null');
+        this.player.currentTime = fromPoint;
+        this.setState({ resetTimer: true });
+      }
+      console.log('From Point is not null: ', fromPoint);
       this.player.play();
     }
   }
 
+  getMousePos(e) {
+    const sample = this.props.sampleURL;
+    const total = Math.ceil(this.player.duration);
+    const elMaxX = 200;
+    const mouseX = e.nativeEvent.offsetX; 
+    const playFrom = ((mouseX * total) / elMaxX);
+    if(checkURL(sample)){
+      this.setState({ stopTimer: true });
+      this.handlePlay(playFrom);
+    }
+  }
+
   calcTime() {
-    this.setState({ stopTimer: false });
+    this.setState({ 
+      stopTimer: false, 
+      resetTimer: false
+    });
     const total = Math.ceil(this.player.duration);
     const played = Math.ceil(this.player.currentTime);
     let pos = 0;
@@ -47,7 +70,6 @@ class Player extends Component {
     let timer = setInterval(() => {
       if (this.state.stopTimer) {
         clearInterval(timer);
-        //timeLeft = 0 ?
       } else {
         timeLeft--;
         if (timeLeft <= 0) {
@@ -60,11 +82,12 @@ class Player extends Component {
         timeLeft: timeLeft,
         progress: pos
       });
-      console.log('time left: ', timeLeft);
-      console.log('% played: ', pos);
     }, 1000);
   }
 
+  handleSeek(){
+    console.log('SEEEEEEKING!');
+  }
   handleEnded() {
     console.log('ended');
     this.setState({
@@ -80,7 +103,10 @@ class Player extends Component {
         <button onClick={this.handlePlay}>Play</button>
         <button onClick={this.handlePause}>Pause</button>
         <p>Time left: {this.state.timeLeft}</p>
-        <div className="br_progress_cont">
+        <div 
+          className="br_progress_cont"
+          onClick={this.getMousePos}
+        >
           <div
             className="br_progress"
             style={{ width: this.state.progress + '%' }}
@@ -90,6 +116,7 @@ class Player extends Component {
           onPlay={this.calcTime.bind(this)}
           onEnded={this.handleEnded.bind(this)}
           onPause={this.handleEnded.bind(this)}
+          onSeeking={this.calcTime.bind(this)}
           ref={ref => (this.player = ref)}
           autoPlay={false}
           src={sampleURL}
