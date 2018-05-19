@@ -44,6 +44,36 @@ class Player extends Component {
     }
   }
 
+  handleTimeUpdate(){
+    console.log('On time update');
+    const total = Math.ceil(this.player.duration);
+    const played = Math.ceil(this.player.currentTime);
+    let pos = 0;
+    let timeLeft = total - played;
+    this.setState({ 
+      stopTimer: false, 
+      resetTimer: false
+    });
+
+        timeLeft--;
+        if (timeLeft <= 0) {
+          timeLeft = 0;
+        }
+      pos = Math.ceil((total - timeLeft) * 100 / total);
+      this.setState({
+        timeLeft: timeLeft,
+        progress: pos
+      });
+  }
+
+  handleSeek(){
+    console.log('SEEEEEEKING!');
+  }
+
+  handleEnded() {
+    console.log('ended/paused');
+  }
+
   getMousePos(e) {
     const sample = this.props.sampleURL;
     const total = Math.ceil(this.player.duration);
@@ -54,45 +84,6 @@ class Player extends Component {
       this.setState({ stopTimer: true });
       this.handlePlay(playFrom);
     }
-  }
-
-  calcTime() {
-    this.setState({ 
-      stopTimer: false, 
-      resetTimer: false
-    });
-    const total = Math.ceil(this.player.duration);
-    const played = Math.ceil(this.player.currentTime);
-    let pos = 0;
-
-    //Progress Bar
-    let timeLeft = total - played;
-    let timer = setInterval(() => {
-      if (this.state.stopTimer) {
-        clearInterval(timer);
-      } else {
-        timeLeft--;
-        if (timeLeft <= 0) {
-          timeLeft = 0;
-          clearInterval(timer);
-        }
-      }
-      pos = Math.ceil((total - timeLeft) * 100 / total);
-      this.setState({
-        timeLeft: timeLeft,
-        progress: pos
-      });
-    }, 1000);
-  }
-
-  handleSeek(){
-    console.log('SEEEEEEKING!');
-  }
-  handleEnded() {
-    console.log('ended');
-    this.setState({
-      stopTimer: true
-    });
   }
 
   render() {
@@ -113,10 +104,10 @@ class Player extends Component {
           />
         </div>
         <audio
-          onPlay={this.calcTime.bind(this)}
           onEnded={this.handleEnded.bind(this)}
           onPause={this.handleEnded.bind(this)}
-          onSeeking={this.calcTime.bind(this)}
+          onSeeking={this.handleSeek.bind(this)}
+          onTimeUpdate={this.handleTimeUpdate.bind(this)}
           ref={ref => (this.player = ref)}
           autoPlay={false}
           src={sampleURL}
