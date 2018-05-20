@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Main from './components/Main.jsx';
+import Main from './components/Main/Main.jsx';
 import ReactDOM from 'react-dom';
 
 class App extends Component {

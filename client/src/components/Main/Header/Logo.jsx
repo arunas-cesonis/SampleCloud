@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/logo.css';
+import './logo.css';
 import { Carousel } from 'react-bootstrap';
 
 class Logo extends Component {
@@ -64,3 +64,4 @@ class Logo extends Component {
 }
 
 export default Logo;
+

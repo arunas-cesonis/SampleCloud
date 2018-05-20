@@ -1,0 +1,13 @@
+@media only screen and (min-width: 950px) {
+    .userCont {
+        padding: 0 8%;    
+    }
+}
+@media only screen and (max-width: 949px) {
+    .userCont {
+        padding: 0;
+    }
+}
+.userCont {
+
+}

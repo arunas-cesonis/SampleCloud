@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //Using Link for updating URL, Content.jsx will pick them up al will load the req cont
 import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
-import '../css/menu.css';
+import './menu.css';
 
 class Menu extends Component {
   constructor(props) {

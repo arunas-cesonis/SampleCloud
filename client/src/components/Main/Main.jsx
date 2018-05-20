@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Header from './Header.jsx';
+import Header from './Header/Header.jsx';
 import { BrowserRouter } from 'react-router-dom';
 
 class Main extends Component {
