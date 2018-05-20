@@ -33,6 +33,8 @@ class Upload extends Component {
   handleFileName(fileName) {
     const uploadData = Object.assign({}, this.state.uploadData);
     uploadData.fileName = fileName;
+
+
     if (fileName.match(/\s/g)) {
       this.setState({ uploadData, nameNotValid: true });
     } else {

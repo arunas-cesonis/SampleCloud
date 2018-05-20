@@ -30,7 +30,7 @@ class Logo extends Component {
           indicators={false}
         >
           <Carousel.Item>
-            <img className="logo" src="/img/slide2.jpeg" />
+            <img className="logo" src="/img/slide2.jpeg" alt="slide3" />
             <Carousel.Caption bsClass="overlayCont">
               <div className="overlay">
                 <h1>
@@ -40,7 +40,7 @@ class Logo extends Component {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img className="logo" src="/img/slide3.jpeg" />
+            <img className="logo" src="/img/slide3.jpeg" alt="slide3" />
             <Carousel.Caption bsClass="overlayCont">
               <div className="overlayGreen">
                 <h1>SampleCloud.Live</h1>
@@ -50,7 +50,7 @@ class Logo extends Component {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img className="logo" src="/img/slide1.jpeg" />
+            <img className="logo" src="/img/slide1.jpeg" alt="slide1" />
             <Carousel.Caption bsClass="overlayCont">
               <div className="overlay">
                 <h1>Some text goes in here, lurin lerin pepson gypso testu.</h1>
