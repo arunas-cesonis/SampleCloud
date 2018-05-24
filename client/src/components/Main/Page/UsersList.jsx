@@ -1,3 +1,6 @@
+
+// Tmp Taken Out // 
+/*
 import React, { Component } from 'react';
 import axios from 'axios';
 import classNames from 'classnames';
@@ -45,3 +48,4 @@ class UsersList extends Component {
 }
 
 export default UsersList;
+*/

@@ -1,24 +1,22 @@
 .navBar {
     position: fixed;
     z-index: 99;
-    width: 100%;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
-	/*background-color: #FBA100;*/
+  width: 100%;
+  text-align: center;
 }
 .navBar .navLi {
-    position: relative;
-	float: left;
-    left: 30%;
+  position: relative;
+  display: inline-block;
 }
 .navLi .navItem {
 	display: block;
 	padding: 8px 16px;
 	text-decoration: none;
   text-align: center;
-	color: #455060;
+	color: #455069;
   font-weight: bold;
   transition: all .3s ease-in;
 }

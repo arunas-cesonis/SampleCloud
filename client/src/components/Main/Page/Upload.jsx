@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Input from './UploadInput.jsx';
-import '../css/upload.css';
+import './upload.css';
 import axios from 'axios';
 
 class Upload extends Component {

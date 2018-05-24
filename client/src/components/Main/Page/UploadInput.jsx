@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import '../css/upload.css';
+import './upload.css';
 
 class UploadInput extends Component {
   constructor(props) {

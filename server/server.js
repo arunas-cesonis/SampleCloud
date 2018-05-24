@@ -3,8 +3,41 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-
 const app = express();
+
+mongoose.connect('mongodb://localhost/samplecloud');
+const db = mongoose.connection;
+
+const fileSchema = mongoose.Schema({
+  username: String,
+  email: String,
+  fileName: String,
+  friendlyName: String,
+  filePath: String
+});
+const File = mongoose.model('file', fileSchema);
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Connected to samplecloud DB.');
+});
+/* EXAMPLE DEFINING DOCUMENT
+const sampleFile = new File({
+  username: 'Paulius',
+  email: 'p@ttt.com',
+  fileName: 'test.mp3',
+  friendlyName: 'sample300',
+  filePath: 'http://localhost:3000/public/paul/test.mp3'
+});
+
+EXAMPLE SAVING DOCUMENT
+sampleFile.save(function(err) {
+  if(err) console.log(err)
+  console.log('Saved!');
+});
+*/
+
+
 const sampleObj = [
   {
     email: '',
@@ -150,12 +183,10 @@ app.post('/api/browse/search', (req, res) => {
   const b = req.body.searchInput;
   let filterArr = [];
   const tmpArr = [];
-  let usersArr = [];
   for(var i in sampleObj){
     tmpArr.push(Object.values(sampleObj[i].files));
   }
   console.log('TMP ARR: ', tmpArr);
-  console.log('UsersArr: ', usersArr);
 
   filterArr = [].concat.apply([], tmpArr);
   //console.log('Filtered: ', filterArr);
@@ -168,17 +199,30 @@ app.post('/api/browse/search', (req, res) => {
 app.post('/api/browse/getfiles', (req, res) => {
   const b = req.body;
   const username = b.arg
+  File.find({ 'username': username }, function(err, file){
+    if(err) return err 
+  });
+
+  // EQUIVALENT TO FOR EACH
+  /*
+  const db_query = File.find({ username: username }).cursor();
+  db_query.on('data', function(doc){
+    tmpArr.push(doc); 
+  });
+  db_query.on('close', function(){
+    console.log('done!');
+  });
+  console.log('Arr: ', tmpArr);
+  /* 
   const tmpArr = sampleObj.filter((sample) => ( 
     sample.username === username
   ));
-  const samples = tmpArr[0].files;
+  const samples = Object.values(tmpArr[0].files);
   console.log('Array: ', samples);
-  // const tmpArr = [...arr,  
-  res.send('');
-  /*
+  res.send(samples);
+  /* findIndex
   const i = sampleObj.findIndex(file => file.username === b.arg);
   console.log(sampleObj[i]);
-  
   res.send(sampleObj[i]);
   */
 });

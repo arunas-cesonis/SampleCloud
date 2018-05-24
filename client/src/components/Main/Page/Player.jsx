@@ -54,16 +54,15 @@ class Player extends Component {
       stopTimer: false, 
       resetTimer: false
     });
-
-        timeLeft--;
-        if (timeLeft <= 0) {
-          timeLeft = 0;
-        }
-      pos = Math.ceil((total - timeLeft) * 100 / total);
-      this.setState({
-        timeLeft: timeLeft,
-        progress: pos
-      });
+    timeLeft--;
+    if (timeLeft <= 0) {
+      timeLeft = 0;
+    }
+    pos = Math.ceil((total - timeLeft) * 100 / total);
+    this.setState({
+      timeLeft: timeLeft,
+      progress: pos
+    });
   }
 
   handleSeek(){
@@ -90,7 +89,8 @@ class Player extends Component {
     const sampleURL = this.props.sampleURL;
     return (
       <div className="br_player">
-        <p>{sampleURL}</p>
+        <p>{this.props.sample}</p>
+        <p>{this.props.username}</p>
         <button onClick={this.handlePlay}>Play</button>
         <button onClick={this.handlePause}>Pause</button>
         <p>Time left: {this.state.timeLeft}</p>

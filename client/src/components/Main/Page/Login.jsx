@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import './login.css';
 import axios from 'axios';
 import Input from './LoginInput.jsx';
 
@@ -45,10 +47,11 @@ class Login extends Component {
           });
         } else {
           //Object needs to be updated and polished.
-          this.props.mountUserPage({
-            username: this.state.serverUsername,
-            success: this.state.serverSuccess
-          });
+          this.props.history.push('/');
+          this.props.authResponse(
+            this.state.serverSuccess, 
+            this.state.serverUsername 
+          );
         }
       });
   }
@@ -61,11 +64,6 @@ class Login extends Component {
       this.setState({ title: 'Login Form' });
     }
     console.log('Login.jsx, mounted');
-  }
-
-  componentWillUnmount() {
-    // Clear some states and etc. To implement later.
-    console.log('Login.jsx, UnMounted');
   }
 
   render() {
@@ -106,6 +104,10 @@ class Login extends Component {
       </div>
     );
   }
+  componentWillUnmount() {
+    // Clear some states and etc. To implement later.
+    console.log('Login.jsx, UnMounted');
+  }
 }
 
-export default Login;
+export default withRouter(Login);

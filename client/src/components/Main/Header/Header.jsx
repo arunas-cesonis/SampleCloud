@@ -6,7 +6,9 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <Menu />
+        <Menu 
+          serverRes={this.props.serverRes} 
+        />
         <Logo />
       </div>
     );
