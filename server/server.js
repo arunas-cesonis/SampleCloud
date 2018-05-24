@@ -2,16 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
-//const cors = require('cors');
 const crypto = require('crypto');
 
 const app = express();
-//MY TMP DB FOR TESTING
 const sampleObj = [
   {
     email: '',
     username: 'John',
-    files: {
+    files: { 
       file1: 'industrial',
       file2: 'barking',
       file3: 'wind',
@@ -34,17 +32,17 @@ const sampleObj = [
     email: '',
     username: 'Joe',
     files: {
-      file1: 'industrial',
-      file2: 'barking',
-      file3: 'wind'
+      file1: 'dubbl',
+      file2: 'bartyking',
+      file3: 'kk'
     }
   },
   {
     email: '',
     username: 'Lucy',
     files: {
-      file1: 'industrial',
-      file2: 'barking',
+      file1: 'kiauneal',
+      file2: 'tele',
       file3: 'wind'
     }
   },
@@ -54,7 +52,7 @@ const sampleObj = [
     files: {
       file1: 'industrial.mp3',
       file2: 'barking',
-      file3: 'wind'
+      file3: 'ad'
     }
   }
 ];
@@ -121,6 +119,7 @@ app.post('/api/checkUsername', (req, res) => {
   }
 });
 const sessions = {};
+let n = 0;
 
 app.post('/api/login', (req, res) => {
   const b = req.body;
@@ -143,25 +142,45 @@ app.get('/api/about', (req, res) => {
 });
 
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
-app.get('/api/browse/users/list', (req, res) => {
+app.get('/api/browse', (req, res) => {
   res.send(sampleObj);
+});
+
+app.post('/api/browse/search', (req, res) => {
+  const b = req.body.searchInput;
+  let filterArr = [];
+  const tmpArr = [];
+  let usersArr = [];
+  for(var i in sampleObj){
+    tmpArr.push(Object.values(sampleObj[i].files));
+  }
+  console.log('TMP ARR: ', tmpArr);
+  console.log('UsersArr: ', usersArr);
+
+  filterArr = [].concat.apply([], tmpArr);
+  //console.log('Filtered: ', filterArr);
+  filterArr = filterArr.filter((sample) => sample.toLowerCase().indexOf(b) > -1);
+  console.log('Search: ', filterArr);
+  res.send(filterArr);
 });
 
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.post('/api/browse/getfiles', (req, res) => {
   const b = req.body;
-  const i = sampleObj.findIndex(file => file.username === b.username);
+  const username = b.arg
+  const tmpArr = sampleObj.filter((sample) => ( 
+    sample.username === username
+  ));
+  const samples = tmpArr[0].files;
+  console.log('Array: ', samples);
+  // const tmpArr = [...arr,  
+  res.send('');
   /*
-    let i = 0; 
-    sampleObj.map((file, index) => {
-        if(file.username == b.username){
-            i = index;
-        }
-    });
-    */
-  const userFiles = Object.values(sampleObj[i].files);
-  console.log('Server: ', userFiles);
-  res.send(userFiles);
+  const i = sampleObj.findIndex(file => file.username === b.arg);
+  console.log(sampleObj[i]);
+  
+  res.send(sampleObj[i]);
+  */
 });
 
 app.get('/api/home', (req, res) => {
