@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import UsersList from './UsersList.jsx';
-import FilesList from './FilesList.jsx';
-import FilterResults from './FilterResults.jsx';
 import Player from './Player.jsx';
 import Filter from './Filter.jsx';
 import axios from 'axios';
@@ -13,7 +10,6 @@ class Browse extends Component {
     this.state = {
       samples: [],
       currentUser: '',
-      sampleURL: '',
       username: '',
       value: ''
     };
@@ -48,21 +44,19 @@ class Browse extends Component {
 
   filterGetData(filterArg){
     this.setState({ sampels: [], value: '' });
-    axios
-      .post('http://localhost:3010/api/browse/getfiles', {
+    axios.post('http://localhost:3010/api/browse/getfiles', {
         arg: filterArg 
-      })
-      .then(res => {
-        const data = res.data;
-        console.log('GetData: ', data.map((item, i) => item.fileName));
-        this.setState({
-          samples: data 
-        });
+    })
+    .then(res => {
+      const data = res.data;
+      console.log('GetData: ', data.map((item, i) => item.fileName));
+      this.setState({
+        samples: data 
       });
+    });
   }
 
   render() {
-    const sampleURL = this.state.sampleURL;
     return (
       <div className="br_container">
         <div className="br_middle">

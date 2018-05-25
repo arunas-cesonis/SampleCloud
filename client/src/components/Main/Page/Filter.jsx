@@ -26,7 +26,8 @@ class Filter extends Component {
       const usersArr = [];
       const tmpArr = res.data.map((item) => item.username);
       for(let i = 0; i < tmpArr.length; i++){
-        if(usersArr.indexOf(tmpArr[i]) == -1){
+        //indexOf == -1 if tmpArr[i] is not found in usersArr 
+        if(usersArr.indexOf(tmpArr[i]) === -1){
           usersArr.push(tmpArr[i]);
         }
       }
@@ -39,6 +40,7 @@ class Filter extends Component {
     return(
         <FormGroup controlId="formControlsSelect">
           <FormControl onChange={this.handleSelect} componentClass="select">
+            <option value={'Select'}>Select</option>
             {this.state.users.map((user, i) => (
               <option key={i} value={user}>{user}</option>
               ))}

@@ -37,58 +37,6 @@ sampleFile.save(function(err) {
 });
 */
 
-
-const sampleObj = [
-  {
-    email: '',
-    username: 'John',
-    files: { 
-      file1: 'industrial',
-      file2: 'barking',
-      file3: 'wind',
-      file4: 'noise1000',
-      file5: 'fq78hz',
-      file6: 'wild_bass'
-    }
-  },
-  {
-    email: '',
-    username: 'Jack',
-    files: {
-      file1: 'HH',
-      file2: 'OHH',
-      file3: 'Crash',
-      file4: 'Ride'
-    }
-  },
-  {
-    email: '',
-    username: 'Joe',
-    files: {
-      file1: 'dubbl',
-      file2: 'bartyking',
-      file3: 'kk'
-    }
-  },
-  {
-    email: '',
-    username: 'Lucy',
-    files: {
-      file1: 'kiauneal',
-      file2: 'tele',
-      file3: 'wind'
-    }
-  },
-  {
-    email: '',
-    username: 'Paul',
-    files: {
-      file1: 'industrial.mp3',
-      file2: 'barking',
-      file3: 'ad'
-    }
-  }
-];
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(fileUpload());
@@ -186,25 +134,16 @@ app.post('/api/browse/search', (req, res) => {
   File.find({ 'fileName': { $regex: b } }, function(err, files){
     if(err) throw err;
     res.send(files);
-    console.log(files);
   });
+  // Merge array into a single array //
   /*
-  let filterArr = [];
-  const tmpArr = [];
-  for(var i in sampleObj){
-    tmpArr.push(Object.values(sampleObj[i].files));
-  }
-  console.log('TMP ARR: ', tmpArr);
-
   filterArr = [].concat.apply([], tmpArr);
-  //console.log('Filtered: ', filterArr);
+  // Filter by given value indexOf(val) > -1 (if > -1 element found)
   filterArr = filterArr.filter((sample) => sample.toLowerCase().indexOf(b) > -1);
-  console.log('Search: ', filterArr);
   res.send(filterArr);
   */
 });
 
-//JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.post('/api/browse/getfiles', (req, res) => {
   const b = req.body;
   const username = b.arg
@@ -222,8 +161,6 @@ app.post('/api/browse/getfiles', (req, res) => {
   db_query.on('close', function(){
     console.log('done!');
   });
-  console.log('Arr: ', tmpArr);
-  /* 
   const tmpArr = sampleObj.filter((sample) => ( 
     sample.username === username
   ));
