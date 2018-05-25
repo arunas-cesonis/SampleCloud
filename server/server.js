@@ -176,11 +176,19 @@ app.get('/api/about', (req, res) => {
 
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.get('/api/browse', (req, res) => {
-  res.send(sampleObj);
+  File.find(function(err, files){
+    res.send(files);
+  });
 });
 
 app.post('/api/browse/search', (req, res) => {
   const b = req.body.searchInput;
+  File.find({ 'fileName': { $regex: b } }, function(err, files){
+    if(err) throw err;
+    res.send(files);
+    console.log(files);
+  });
+  /*
   let filterArr = [];
   const tmpArr = [];
   for(var i in sampleObj){
@@ -193,14 +201,16 @@ app.post('/api/browse/search', (req, res) => {
   filterArr = filterArr.filter((sample) => sample.toLowerCase().indexOf(b) > -1);
   console.log('Search: ', filterArr);
   res.send(filterArr);
+  */
 });
 
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.post('/api/browse/getfiles', (req, res) => {
   const b = req.body;
   const username = b.arg
-  File.find({ 'username': username }, function(err, file){
+  File.find({ 'username': username }, function(err, files){
     if(err) return err 
+    res.send(files);
   });
 
   // EQUIVALENT TO FOR EACH

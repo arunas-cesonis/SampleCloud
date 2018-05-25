@@ -23,8 +23,15 @@ class Filter extends Component {
 
   componentDidMount() {
     axios.get('http://localhost:3010/api/browse').then(res => {
-      this.setState({ users: res.data.map((user) => user)});
-      console.log(this.state.users);
+      const usersArr = [];
+      const tmpArr = res.data.map((item) => item.username);
+      for(let i = 0; i < tmpArr.length; i++){
+        if(usersArr.indexOf(tmpArr[i]) == -1){
+          usersArr.push(tmpArr[i]);
+        }
+      }
+      console.log('USERS ARR: ', usersArr);
+      this.setState({ users: usersArr });
     });
   }
 
@@ -33,7 +40,7 @@ class Filter extends Component {
         <FormGroup controlId="formControlsSelect">
           <FormControl onChange={this.handleSelect} componentClass="select">
             {this.state.users.map((user, i) => (
-              <option key={i} value={user.username}>{user.username}</option>
+              <option key={i} value={user}>{user}</option>
               ))}
           </FormControl>
           <input 

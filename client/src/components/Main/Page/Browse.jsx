@@ -39,8 +39,7 @@ class Browse extends Component {
         console.log('D: ', data);
         if(data){
           this.setState({
-            samples: Object.values(data), 
-            username: '',
+            samples: data, 
             value: filterArg 
           })
         }
@@ -55,10 +54,9 @@ class Browse extends Component {
       })
       .then(res => {
         const data = res.data;
-        console.log('GetData: ', data);
+        console.log('GetData: ', data.map((item, i) => item.fileName));
         this.setState({
-          samples: Object.values(data), 
-          username: ''
+          samples: data 
         });
       });
   }
@@ -75,8 +73,8 @@ class Browse extends Component {
           />
           {this.state.samples.map((item, i) => <Player 
             key={i} 
-            username={this.state.username}
-            sample={item}
+            username={item.username}
+            sample={item.fileName}
           />)}
         </div>
       </div>
