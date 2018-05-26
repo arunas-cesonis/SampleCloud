@@ -9,13 +9,23 @@ const checkURL = url => {
   }
 };
 
+function formatTime(timeLeft) {
+  let m = Math.floor(timeLeft / 60);
+  let s = timeLeft % 60;
+  if(m < 10) m = '0' + m;
+  if(s < 10) s = '0' + s;
+  const result = m + ':' + s;
+  console.log('formatTime(); ', result);
+  return result;
+}
+
 class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
       stopTimer: false,
       resetTimer: false,
-      timeLeft: 0,
+      timeLeft: '00:00',
       progress: 0,
       isPlaying: false
     };
@@ -60,9 +70,10 @@ class Player extends Component {
     if (timeLeft <= 0) {
       timeLeft = 0;
     }
+    const mmss = formatTime(timeLeft); 
     pos = Math.ceil((total - timeLeft) * 100 / total);
     this.setState({
-      timeLeft: timeLeft,
+      timeLeft: mmss, 
       progress: pos
     });
   }
@@ -73,6 +84,7 @@ class Player extends Component {
 
   handleEnded() {
     console.log('ended/paused');
+    this.setState({ isPlaying: false });
   }
 
   showDate() {
@@ -93,7 +105,10 @@ class Player extends Component {
     const mouseX = e.nativeEvent.offsetX; 
     const playFrom = ((mouseX * total) / elMaxX);
     if(checkURL(sample)){
-      this.setState({ stopTimer: true });
+      this.setState({ 
+        stopTimer: true, 
+        isPlaying: true
+      });
       this.handlePlay(playFrom);
     }
   }
@@ -121,9 +136,9 @@ class Player extends Component {
       <div className="br_player">
         <div className="player_title">
           <div className='player_user'>{this.props.username}</div>
+          <div className='player_sample'>{this.props.sample}</div>
           <div className='player_date'>{this.showDate()}</div>
         </div>
-        <p>{this.props.sample}</p>
         <div className='player_controls'>
           <div className='play_button_cont'>
             <div

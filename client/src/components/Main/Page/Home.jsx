@@ -22,7 +22,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Most Recent Sample Uploads</h1>
+        <center><h1>Most Recent Uploads</h1></center>
         {this.state.samples.map((item, i) => <Player
             key={i}
             sampleURL={item.filePath}
