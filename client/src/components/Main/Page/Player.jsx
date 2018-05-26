@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 const checkURL = url => {
   if (url) {
@@ -15,10 +16,12 @@ class Player extends Component {
       stopTimer: false,
       resetTimer: false,
       timeLeft: 0,
-      progress: 0
+      progress: 0,
+      isPlaying: false
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
+    this.showDate = this.showDate.bind(this);
     this.getMousePos = this.getMousePos.bind(this);
   }
 
@@ -27,7 +30,6 @@ class Player extends Component {
     if (checkURL(sample)) {
       this.player.pause();
       ///Just testing!
-      //this.player.currentTime = 10;
     }
   }
 
@@ -73,6 +75,17 @@ class Player extends Component {
     console.log('ended/paused');
   }
 
+  showDate() {
+    //gets called everytime onTimeUpdate - To look into this later
+    const dateAdded = this.props.dateAdded;
+    if(dateAdded){
+      console.log('showDate(): typeOf dateAdded:', typeof dateAdded);
+      const dateArr = dateAdded.split(" ").splice(2, 3).join('-');
+      console.log('Date Arr: ', dateArr);
+      return 'Added: ' + dateArr;
+    }
+  }
+
   getMousePos(e) {
     const sample = this.props.sampleURL;
     const total = Math.ceil(this.player.duration);
@@ -85,23 +98,53 @@ class Player extends Component {
     }
   }
 
+  pauseButton() {
+    console.log('pauseButton();');
+    this.setState({ isPlaying: false });
+    this.handlePause();
+  }
+
+  playButton() {
+    console.log('playButton();');
+    this.setState({ isPlaying: true });
+    this.handlePlay();
+  }
+    /*
+          <button onClick={this.handlePlay}>Play</button>
+          <button onClick={this.handlePause}>Pause</button>
+          <p>Time left: {this.state.timeLeft}</p>
+          */
   render() {
     const sampleURL = this.props.sampleURL;
+    console.log('Props Sample URL: ', sampleURL);
     return (
       <div className="br_player">
+        <div className="player_title">
+          <div className='player_user'>{this.props.username}</div>
+          <div className='player_date'>{this.showDate()}</div>
+        </div>
         <p>{this.props.sample}</p>
-        <p>{this.props.username}</p>
-        <button onClick={this.handlePlay}>Play</button>
-        <button onClick={this.handlePause}>Pause</button>
-        <p>Time left: {this.state.timeLeft}</p>
-        <div 
-          className="br_progress_cont"
-          onClick={this.getMousePos}
-        >
-          <div
-            className="br_progress"
-            style={{ width: this.state.progress + '%' }}
-          />
+        <div className='player_controls'>
+          <div className='play_button_cont'>
+            <div
+              className={classNames('pause_button', { playing: this.state.isPlaying })}
+              onClick={this.pauseButton.bind(this)}
+            ></div>
+            <div 
+              className={classNames('play_button', { playing: this.state.isPlaying })}
+              onClick={this.playButton.bind(this)}
+            ></div>
+          </div>
+          <div 
+            className="br_progress_cont"
+            onClick={this.getMousePos}
+          >
+            <div
+              className="br_progress"
+              style={{ width: this.state.progress + '%' }}
+            />
+          </div>
+          <div className='timeleft'>{this.state.timeLeft}</div>
         </div>
         <audio
           onEnded={this.handleEnded.bind(this)}

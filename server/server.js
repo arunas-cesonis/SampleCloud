@@ -13,7 +13,8 @@ const fileSchema = mongoose.Schema({
   email: String,
   fileName: String,
   friendlyName: String,
-  filePath: String
+  filePath: String,
+  dateAdded: String
 });
 const File = mongoose.model('file', fileSchema);
 
@@ -175,12 +176,14 @@ app.post('/api/browse/getfiles', (req, res) => {
 });
 
 app.get('/api/home', (req, res) => {
-  let obj = {
-    arg1: 'argument no #1 from express',
-    arg2: 'argument no #2 from express'
-  };
-  res.send(obj);
+  const maxSamples = 2;
+  File.find({}).sort('-dateAdded').exec(function(err, files){
+    const samples = files.splice(0, maxSamples);
+    console.log('/api/home SAMPLES: ', samples);
+    res.send(samples);
+  });
 });
+
 app.listen(3010, () => {
   console.log('Server has started.');
 });

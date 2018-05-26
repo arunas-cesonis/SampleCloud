@@ -69,6 +69,7 @@ class Browse extends Component {
             key={i} 
             username={item.username}
             sample={item.fileName}
+            sampleURL={item.filePath}
           />)}
         </div>
       </div>

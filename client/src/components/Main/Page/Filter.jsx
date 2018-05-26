@@ -46,6 +46,7 @@ class Filter extends Component {
               ))}
           </FormControl>
           <input 
+            className='inline'
             type='text'
             onChange={this.handleSearch}
             value={this.props.value}

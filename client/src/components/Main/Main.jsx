@@ -15,8 +15,9 @@ class Main extends Component {
   }
 
   handleAuthResponse(auth, username){
-    let serverRes = Object.assign({}, this.state.serverRes);
+    const serverRes = Object.assign({}, this.state.serverRes);
     serverRes.successLogin = auth;
+    serverRes.username = username;
     console.log(serverRes);
     this.setState({ serverRes });
   }
@@ -24,7 +25,7 @@ class Main extends Component {
   render() {
     return (
       <div className='main_cont'>
-        <Header serverRes={this.state.serverRes.successLogin} />
+        <Header serverRes={this.state.serverRes} />
         <Page 
           authResponse={this.handleAuthResponse} 
           serverRes={this.state.serverRes}
