@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import './player.css';
 
 const checkURL = url => {
   if (url) {
@@ -10,12 +11,15 @@ const checkURL = url => {
 };
 
 function formatTime(timeLeft) {
+  if(isNaN(timeLeft)){
+    return '00:00';
+  }
   let m = Math.floor(timeLeft / 60);
   let s = timeLeft % 60;
   if(m < 10) m = '0' + m;
   if(s < 10) s = '0' + s;
   const result = m + ':' + s;
-  console.log('formatTime(); ', result);
+  console.log('formatTime(); ', result, '\ntimeLeft: ', timeLeft);
   return result;
 }
 
@@ -47,11 +51,9 @@ class Player extends Component {
     const sample = this.props.sampleURL;
     if (checkURL(sample)) {
       if(fromPoint > 0){
-        console.log('Is not null');
         this.player.currentTime = fromPoint;
         this.setState({ resetTimer: true });
       }
-      console.log('From Point is not null: ', fromPoint);
       this.player.play();
     }
   }

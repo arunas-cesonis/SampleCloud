@@ -1,0 +1,11 @@
+.home_cont {
+  background-color: rgba(182, 161, 158, .2); 
+  color: #6bbaa7;
+}
+.home_cont .home_title {
+  margin-top: 5px;
+  background-color: #FBA100;
+  width: 335px;
+  color: white;
+  height: auto;
+}

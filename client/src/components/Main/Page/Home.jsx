@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Player from './Player.jsx';
+import './home.css';
 import axios from 'axios';
 
 class Home extends Component {
@@ -21,8 +22,8 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <center><h1>Most Recent Uploads</h1></center>
+      <div className='home_cont'>
+        <center><div className='home_title'>Recent Uploads</div></center>
         {this.state.samples.map((item, i) => <Player
             key={i}
             sampleURL={item.filePath}
