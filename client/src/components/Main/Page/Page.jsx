@@ -39,9 +39,14 @@ class Page extends Component {
           <Route exact path="/" component={Home} />
           <Route 
             path="/login" 
-            render={props => <Login {...props} 
-              authResponse={this.props.authResponse} 
-            />} 
+            render={props => 
+              <div>
+                <Login {...props} 
+                  authResponse={this.props.authResponse} 
+                />
+                <Home />
+              </div>
+            } 
           />
         </Switch>
       );

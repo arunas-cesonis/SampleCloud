@@ -1,12 +1,35 @@
-.loginLabel {
-    font-family: 'Concert-One';
-    font-size: 12px;
+.login_cont {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  padding-bottom: 5px;
 }
-.login {
-    border: 0;
-    border-bottom: 2px solid #1976D2;
-    padding: 2px;
+.login_cont .login_form {
+  margin: 0 60%;
+  width: 335px;
+  background-color: rgba(107, 186, 167, .6);
+  padding: 5px 20px;
 }
-.login:focus {
-    outline: 0;
+.login_cont .login_title {
+  background-color: #FBA100;
+  margin: 5px 60%;
+  width: 335px;
+  color: white;
+  height: auto;
+  text-align: center;
+}
+.login_label {
+  font-family: 'Concert-One';
+  font-size: 12px;
+  color: white;
+}
+.login_input {
+  background: transparent;
+  color: white;
+  border: 0;
+  border-bottom: 2px solid #1976D2;
+  padding: 2px;
+}
+.login_input:focus {
+  outline: 0;
 }

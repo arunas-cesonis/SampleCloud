@@ -30,7 +30,7 @@ class Logo extends Component {
           indicators={false}
         >
           <Carousel.Item>
-            <img className="logo" src="/img/slide2.jpeg" alt="slide3" />
+            <img className="logo" src="/img/slide2.jpeg" alt="slide2" />
             <Carousel.Caption bsClass="overlayCont">
               <div className="overlay">
                 <h1>
@@ -50,7 +50,7 @@ class Logo extends Component {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img className="logo" src="/img/slide1.jpeg" alt="slide1" />
+            <img className="logo" src="/img/slide4.jpeg" alt="slide4" />
             <Carousel.Caption bsClass="overlayCont">
               <div className="overlay">
                 <h1>Some text goes in here, lurin lerin pepson gypso testu.</h1>

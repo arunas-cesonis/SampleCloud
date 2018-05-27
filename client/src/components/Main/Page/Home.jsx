@@ -23,15 +23,19 @@ class Home extends Component {
   render() {
     return (
       <div className='home_cont'>
-        <center><div className='home_title'>Recent Uploads</div></center>
-        {this.state.samples.map((item, i) => <Player
-            key={i}
-            sampleURL={item.filePath}
-            username={item.username}
-            sample={item.fileName}
-            dateAdded={item.dateAdded}
-          />
-        )}
+        <div className='home_col1'></div>
+        <div className='home_col2'>
+          <div className='home_title'>Recent Uploads</div>
+          {this.state.samples.map((item, i) => <Player
+              key={i}
+              sampleURL={item.filePath}
+              username={item.username}
+              sample={item.fileName}
+              dateAdded={item.dateAdded}
+            />
+          )}
+        </div>
+        <div className='home_col3'></div>
       </div>
     );
   }

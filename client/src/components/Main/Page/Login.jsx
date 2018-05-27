@@ -63,7 +63,7 @@ class Login extends Component {
     } else {
       this.setState({ title: 'Login Form' });
     }
-    console.log('Login.jsx, mounted');
+    console.log('Login.jsx, Mounted');
   }
 
   render() {
@@ -73,10 +73,10 @@ class Login extends Component {
     const title = this.state.title;
 
     return (
-      <div>
-        <fieldset>
+      <div className='login_cont'>
+        <div className='login_title'>{title}</div>
+        <div className='login_form'>
           <form>
-            <p>{title}</p>
             <Input
               error={error}
               type={'text'}
@@ -100,7 +100,7 @@ class Login extends Component {
               Sign Up
             </button>
           </form>
-        </fieldset>
+        </div>
       </div>
     );
   }

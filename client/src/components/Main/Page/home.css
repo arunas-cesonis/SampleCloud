@@ -1,9 +1,21 @@
 .home_cont {
-  background-color: rgba(182, 161, 158, .2); 
   color: #6bbaa7;
+  width: 100%;
+}
+.home_cont .home_col1 {
+  width: 20%;
+}
+.home_cont .home_col2 {
+  width: 60%;
+  margin: auto;
+  background-color: rgba(182, 161, 158, .2); 
+}
+.home_cont .home_col3 {
+  width: 20%;
 }
 .home_cont .home_title {
-  margin-top: 5px;
+  margin: 5px auto;
+  text-align: center;
   background-color: #FBA100;
   width: 335px;
   color: white;

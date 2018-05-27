@@ -16,9 +16,6 @@
 .registerInput.invalid {
     border-color: red;
 }
-fieldset {
-    width: 50%;
-}
 p {
     padding: 0;
     margin: 0;

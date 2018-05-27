@@ -17,12 +17,12 @@ class LoginInput extends Component {
     return (
       <div>
         <p className="error_msg">{error}</p>
-        <label className="loginLabel" htmlFor={id}>
+        <label className="login_label" htmlFor={id}>
           {label}
         </label>
         <br />
         <input
-          className="login"
+          className="login_input"
           id={id}
           type={type}
           onChange={this.update}
