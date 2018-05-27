@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Input from './RegInput.jsx';
+import './register.css';
 
 class Register extends Component {
   constructor(props) {

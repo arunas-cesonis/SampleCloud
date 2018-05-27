@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import './login.css';
 import axios from 'axios';
+import Register from './Register.jsx';
 import Input from './LoginInput.jsx';
 
 // THIS Class might need to be rewriten into something like 'Main' or etc.
@@ -13,12 +14,15 @@ class Login extends Component {
       password: '',
       serverUsername: '',
       serverSuccess: false,
+      register: false,
       error: '',
-      title: ''
+      title: 'Login Form'
     };
     this.updatePassword = this.updatePassword.bind(this);
     this.updateUsername = this.updateUsername.bind(this);
     this.handleForm = this.handleForm.bind(this);
+    this.mountReg = this.mountReg.bind(this);
+    this.regSuccess = this.regSuccess.bind(this);
   }
 
   updatePassword(passwordInputVal) {
@@ -56,14 +60,21 @@ class Login extends Component {
       });
   }
 
+  mountReg() {
+    console.log('mountReg(); called.');
+    this.setState({ register: true });
+  }
+
+  regSuccess() {
+    console.log('regSuccess(); called.');
+    this.setState({ 
+      title: 'You have successfully registered.',
+      register: false
+    });
+  }
+
   componentDidMount() {
-    const reg = this.props.registered;
-    if (reg) {
-      this.setState({ title: reg });
-    } else {
-      this.setState({ title: 'Login Form' });
-    }
-    console.log('Login.jsx, Mounted');
+    this.setState({ title: 'Login Form' });
   }
 
   render() {
@@ -72,6 +83,13 @@ class Login extends Component {
     const error = this.state.error;
     const title = this.state.title;
 
+    if(this.state.register){
+      return (
+        <Register 
+          regSuccess={this.regSuccess}
+        />
+      );
+    } else {
     return (
       <div className='login_cont'>
         <div className='login_title'>{title}</div>
@@ -96,13 +114,14 @@ class Login extends Component {
             <button type="submit" onClick={this.handleForm}>
               Sign In
             </button>
-            <button type="submit" onClick={this.props.mountReg}>
+            <button type="submit" onClick={this.mountReg}>
               Sign Up
             </button>
           </form>
         </div>
       </div>
     );
+    }
   }
   componentWillUnmount() {
     // Clear some states and etc. To implement later.
