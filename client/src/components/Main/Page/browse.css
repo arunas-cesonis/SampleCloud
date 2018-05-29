@@ -1,14 +1,17 @@
 .br_container {
-    width: 100%;
-    height: auto;
-    background-color: red;
+  width: 100%;
+  height: auto;
+  background-color: red;
 }
 .test {
-    overflow: hidden;
-    width: 100%;
+  overflow: hidden;
+  width: 100%;
 }
 .br_container .br_middle {
-    width: 100%; 
+    width: 35%; 
     margin: 0 auto;
     height: auto;
+}
+#formControlsSelect {
+  margin-right: 20px;
 }

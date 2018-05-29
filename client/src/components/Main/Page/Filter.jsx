@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FormControl, FormGroup } from 'react-bootstrap';
+import { Form, FormControl, FormGroup } from 'react-bootstrap';
 
 class Filter extends Component {
   constructor(props){
@@ -38,6 +38,7 @@ class Filter extends Component {
 
   render() {
     return(
+      <Form inline>
         <FormGroup controlId="formControlsSelect">
           <FormControl onChange={this.handleSelect} componentClass="select">
             <option value={'Select'}>Select</option>
@@ -45,13 +46,14 @@ class Filter extends Component {
               <option key={i} value={user}>{user}</option>
               ))}
           </FormControl>
-          <input 
-            className='inline'
+          <FormControl 
             type='text'
+            placeholder='Search...'
             onChange={this.handleSearch}
             value={this.props.value}
           />
         </FormGroup>
+      </Form>
     );
   }
 }
