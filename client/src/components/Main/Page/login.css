@@ -1,19 +1,22 @@
 .login_cont {
   position: absolute;
-  top: 40px;
+  top: 100px; 
+  opacity: 1; 
   width: 100%;
   padding-bottom: 5px;
 }
-.login_cont .login_form {
-  margin: 0 60%;
+.login_cont .login_wrapper {
   width: 335px;
+  margin: 0 auto;
+}
+.login_form {
+  margin: 0;
   background-color: rgba(107, 186, 167, .6);
   padding: 5px 20px;
 }
-.login_cont .login_title {
+.login_title {
   background-color: #FBA100;
-  margin: 5px 60%;
-  width: 335px;
+  margin: 0;
   color: white;
   height: auto;
   text-align: center;

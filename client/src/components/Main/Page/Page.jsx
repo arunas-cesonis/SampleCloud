@@ -43,6 +43,7 @@ class Page extends Component {
               <div>
                 <Login {...props} 
                   authResponse={this.props.authResponse} 
+                  handleSliderAlpha={this.props.handleSliderAlpha}
                 />
                 <Home />
               </div>

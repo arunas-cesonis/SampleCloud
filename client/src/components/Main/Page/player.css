@@ -10,9 +10,9 @@
   width:  100%;
 }
 .br_player .player_controls {
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 .player_title div {
   display: inline-block;
@@ -39,16 +39,16 @@
   display: inline-block;
   vertical-align: middle;
   background-color: #6C648B;
-  height: 30px;
-  width: 30px;
+  height: 16px;
+  width: 16px;
   margin-right: 10px;
 }
 .play_button_cont .play_button {
   display: block;
   box-sizing: border-box;
-  margin: 5px;
+  margin: 3px;
   border-style: solid;
-  border-width: 10px 0px 10px 20px;
+  border-width: 5px 0px 5px 10px;
   border-color: transparent transparent transparent white;
 }
 .play_button.playing {
@@ -60,24 +60,24 @@
 .pause_button.playing {
   display: block;
   box-sizing: border-box;
-  width: 20px;
-  height: 20px;
-  margin: 5px;
+  width: 10px;
+  height: 10px;
+  margin: 3px;
   border-style: double;
-  border-width: 0px 0px 0px 20px;
+  border-width: 0px 0px 0px 10px;
   border-color: white;
 }
 .player_controls .br_progress_cont{
   display: inline-block;
   vertical-align: middle;
   padding: 3px 5px;
-  height: 30px;
+  height: 16px;
   width: 200px;
   background-color: #6C648B;
   margin-right: 10px;
 }
 .br_progress_cont .br_progress {
-    height: 24px;
+    height: 10px;
     width: 100%;
     background-color: #FBA100;
 }
@@ -86,6 +86,8 @@
   vertical-align: middle;
   background-color: #6C648B;
   color: white;
-  padding: 5px 10px;
-  width: 60px;
+  font-size: 10px;
+  line-height: 16px;
+  padding: 0px 10px;
+  width: 50px;
 }

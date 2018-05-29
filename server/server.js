@@ -63,7 +63,6 @@ decrypt = data => {
 app.post('/api/upload', (req, res) => {
   let data = req.files.file;
   let b = req.body;
-
   // Do something with the file, put it somewhere on the server + ref to db + meta
   console.log('from /upload route: ', data);
   console.log('file name: ', data.name);

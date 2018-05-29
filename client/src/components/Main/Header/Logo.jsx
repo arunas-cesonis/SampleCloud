@@ -21,10 +21,12 @@ class Logo extends Component {
     }
   }
   render() {
+    console.log('Logo.jsx props.alpha: ', this.props.alpha);
     return (
       <div>
         <Carousel
           onSlideEnd={this.showText}
+          style={{opacity: this.props.alpha}}
           controls={false}
           interval={3000}
           indicators={false}

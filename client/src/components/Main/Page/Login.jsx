@@ -75,6 +75,7 @@ class Login extends Component {
 
   componentDidMount() {
     this.setState({ title: 'Login Form' });
+    this.props.handleSliderAlpha(0.3);
   }
 
   render() {
@@ -92,6 +93,7 @@ class Login extends Component {
     } else {
     return (
       <div className='login_cont'>
+        <div className='login_wrapper'>
         <div className='login_title'>{title}</div>
         <div className='login_form'>
           <form>
@@ -119,6 +121,7 @@ class Login extends Component {
             </button>
           </form>
         </div>
+        </div>
       </div>
     );
     }
@@ -126,6 +129,7 @@ class Login extends Component {
   componentWillUnmount() {
     // Clear some states and etc. To implement later.
     console.log('Login.jsx, UnMounted');
+    this.props.handleSliderAlpha(1);
   }
 }
 
