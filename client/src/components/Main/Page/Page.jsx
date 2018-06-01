@@ -6,13 +6,14 @@ import Login from './Login.jsx';
 import About from './About.jsx';
 import Upload from './Upload.jsx';
 import Browse from './Browse.jsx';
+import Register from './Register.jsx';
+
 
 //Basically this is a main Content or Content Loader
 class Page extends Component {
   constructor(props) {
     super(props);
   }
-
   // CHECK {...props} - This is the way to pass props using Route module.
   render() {
     if(this.props.serverRes.successLogin) {
@@ -22,8 +23,9 @@ class Page extends Component {
           <Route path="/about" component={About} />
           <Route 
             path="/login" 
-            render={props => <Login {...props} 
-              authResponse={this.props.authResponse} 
+            render={props => 
+              <Login {...props} 
+                authResponse={this.props.authResponse} 
               />} 
           />
           <Route path="/browse" render={props => <Browse />} />
@@ -36,7 +38,16 @@ class Page extends Component {
     } else {
       return (
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route 
+            exact path="/" 
+            component={Home} 
+          />
+          <Route 
+            path="/register"
+            render={props =>
+                <Register
+                />}
+          />
           <Route 
             path="/login" 
             render={props => 

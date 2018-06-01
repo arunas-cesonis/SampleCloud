@@ -7,6 +7,7 @@ class Main extends Component {
     super(props);
     this.state = {
       alpha: 1,
+      afterReg: false,
       serverRes: {
         username: '',
         successLogin: false,

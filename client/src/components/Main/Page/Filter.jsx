@@ -36,6 +36,7 @@ class Filter extends Component {
     });
   }
 
+    // Create a new component for Filter Form/Inputs/ETC
   render() {
     return(
       <Form inline>

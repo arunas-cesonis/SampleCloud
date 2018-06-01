@@ -1,5 +1,6 @@
 .regLabel {
-    font-size: 10px;
+  font-size: 10px;
+  color: white;
 }
 .regLabel.error {
     color: red;
@@ -9,12 +10,13 @@
     outline: 0;
 }
 .registerInput {
-    border: 0;
-    border-bottom: 2px solid #1976D2;
-    padding: 2px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #6C648B;
+  padding: 2px;
 }
 .registerInput.invalid {
-    border-color: red;
+  border-color: red;
 }
 p {
     padding: 0;

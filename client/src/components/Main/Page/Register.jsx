@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Input from './RegInput.jsx';
 import './register.css';
@@ -16,7 +17,8 @@ class Register extends Component {
       usernameFree: false,
       emailError: '',
       passswordError: '',
-      usernameError: ''
+      usernameError: '',
+      registered: false
     };
     this.handleEmail = this.handleEmail.bind(this);
     this.handleForm = this.handleForm.bind(this);
@@ -83,8 +85,7 @@ class Register extends Component {
         password: '',
         email: ''
       });
-      // Executing mount function in the Main class
-      this.props.regSuccess();
+      this.setState({ registered: true });
     } else {
       console.log('Failed!');
     }
@@ -109,6 +110,7 @@ class Register extends Component {
       console.log('This email address considered to be invalid.');
     }
   }
+
   handlePassword(passwordInputVal) {
     if (passwordInputVal.length > 6 && passwordInputVal.match(/[A-Z]/)) {
       this.setState({
@@ -122,6 +124,7 @@ class Register extends Component {
       });
     }
   }
+
   handleUsername(usernameInputVal) {
     const usernameFree = this.state.usernameFree;
     this.setState({ username: usernameInputVal });
@@ -138,12 +141,15 @@ class Register extends Component {
       this.setState({ usernameNotValid: true });
     }
   }
+
   validationHelper(valid, itemState) {
     /// TO IMPLEMENT LATER
   }
+
   componentDidMount() {
     console.log('Register.jsx Mounted.');
   }
+
   componentWillUnmount() {
     console.log('Register.jsx UnMounted.');
   }
@@ -154,43 +160,58 @@ class Register extends Component {
     const emailNotValid = this.state.emailNotValid;
     const passwordNotValid = this.state.passwordNotValid;
     const usernameNotValid = this.state.usernameNotValid;
+    if(this.state.registered){
+      return (
+        <div>
+          <h1> Form Has been Submited </h1>
+          <Link className='login_button' to='/login'>Click to Login.</Link>
+        </div>
+      );
+    } else {
     return (
-      <form onSubmit={this.handleForm}>
-        <fieldset>
-          <legend>Register Form</legend>
-          <h1>Part 2</h1>
-          <Input
-            label={'Username:'}
-            id={'username'}
-            error={this.state.usernameError}
-            type={'text'}
-            notValid={usernameNotValid}
-            check={this.handleUsername}
-            val={username}
-          />
-          <Input
-            label={'Email:'}
-            id={'email'}
-            error={this.state.emailError}
-            type={'text'}
-            notValid={emailNotValid}
-            check={this.handleEmail}
-            val={email}
-          />
-          <Input
-            label={'Password:'}
-            id={'password'}
-            error={this.state.passwordError}
-            type={'password'}
-            notValid={passwordNotValid}
-            check={this.handlePassword}
-            val={password}
-          />
-          <br />
-          <button>Submit</button>
-        </fieldset>
-      </form>
+      <div className='login_cont'>
+        <div className='login_wrapper'>
+          <div className='login_title'>Register Form</div>
+          <div className='login_form'>
+            <form>
+              <Input
+                label={'Username:'}
+                id={'username'}
+                error={this.state.usernameError}
+                type={'text'}
+                notValid={usernameNotValid}
+                check={this.handleUsername}
+                val={username}
+              />
+              <Input
+                label={'Email:'}
+                id={'email'}
+                error={this.state.emailError}
+                type={'text'}
+                notValid={emailNotValid}
+                check={this.handleEmail}
+                val={email}
+              />
+              <Input
+                label={'Password:'}
+                id={'password'}
+                error={this.state.passwordError}
+                type={'password'}
+                notValid={passwordNotValid}
+                check={this.handlePassword}
+                val={password}
+              />
+              <br />
+              <div 
+                onClick={this.handleForm}
+                className='login_button'
+              >Submit</div>
+            </form>
+          </div>
+        </div>
+      </div>
     );
+    }
   }
 }
 

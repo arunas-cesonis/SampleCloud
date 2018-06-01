@@ -113,17 +113,19 @@ class Login extends Component {
               val={password}
             />
             <br />
-            <button type="submit" onClick={this.handleForm}>
-              Sign In
-            </button>
-            <button type="submit" onClick={this.mountReg}>
-              Sign Up
-            </button>
+            <div 
+              className="login_button" 
+              onClick={this.handleForm}
+            >Sign In</div>
+            <div 
+              className="login_button" 
+              onClick={this.mountReg}
+            >Sign Up</div>
           </form>
         </div>
         </div>
       </div>
-    );
+      );
     }
   }
   componentWillUnmount() {

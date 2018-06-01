@@ -30,9 +30,24 @@
   background: transparent;
   color: white;
   border: 0;
-  border-bottom: 2px solid #1976D2;
+  border-bottom: 2px solid #6C648B;
   padding: 2px;
 }
 .login_input:focus {
   outline: 0;
+}
+.login_button {
+  display: inline-block;
+  margin-right: 5px;
+  text-decoration: none;
+  padding: 8px;
+  background-color: #FBA100;
+  color: white;
+  transition: all .3s;
+  text-align: center;
+  width: 100px;
+}
+.login_button:hover {
+  background-color: #6C648B;
+  color: #d7d7d7;
 }

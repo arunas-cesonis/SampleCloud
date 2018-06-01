@@ -10,7 +10,7 @@ const checkURL = url => {
   }
 };
 
-function formatTime(timeLeft) {
+const formatTime = (timeLeft) => {
   if(isNaN(timeLeft)){
     return '00:00';
   }
@@ -134,6 +134,7 @@ class Player extends Component {
   render() {
     const sampleURL = this.props.sampleURL;
     console.log('Props Sample URL: ', sampleURL);
+    //To segment into separate components
     return (
       <div className="br_player">
         <div className="player_title">

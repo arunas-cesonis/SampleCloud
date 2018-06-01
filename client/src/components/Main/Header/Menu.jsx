@@ -11,10 +11,11 @@ class Menu extends Component {
   render() {
     let navItems = [
       { path: '/', name: 'Home' },
-      { path: '/login', name: 'Login' }
+      { path: '/login', name: 'Login' },
+      { path: '/register', name: 'Register' }
     ];
     if(this.props.serverRes){
-      navItems.splice(1,1);
+      navItems.splice(1,2);
       navItems = [...navItems,
         { path: '/browse', name: 'Browse' }, 
         { path: '/upload', name: 'Upload' }, 
