@@ -31,7 +31,11 @@ class Page extends Component {
           <Route path="/browse" render={props => <Browse />} />
           <Route
             path="/upload"
-            render={props => <Upload {...props} name='test' />}
+            render={props => 
+                <Upload {...props} 
+                  name='test' 
+                  user={this.props.serverRes}
+            />}
           />
         </Switch>
       );

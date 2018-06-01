@@ -11,6 +11,9 @@ class Main extends Component {
       serverRes: {
         username: '',
         successLogin: false,
+        email: '',
+        admin: '',
+        dateCreated: ''
       }
     };
     this.handleAuthResponse = this.handleAuthResponse.bind(this);
@@ -22,11 +25,14 @@ class Main extends Component {
     this.setState({ alpha: alpha });
   }
 
-  handleAuthResponse(auth, username){
+  handleAuthResponse(auth, user){
     const serverRes = Object.assign({}, this.state.serverRes);
     serverRes.successLogin = auth;
-    serverRes.username = username;
-    console.log(serverRes);
+    serverRes.username = user.username;
+    serverRes.email = user.email;
+    serverRes.admin = user.admin;
+    serverRes.dateCreated = user.dateCreated;
+    console.log('handleAuthResponse(): ', serverRes);
     this.setState({ serverRes });
   }
 

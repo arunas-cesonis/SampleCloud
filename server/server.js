@@ -16,6 +16,16 @@ const fileSchema = mongoose.Schema({
   filePath: String,
   dateAdded: String
 });
+
+const userSchema = mongoose.Schema({
+  username: String,
+  email: String,
+  password: String,
+  dateCreated: String,
+  admin: Boolean
+});
+
+const User = mongoose.model('user', userSchema);
 const File = mongoose.model('file', fileSchema);
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -100,18 +110,30 @@ app.post('/api/checkUsername', (req, res) => {
   }
 });
 const sessions = {};
-let n = 0;
 
 app.post('/api/login', (req, res) => {
   const b = req.body;
+  const username = b.username;
+  const password = b.password;
   console.log('u: ', b.username);
   console.log('p: ', b.password);
   const sessionId = Math.random();
+  
+  User.findOne({ 'username': username, 'password': password }, function(err, user){
+    if(err) throw err;
+    if(user){
+      res.send(user);
+    } else {
+      res.send(null);
+    }
+  });
+  /*
   res.send({
     name: b.username,
     success: true,
     id: sessionId
   });
+  */
 });
 
 app.get('/api/about', (req, res) => {

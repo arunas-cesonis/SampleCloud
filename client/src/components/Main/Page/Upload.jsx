@@ -46,6 +46,7 @@ class Upload extends Component {
   handleUpload(event) {
     event.preventDefault();
     this.setState({ error: '' });
+    const userData = this.props.user;
     const data = new FormData();
     const notValid = this.state.nameNotValid;
     const userFileName = this.state.uploadData.fileName;

@@ -12,8 +12,6 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      serverUsername: '',
-      serverSuccess: false,
       register: false,
       error: '',
       title: 'Login Form'
@@ -40,22 +38,22 @@ class Login extends Component {
         username: this.state.username,
         password: this.state.password
       })
-      .then(response => {
-        this.setState({
-          serverUsername: response.data.name,
-          serverSuccess: response.data.success
-        });
-        if (!this.state.serverSuccess) {
-          this.setState({
-            error: 'Username and password combination is incorrect'
-          });
-        } else {
+      .then(res => {
+        const data = Object.assign({}, res.data);
+        console.log('User Account: ', res.data);
+        console.log('USER ID: ', res.data._id);
+
+        if (data._id) {
           //Object needs to be updated and polished.
           this.props.history.push('/');
           this.props.authResponse(
-            this.state.serverSuccess, 
-            this.state.serverUsername 
+            true, 
+            data
           );
+        } else {
+          this.setState({
+            error: 'Username and password combination is incorrect'
+          });
         }
       });
   }
