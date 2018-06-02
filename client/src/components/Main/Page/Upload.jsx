@@ -45,27 +45,38 @@ class Upload extends Component {
 
   handleUpload(event) {
     event.preventDefault();
-    this.setState({ error: '' });
-    const userData = this.props.user;
+    const user = this.props.user;
     const data = new FormData();
     const notValid = this.state.nameNotValid;
-    const userFileName = this.state.uploadData.fileName;
-    const origFileName = this.state.uploadData.file.name;
+    const friendlyName = this.state.uploadData.fileName;
+    const fileName = this.state.uploadData.file.name;
+    const file = this.state.uploadData.file;
+    this.setState({ error: '' });
     //Very basic validation
-    if (!notValid && userFileName.length > 0 && origFileName != null) {
-      data.append('file', this.state.uploadData.file);
-      data.append('filename', this.state.uploadData.fileName);
-      data.append('username', this.state.username);
+    if (!notValid && friendlyName.length > 0 && fileName != null) {
+      data.append('file', file); 
+      data.append('friendlyName', friendlyName); 
+      data.append('user', user.username);
+      data.append('email', user.email);
       //To implement later so user can choose their own name + add it to db meta
       //To figure out error handlers
-      axios.post('http://localhost:3010/api/upload', data).then(response => {
-        console.log('Server res: ', response.data);
-      });
-      this.setState({
-        uploaded: true,
-        msg: 'The file has been successfully uploaded.'
+      axios.post('http://localhost:3010/api/upload', data)
+        .then(res => {
+          console.log('Server res: ', res.data);
+          if(res.data.success){
+            this.setState({
+              uploaded: true,
+              msg: 'The file has been successfully uploaded.'
+            });
+          } else {
+            this.setState({
+              uploaded: true,
+              msg: 'The file upload has failed.' 
+            });
+          }
       });
     } else {
+      // VALIDATION
       this.setState({
         error: 'Specify filename with no white spaces and include a file.'
       });

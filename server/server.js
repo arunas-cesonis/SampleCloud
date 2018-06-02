@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
+const fs = require('fs');
 const crypto = require('crypto');
 const app = express();
 
@@ -71,15 +72,29 @@ decrypt = data => {
 };
 
 app.post('/api/upload', (req, res) => {
-  let data = req.files.file;
-  let b = req.body;
+  const data = req.files.file;
+  const b = req.body;
+  const username = b.user.toLowerCase();
+  const filePath = "http://localhost:3000/public/" + username + '/' + data.name;
+  const userFolder = '../client/public/uploads/' + username;
+  const date = Date();
   // Do something with the file, put it somewhere on the server + ref to db + meta
-  console.log('from /upload route: ', data);
-  console.log('file name: ', data.name);
-  console.log('username: ', b.username);
-  console.log('desired file name: ', b.filename);
-  console.log('body: ', b);
-  res.send('File has been uploaded');
+  const sampleFile = new File({
+    username: b.user,
+    email: b.email,
+    fileName: data.name,
+    friendlyName: b.friendlyName,
+    filePath: filePath,
+    dateAdded: date 
+  });
+  fs.readdirSync(userFolder).forEach(file => { 
+    if(data.name !== file){
+      console.log('readdirSync(): ', file, 'does not exists');
+      console.log('DATA: ', data); 
+    }
+  });
+  console.log('Meta DATA: ', sampleFile);
+  res.send({ success: true });
 });
 
 app.post('/api/pushtodb', (req, res) => {
