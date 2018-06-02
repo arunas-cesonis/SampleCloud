@@ -35,11 +35,10 @@ class Upload extends Component {
     uploadData.fileName = fileName;
 
 
-    if (fileName.match(/\s/g)) {
-      this.setState({ uploadData, nameNotValid: true });
-    } else {
-      console.log('no white space detected.');
+    if (fileName.match(/^[a-zA-Z]+$/)) {
       this.setState({ uploadData, nameNotValid: false });
+    } else {
+      this.setState({ uploadData, nameNotValid: true });
     }
   }
 
@@ -60,7 +59,7 @@ class Upload extends Component {
       data.append('email', user.email);
       //To implement later so user can choose their own name + add it to db meta
       //To figure out error handlers
-      axios.post('http://localhost:3010/api/upload', data)
+      axios.post('http://localhost:3010/api/profile', data)
         .then(res => {
           console.log('Server res: ', res.data);
           if(res.data.success){
@@ -70,8 +69,7 @@ class Upload extends Component {
             });
           } else {
             this.setState({
-              uploaded: true,
-              msg: 'The file upload has failed.' 
+              error: res.data.error 
             });
           }
       });
@@ -89,14 +87,17 @@ class Upload extends Component {
 
   handleUploadOk() {
     this.setState({
-      msg: 'File has been uploaded',
+      uploadData: {
+        file: '',
+        fileName: ''
+      },
+      error: 'File has been uploaded.',
       uploaded: false
     });
   }
 
   render() {
     const notValid = this.state.nameNotValid;
-    console.log('Upload data from Render:', this.state.uploadData);
     if (this.state.uploaded) {
       return (
         <div>
@@ -106,27 +107,29 @@ class Upload extends Component {
       );
     } else {
       return (
-        <form>
-          <p className="error_msg">{this.state.error}</p>
-          <Input
-            id={'file'}
-            label={'File:'}
-            type={'file'}
-            upload={this.handleFile}
-            addClass={false}
-          />
-          <Input
-            id={'filename'}
-            label={'File Name:'}
-            type={'text'}
-            filename={this.handleFileName}
-            val={this.state.uploadData.fileName}
-            valid={notValid}
-            addClass={true}
-          />
-          <br />
-          <button onClick={this.handleUpload}>submit</button>
-        </form>
+        <div>
+          <form>
+            <p className="error_msg">{this.state.error}</p>
+            <Input
+              id={'file'}
+              label={'File:'}
+              type={'file'}
+              upload={this.handleFile}
+              addClass={false}
+            />
+            <Input
+              id={'filename'}
+              label={'File Name:'}
+              type={'text'}
+              filename={this.handleFileName}
+              val={this.state.uploadData.fileName}
+              valid={notValid}
+              addClass={true}
+            />
+            <br />
+            <button onClick={this.handleUpload}>submit</button>
+          </form>
+        </div>
       );
     }
   }

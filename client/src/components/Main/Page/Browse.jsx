@@ -68,8 +68,9 @@ class Browse extends Component {
           {this.state.samples.map((item, i) => <Player 
             key={i} 
             username={item.username}
-            sample={item.fileName}
+            sample={item.friendlyName}
             sampleURL={item.filePath}
+            dateAdded={item.dateAdded}
           />)}
         </div>
       </div>

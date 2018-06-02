@@ -91,7 +91,7 @@ class Player extends Component {
 
   showDate() {
     const dateAdded = this.props.dateAdded;
-    return (dateAdded) ? 'Added: ' + dateAdded : 'n/a';
+    return (dateAdded) ? 'Added: ' + dateAdded.replace('T', ' ').slice(0, 16) : 'n/a';
   }
 
   getMousePos(e) {

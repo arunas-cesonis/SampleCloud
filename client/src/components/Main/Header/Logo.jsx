@@ -13,12 +13,14 @@ class Logo extends Component {
   }
   showText() {
     // NOT SURE ABOUT THIS.... will think about it later
+    /*
     const i = this.state.index;
     if (i > 1) {
       this.setState({ index: 0 });
     } else {
       this.setState({ index: i + 1 });
     }
+    */
   }
   render() {
     console.log('Logo.jsx props.alpha: ', this.props.alpha);

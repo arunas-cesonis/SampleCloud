@@ -33,10 +33,16 @@ class Login extends Component {
 
   handleForm(e) {
     e.preventDefault();
+    console.log('handleForm(); called.');
     axios
       .post('http://localhost:3010/api/login', {
+        //BYPASS Login
+        username: 'paul', 
+        password: 'a' 
+        /* 
         username: this.state.username,
         password: this.state.password
+        */
       })
       .then(res => {
         const data = Object.assign({}, res.data);
@@ -94,7 +100,7 @@ class Login extends Component {
         <div className='login_wrapper'>
         <div className='login_title'>{title}</div>
         <div className='login_form'>
-          <form>
+          <form onKeyPress={(e) => { if(e.key === 'Enter') this.handleForm(e) }}>
             <Input
               error={error}
               type={'text'}

@@ -30,7 +30,7 @@ class Home extends Component {
               key={i}
               sampleURL={item.filePath}
               username={item.username}
-              sample={item.fileName}
+              sample={item.friendlyName}
               dateAdded={item.dateAdded}
             />
           )}

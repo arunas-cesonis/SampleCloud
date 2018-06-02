@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const crypto = require('crypto');
 const app = express();
-const multer = require('multer');
 
 mongoose.connect('mongodb://localhost/samplecloud');
 const db = mongoose.connection;
@@ -34,6 +33,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Connected to samplecloud DB.');
 });
+
 /* EXAMPLE DEFINING DOCUMENT
 const sampleFile = new File({
   username: 'Paulius',
@@ -72,7 +72,21 @@ decrypt = data => {
   return cipher.update(data, 'hex', 'utf8') + cipher.final('utf8');
 };
 
-app.post('/api/upload', (req, res) => {
+app.get('/api/profile/:user', (req, res) => {
+  const data = {
+    files: '',
+    user: ''
+  };
+  File.find({ 'username': req.params.user }, (err, files) => {
+    data.files = files;
+    User.find({ 'username': req.params.user}, (err, user) => {
+      data.user = user;
+      res.send(data);
+    });
+  });
+});
+
+app.post('/api/profile', (req, res) => {
   const data = req.files.file;
   const b = req.body;
   const username = b.user.toLowerCase();
@@ -92,10 +106,7 @@ app.post('/api/upload', (req, res) => {
   });
   // Do something with the file, put it somewhere on the server + ref to db + meta
   fs.readdirSync(userFolder).forEach(file => { 
-    if(data.name !== file){
-      console.log('readdirSync(): ', file, 'does not exists');
-    } else {
-      console.log('readdirSync(): ', file, 'exists');
+    if(data.name === file){
       files.push(file);
     }
   });
@@ -110,7 +121,10 @@ app.post('/api/upload', (req, res) => {
       if(err) console.log('ERROR: ', err);
     });
   } else {
-    res.send({ success: false });
+    res.send({ 
+      error: 'File already exists or unaccepted format. Accepted formats: [.mp3, .wav].',
+      success: false 
+    });
   }
 });
 
@@ -201,7 +215,7 @@ app.post('/api/browse/search', (req, res) => {
 app.post('/api/browse/getfiles', (req, res) => {
   const b = req.body;
   const username = b.arg
-  File.find({ 'username': username }, function(err, files){
+  File.find({ 'username': username }, (err, files) => {
     if(err) return err 
     res.send(files);
   }).collation({ locale: 'en', strength: 1 });
@@ -230,7 +244,7 @@ app.post('/api/browse/getfiles', (req, res) => {
 
 app.get('/api/home', (req, res) => {
   const maxSamples = 10;
-  File.find({}).sort({dateAdded: -1}).exec(function(err, files){
+  File.find({}).sort({dateAdded: -1}).exec((err, files) => {
     console.log('/api/home FILES by DATE: ', files);
     const samples = files.splice(0, maxSamples);
     res.send(samples);

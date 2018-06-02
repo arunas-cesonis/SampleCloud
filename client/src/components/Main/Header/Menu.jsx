@@ -4,10 +4,6 @@ import classNames from 'classnames';
 import './menu.css';
 
 class Menu extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let navItems = [
       { path: '/', name: 'Home' },
@@ -18,7 +14,7 @@ class Menu extends Component {
       navItems.splice(1,2);
       navItems = [...navItems,
         { path: '/browse', name: 'Browse' }, 
-        { path: '/upload', name: 'Upload' }, 
+        { path: '/profile', name: 'Profile' }, 
         { path: '/about', name: 'About' }
       ];
     }
