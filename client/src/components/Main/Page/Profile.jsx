@@ -1,32 +1,42 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import Upload from './Upload.jsx';
 import UserSamples from './UserSamples.jsx';
+import UserSettings from './UserSettings.jsx';
 
 class Profile extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      updated: ''
-    }
-    this.updateList = this.updateList.bind(this);
-  }
-
-  updateList(){
-    console.log('updateList(); called.');
-    this.setState({ updated: true }); 
-  }
-
   render() {
     return (
-      <div>
-        <Upload 
-          user={this.props.serverRes}
-          updateList={this.updateList}
+      <Switch>
+        <Route
+          exact path="/profile"
+          render={props =>
+            <UserSamples
+              user={this.props.serverRes}
+            />}
         />
-        <UserSamples 
-          user={this.props.serverRes}
+        <Route 
+          path="/profile/upload" 
+          render={props => 
+            <Upload 
+              user={this.props.serverRes}
+            />}
         />
-      </div>
+        <Route
+          path="/profile/samples"
+          render={props =>
+          <UserSamples 
+            user={this.props.serverRes}
+          />}
+        />
+        <Route
+          path="/profile/settings"
+          render={props =>
+          <UserSettings 
+            user={this.props.serverRes}
+          />}
+        />
+      </Switch>
     );
   } 
 }

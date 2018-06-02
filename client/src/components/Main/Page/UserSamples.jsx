@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Player from './Player.jsx';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class UserSamples extends Component {
@@ -26,6 +27,7 @@ class UserSamples extends Component {
   render() {
     return (
       <div>
+        <Link to="/profile/upload">Upload</Link>
         <div>{'Samples:'}</div>
         <SampleBox
           samples={this.state.samples}

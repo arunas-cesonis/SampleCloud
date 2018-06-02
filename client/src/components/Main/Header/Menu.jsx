@@ -40,7 +40,8 @@ class Menu extends Component {
 //Move to a new file.
 const Item = props => (
   <Link
-    className={classNames('navItem', { active: props.current === props.to })}
+    className={classNames('navItem', { active: props.current === props.to || props.current.substr(0, 8) === props.to})}
+
     to={props.to}
   >
     {props.name}

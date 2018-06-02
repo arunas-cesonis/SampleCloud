@@ -7,6 +7,7 @@ import About from './About.jsx';
 import Browse from './Browse.jsx';
 import Register from './Register.jsx';
 import Profile from './Profile.jsx';
+import ProfileBar from './ProfileBar.jsx';
 
 
 //Basically this is a main Content or Content Loader
@@ -33,9 +34,15 @@ class Page extends Component {
           <Route
             path="/profile"
             render={props => 
-              <Profile 
-                serverRes={this.props.serverRes}
-            />}
+              <div>
+                <ProfileBar 
+                  serverRed={this.props.serverRed}
+                />
+                <Profile 
+                  serverRes={this.props.serverRes}
+                />
+              </div>
+            }
           />
         </Switch>
       );
