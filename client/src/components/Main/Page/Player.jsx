@@ -90,14 +90,8 @@ class Player extends Component {
   }
 
   showDate() {
-    //gets called everytime onTimeUpdate - To look into this later
     const dateAdded = this.props.dateAdded;
-    if(dateAdded){
-      console.log('showDate(): typeOf dateAdded:', typeof dateAdded);
-      const dateArr = dateAdded.split(" ").splice(2, 3).join('-');
-      console.log('Date Arr: ', dateArr);
-      return 'Added: ' + dateArr;
-    }
+    return (dateAdded) ? 'Added: ' + dateAdded : 'n/a';
   }
 
   getMousePos(e) {

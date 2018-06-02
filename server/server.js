@@ -16,7 +16,7 @@ const fileSchema = mongoose.Schema({
   fileName: String,
   friendlyName: String,
   filePath: String,
-  dateAdded: String
+  dateAdded: Date
 });
 
 const userSchema = mongoose.Schema({
@@ -76,12 +76,20 @@ app.post('/api/upload', (req, res) => {
   const data = req.files.file;
   const b = req.body;
   const username = b.user.toLowerCase();
-  const filePath = "http://localhost:3000/public/" + username + '/' + data.name;
+  const filePath = "http://localhost:3000/uploads/" + username + '/' + data.name;
   const userFolder = '../client/public/uploads/' + username;
   const date = Date();
   const files = [];
   const fullPath = userFolder + '/' + data.name;
   const ext = data.name.slice(-4, data.name.length);
+  const fileMeta = new File({
+    username: b.user,
+    email: b.email,
+    fileName: data.name,
+    friendlyName: b.friendlyName,
+    filePath: filePath,
+    dateAdded: date 
+  });
   // Do something with the file, put it somewhere on the server + ref to db + meta
   fs.readdirSync(userFolder).forEach(file => { 
     if(data.name !== file){
@@ -93,23 +101,17 @@ app.post('/api/upload', (req, res) => {
   });
   console.log('EXTENSION: ', ext); 
   if(files.length === 0 && ext === '.mp3'){
-    const sampleFile = new File({
-      username: b.user,
-      email: b.email,
-      fileName: data.name,
-      friendlyName: b.friendlyName,
-      filePath: filePath,
-      dateAdded: date 
-    });
+      fileMeta.save(function(err) {
+        if(err) return console.log(err);
+        res.send({ success: true });
+      });
     data.mv(fullPath, (err) => {
       console.log('DATA.mv(); called!');
       if(err) console.log('ERROR: ', err);
-      res.send({ success: true });
     });
   } else {
     res.send({ success: false });
   }
-  console.log('Meta DATA: ', sampleFile);
 });
 
 app.post('/api/pushtodb', (req, res) => {
@@ -227,10 +229,10 @@ app.post('/api/browse/getfiles', (req, res) => {
 });
 
 app.get('/api/home', (req, res) => {
-  const maxSamples = 2;
-  File.find({}).sort('-dateAdded').exec(function(err, files){
+  const maxSamples = 10;
+  File.find({}).sort({dateAdded: -1}).exec(function(err, files){
+    console.log('/api/home FILES by DATE: ', files);
     const samples = files.splice(0, maxSamples);
-    console.log('/api/home SAMPLES: ', samples);
     res.send(samples);
   });
 });
