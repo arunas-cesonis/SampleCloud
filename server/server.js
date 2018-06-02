@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const crypto = require('crypto');
 const app = express();
+const multer = require('multer');
 
 mongoose.connect('mongodb://localhost/samplecloud');
 const db = mongoose.connection;
@@ -78,23 +79,37 @@ app.post('/api/upload', (req, res) => {
   const filePath = "http://localhost:3000/public/" + username + '/' + data.name;
   const userFolder = '../client/public/uploads/' + username;
   const date = Date();
+  const files = [];
+  const fullPath = userFolder + '/' + data.name;
+  const ext = data.name.slice(-4, data.name.length);
   // Do something with the file, put it somewhere on the server + ref to db + meta
-  const sampleFile = new File({
-    username: b.user,
-    email: b.email,
-    fileName: data.name,
-    friendlyName: b.friendlyName,
-    filePath: filePath,
-    dateAdded: date 
-  });
   fs.readdirSync(userFolder).forEach(file => { 
     if(data.name !== file){
       console.log('readdirSync(): ', file, 'does not exists');
-      console.log('DATA: ', data); 
+    } else {
+      console.log('readdirSync(): ', file, 'exists');
+      files.push(file);
     }
   });
+  console.log('EXTENSION: ', ext); 
+  if(files.length === 0 && ext === '.mp3'){
+    const sampleFile = new File({
+      username: b.user,
+      email: b.email,
+      fileName: data.name,
+      friendlyName: b.friendlyName,
+      filePath: filePath,
+      dateAdded: date 
+    });
+    data.mv(fullPath, (err) => {
+      console.log('DATA.mv(); called!');
+      if(err) console.log('ERROR: ', err);
+      res.send({ success: true });
+    });
+  } else {
+    res.send({ success: false });
+  }
   console.log('Meta DATA: ', sampleFile);
-  res.send({ success: true });
 });
 
 app.post('/api/pushtodb', (req, res) => {
@@ -187,7 +202,7 @@ app.post('/api/browse/getfiles', (req, res) => {
   File.find({ 'username': username }, function(err, files){
     if(err) return err 
     res.send(files);
-  });
+  }).collation({ locale: 'en', strength: 1 });
 
   // EQUIVALENT TO FOR EACH
   /*

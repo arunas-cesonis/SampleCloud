@@ -32,6 +32,7 @@ class UploadInput extends Component {
         <input
           id={id}
           type={type}
+          name={type}
           onChange={this.update}
           value={val}
           className={classNames({ uploadInput: addClass }, { invalid: valid })}

@@ -24,7 +24,7 @@ class Filter extends Component {
   componentDidMount() {
     axios.get('http://localhost:3010/api/browse').then(res => {
       const usersArr = [];
-      const tmpArr = res.data.map((item) => item.username);
+      const tmpArr = res.data.map((item) => item.username.toLowerCase());
       for(let i = 0; i < tmpArr.length; i++){
         //indexOf == -1 if tmpArr[i] is not found in usersArr 
         if(usersArr.indexOf(tmpArr[i]) === -1){
