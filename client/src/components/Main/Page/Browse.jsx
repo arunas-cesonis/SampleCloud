@@ -10,7 +10,6 @@ class Browse extends Component {
     this.state = {
       samples: [],
       currentUser: '',
-      username: '',
       value: ''
     };
     this.handlePlay = this.handlePlay.bind(this);
@@ -24,30 +23,27 @@ class Browse extends Component {
   }
 
   filterSearch(filterArg){
-    this.setState({ sampels: [],  });
+    this.setState({ sampels: [] });
     console.log('Filter: ', filterArg);
-    axios
-      .post('http://localhost:3010/api/browse/search', {
+    axios.post('http://localhost:3010/api/browse/search', {
         searchInput: filterArg 
-      })
-      .then(res => {
-        const data = res.data;
-        console.log('D: ', data);
-        if(data){
-          this.setState({
-            samples: data, 
-            value: filterArg 
-          })
-        }
-      });
+    }).then(res => {
+      const data = res.data;
+      console.log('D: ', data);
+      if(data){
+        this.setState({
+          samples: data, 
+          value: filterArg 
+        })
+      }
+    });
   }
 
   filterGetData(filterArg){
     this.setState({ sampels: [], value: '' });
     axios.post('http://localhost:3010/api/browse/getfiles', {
         arg: filterArg 
-    })
-    .then(res => {
+    }).then(res => {
       const data = res.data;
       console.log('GetData: ', data.map((item, i) => item.fileName));
       this.setState({

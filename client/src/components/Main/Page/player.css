@@ -1,8 +1,9 @@
-.br_player {
-    background-color: #6BBAA7; 
+.br_player{
+  float: left;
+  background-color: rgba(182, 161, 158, .3);
     width: 335px;
     height: auto;
-    margin: 5px auto;
+    margin: 5px 5px;
 }
 .br_player .player_title {
   background-color: rgba(108, 100, 139, 0.2);
@@ -18,7 +19,7 @@
   display: inline-block;
 }
 .player_title .player_user {
-  background-color: #FBA100;
+  background-color: #6BBAA7;
   padding: 2px 4px;
   font-size: 12px;
   color: white;

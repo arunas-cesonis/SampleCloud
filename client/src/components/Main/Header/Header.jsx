@@ -11,7 +11,7 @@ class Header extends Component {
           <Menu 
             serverRes={this.props.serverRes.successLogin} 
           />
-          <div className='userTitleBar'>Welcome: {this.props.serverRes.username}</div>
+          <div className='userTitleBar'>welcome: {this.props.serverRes.username}</div>
         </div>
       );
     } else {

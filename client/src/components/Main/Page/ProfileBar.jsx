@@ -13,4 +13,4 @@ class ProfileBar extends Component {
   }
 }
 
-export default ProfileBar;
+export default ProfileBar; 

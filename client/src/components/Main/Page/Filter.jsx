@@ -14,7 +14,6 @@ class Filter extends Component {
 
   handleSelect(e){
     this.props.filterGetData(e.target.value);
-    console.log(e.target.value);
   }
   
   handleSearch(e){
@@ -31,7 +30,6 @@ class Filter extends Component {
           usersArr.push(tmpArr[i]);
         }
       }
-      console.log('USERS ARR: ', usersArr);
       this.setState({ users: usersArr });
     });
   }

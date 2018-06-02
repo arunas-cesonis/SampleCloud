@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Player from './Player.jsx';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class UserSamples extends Component {
@@ -26,16 +25,13 @@ class UserSamples extends Component {
 
   render() {
     return (
-      <div>
-        <Link to="/profile/upload">Upload</Link>
-        <div>{'Samples:'}</div>
+      <div className='samples_cont'>
+        <div>{'Samples: '}{this.state.samples.length}</div>
         <SampleBox
           samples={this.state.samples}
-        />
-        <div>{'User Attributes:'}</div>
-        <UserProperties
           userAttr={this.state.userAttr}
         />
+        <div>{'User Attributes:'}</div>
       </div>
     );
   }
@@ -43,9 +39,10 @@ class UserSamples extends Component {
 
 const box = {
   display: 'inline-block',
+  width: '340px',
   padding: '5px',
-  height: '100px',
-  backgroundColor: 'red'
+  height: 'auto',
+  backgroundColor: 'white' 
 }
 
 const SampleBox = (props) => (
@@ -56,15 +53,28 @@ const SampleBox = (props) => (
         sample={item.friendlyName}
         sampleURL={item.filePath}
         dateAdded={item.dateAdded}
+        test={'none'}
       />
+      <SampleControls />
+        <UserProperties
+          userAttr={props.userAttr}
+        />
     </div>
   )
+);
+
+const SampleControls = (props) => (
+  <div>
+    <button>Dump</button>
+    <button>Opt1</button>
+    <button>Opt2</button>
+  </div>
 );
 
 const UserProperties = (props) => (
   props.userAttr.map((item, i) =>
     <div key={i}>
-      <p>{Object.values(item)}</p>
+      <p>{item.email}</p>
     </div>
   )
 );

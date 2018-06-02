@@ -7,8 +7,6 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sampleURL: '',
-      username: this.props.name,
       nameNotValid: false,
       uploadData: {
         file: '',
@@ -34,7 +32,6 @@ class Upload extends Component {
     const uploadData = Object.assign({}, this.state.uploadData);
     uploadData.fileName = fileName;
 
-
     if (fileName.match(/^[a-zA-Z]+$/)) {
       this.setState({ uploadData, nameNotValid: false });
     } else {
@@ -57,8 +54,6 @@ class Upload extends Component {
       data.append('friendlyName', friendlyName); 
       data.append('user', user.username);
       data.append('email', user.email);
-      //To implement later so user can choose their own name + add it to db meta
-      //To figure out error handlers
       axios.post('http://localhost:3010/api/profile', data)
         .then(res => {
           console.log('Server res: ', res.data);

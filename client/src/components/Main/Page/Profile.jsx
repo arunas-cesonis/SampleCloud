@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Upload from './Upload.jsx';
 import UserSamples from './UserSamples.jsx';
 import UserSettings from './UserSettings.jsx';
+import './profile.css';
 
 class Profile extends Component {
   render() {

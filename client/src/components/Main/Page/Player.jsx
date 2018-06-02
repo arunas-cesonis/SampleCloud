@@ -27,8 +27,6 @@ class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stopTimer: false,
-      resetTimer: false,
       timeLeft: '00:00',
       progress: 0,
       isPlaying: false
@@ -43,37 +41,30 @@ class Player extends Component {
     const sample = this.props.sampleURL;
     if (checkURL(sample)) {
       this.player.pause();
-      ///Just testing!
     }
   }
 
-  handlePlay(fromPoint) {
+  handlePlay(t) {
     const sample = this.props.sampleURL;
     if (checkURL(sample)) {
-      if(fromPoint > 0){
-        this.player.currentTime = fromPoint;
-        this.setState({ resetTimer: true });
+      if(t > 0){
+        this.player.currentTime = t;
       }
       this.player.play();
     }
   }
 
   handleTimeUpdate(){
-    console.log('On time update');
     const total = Math.ceil(this.player.duration);
     const played = Math.ceil(this.player.currentTime);
     let pos = 0;
     let timeLeft = total - played;
-    this.setState({ 
-      stopTimer: false, 
-      resetTimer: false
-    });
     timeLeft--;
     if (timeLeft <= 0) {
       timeLeft = 0;
     }
     const mmss = formatTime(timeLeft); 
-    pos = Math.ceil((total - timeLeft) * 100 / total);
+    pos = Math.floor((total - timeLeft) * 100 / total);
     this.setState({
       timeLeft: mmss, 
       progress: pos
@@ -96,16 +87,15 @@ class Player extends Component {
 
   getMousePos(e) {
     const sample = this.props.sampleURL;
-    const total = Math.ceil(this.player.duration);
+    const total = Math.floor(this.player.duration);
     const elMaxX = 200;
     const mouseX = e.nativeEvent.offsetX; 
-    const playFrom = ((mouseX * total) / elMaxX);
+    const t = ((mouseX * total) / elMaxX);
     if(checkURL(sample)){
       this.setState({ 
-        stopTimer: true, 
         isPlaying: true
       });
-      this.handlePlay(playFrom);
+      this.handlePlay(t);
     }
   }
 
@@ -120,11 +110,7 @@ class Player extends Component {
     this.setState({ isPlaying: true });
     this.handlePlay();
   }
-    /*
-          <button onClick={this.handlePlay}>Play</button>
-          <button onClick={this.handlePause}>Pause</button>
-          <p>Time left: {this.state.timeLeft}</p>
-          */
+
   render() {
     const sampleURL = this.props.sampleURL;
     console.log('Props Sample URL: ', sampleURL);
