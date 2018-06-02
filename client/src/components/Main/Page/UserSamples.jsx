@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Player from './Player.jsx';
 import axios from 'axios';
 
 class UserSamples extends Component {
@@ -40,15 +41,20 @@ class UserSamples extends Component {
 
 const box = {
   display: 'inline-block',
-  width: '200px',
+  padding: '5px',
   height: '100px',
   backgroundColor: 'red'
 }
 
 const SampleBox = (props) => (
   props.samples.map((item, i) =>
-    <div style={box} key={i}>
-      <p>{Object.values(item)}</p>
+  <div style={box} key={i}>
+      <Player
+        username={item.username}
+        sample={item.friendlyName}
+        sampleURL={item.filePath}
+        dateAdded={item.dateAdded}
+      />
     </div>
   )
 );

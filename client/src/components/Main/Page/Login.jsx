@@ -37,12 +37,12 @@ class Login extends Component {
     axios
       .post('http://localhost:3010/api/login', {
         //BYPASS Login
+        /* 
         username: 'paul', 
         password: 'a' 
-        /* 
+        */
         username: this.state.username,
         password: this.state.password
-        */
       })
       .then(res => {
         const data = Object.assign({}, res.data);

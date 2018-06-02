@@ -86,6 +86,7 @@ class Upload extends Component {
   }
 
   handleUploadOk() {
+    this.props.updateList();
     this.setState({
       uploadData: {
         file: '',
