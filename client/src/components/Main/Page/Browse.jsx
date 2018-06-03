@@ -67,6 +67,7 @@ class Browse extends Component {
             sample={item.friendlyName}
             sampleURL={item.filePath}
             dateAdded={item.dateAdded}
+            noControls={'none'}
           />)}
         </div>
       </div>

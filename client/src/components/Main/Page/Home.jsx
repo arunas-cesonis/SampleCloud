@@ -32,6 +32,7 @@ class Home extends Component {
               username={item.username}
               sample={item.friendlyName}
               dateAdded={item.dateAdded}
+              block={'block'}
             />
           )}
         </div>

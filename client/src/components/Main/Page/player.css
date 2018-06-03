@@ -3,14 +3,23 @@
   background-color: rgba(182, 161, 158, .3);
     width: 335px;
     height: auto;
-    margin: 5px 5px;
+    margin: 2px 5px;
+  transition: all 0.3s ease-out;
+  opacity: 0.8;
 }
 .br_player .player_title {
   background-color: rgba(108, 100, 139, 0.2);
   height: auto;
   width:  100%;
 }
+.br_player:hover .player_controls {
+  display: block;
+}
+.br_player:hover {
+  opacity: 1;
+}
 .br_player .player_controls {
+  display: none;
   width: 90%;
   margin: 0 auto;
   padding-bottom: 5px;

@@ -1,11 +1,12 @@
 .login_cont {
   position: absolute;
   top: 100px; 
-  opacity: 1; 
   width: 100%;
   padding-bottom: 5px;
 }
 .login_cont .login_wrapper {
+  opacity: .8; 
+  transition: all 2s ease-in;
   width: 335px;
   margin: 0 auto;
 }

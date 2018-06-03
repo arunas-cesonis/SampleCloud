@@ -3,6 +3,9 @@
     margin: 0;
     padding: 0;
 }
+.dim {
+  transition: all 1s ease;
+}
 .overlayCont {
     position: absolute;
     top: 37%;

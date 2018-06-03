@@ -14,6 +14,7 @@ class Login extends Component {
       password: '',
       register: false,
       error: '',
+      fade: 0.6,
       title: 'Login Form'
     };
     this.updatePassword = this.updatePassword.bind(this);
@@ -24,7 +25,7 @@ class Login extends Component {
   }
 
   updatePassword(passwordInputVal) {
-    this.setState({ password: passwordInputVal });
+    this.setState({ fade: 1, password: passwordInputVal });
   }
 
   updateUsername(usernameInputVal) {
@@ -78,8 +79,13 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.setState({ title: 'Login Form' });
     this.props.handleSliderAlpha(0.3);
+    this.setState({ title: 'Login Form' });
+  }
+
+  handleFade(){
+    this.setState({ fade: 1 });
+    console.log('FOOCUS:');
   }
 
   render() {
@@ -96,8 +102,11 @@ class Login extends Component {
       );
     } else {
     return (
-      <div className='login_cont'>
-        <div className='login_wrapper'>
+      <div className='login_cont' >
+        <div className='login_wrapper'
+          style={{ opacity: this.state.fade }}
+              onClick={this.handleFade.bind(this)}
+        >
         <div className='login_title'>{title}</div>
         <div className='login_form'>
           <form onKeyPress={(e) => { if(e.key === 'Enter') this.handleForm(e) }}>

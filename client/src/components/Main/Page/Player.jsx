@@ -19,7 +19,6 @@ const formatTime = (timeLeft) => {
   if(m < 10) m = '0' + m;
   if(s < 10) s = '0' + s;
   const result = m + ':' + s;
-  console.log('formatTime(); ', result, '\ntimeLeft: ', timeLeft);
   return result;
 }
 
@@ -122,7 +121,9 @@ class Player extends Component {
           <div className='player_sample'>{this.props.sample}</div>
           <div className='player_date'>{this.showDate()}</div>
         </div>
-        <div className='player_controls'>
+        <div className='player_controls'
+          style={{ display: this.props.block }}
+        >
           <div className='play_button_cont'>
             <div
               className={classNames('pause_button', { playing: this.state.isPlaying })}

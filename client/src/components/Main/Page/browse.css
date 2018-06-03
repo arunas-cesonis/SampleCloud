@@ -1,13 +1,14 @@
 .br_container {
   width: 100%;
   height: auto;
-  background-color: red;
+  background-color: #d3d3d3;
 }
 .test {
   overflow: hidden;
   width: 100%;
 }
 .br_container .br_middle {
+  float: left;
     width: 35%; 
     margin: 0 auto;
     height: auto;

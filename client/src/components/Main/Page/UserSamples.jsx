@@ -55,7 +55,6 @@ const SampleBox = (props) => (
         dateAdded={item.dateAdded}
         test={'none'}
       />
-      <SampleControls />
         <UserProperties
           userAttr={props.userAttr}
         />
