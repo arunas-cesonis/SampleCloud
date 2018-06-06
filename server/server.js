@@ -15,6 +15,7 @@ const fileSchema = mongoose.Schema({
   fileName: String,
   friendlyName: String,
   filePath: String,
+  category: String,
   dateAdded: Date
 });
 
@@ -87,6 +88,7 @@ app.get('/api/profile/:user', (req, res) => {
 });
 
 app.post('/api/profile', (req, res) => {
+  const extTypes = ['.mp3', '.wav']; 
   const data = req.files.file;
   const b = req.body;
   const username = b.user.toLowerCase();
@@ -95,7 +97,8 @@ app.post('/api/profile', (req, res) => {
   const date = Date();
   const files = [];
   const fullPath = userFolder + '/' + data.name;
-  const ext = data.name.slice(-4, data.name.length);
+  const dotIndex = data.name.lastIndexOf('.');
+  const ext = data.name.slice(dotIndex);
   const fileMeta = new File({
     username: b.user,
     email: b.email,
@@ -111,7 +114,7 @@ app.post('/api/profile', (req, res) => {
     }
   });
   console.log('EXTENSION: ', ext); 
-  if(files.length === 0 && ext === '.mp3'){
+  if(files.length === 0 && extTypes.indexOf(ext) > -1){
       fileMeta.save(function(err) {
         if(err) return console.log(err);
         res.send({ success: true });

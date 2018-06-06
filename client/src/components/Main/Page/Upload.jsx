@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from './UploadInput.jsx';
+import Select from './UploadSelect.jsx';
 import './upload.css';
 import axios from 'axios';
 
@@ -7,6 +8,8 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      categories: ['Drums', 'Strings', 'Brass', 'Electronic', 'Live', 'Other'],
+      category: '',
       nameNotValid: false,
       uploadData: {
         file: '',
@@ -20,19 +23,30 @@ class Upload extends Component {
     this.handleFile = this.handleFile.bind(this);
     this.handleFileName = this.handleFileName.bind(this);
     this.handleUploadOk = this.handleUploadOk.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
+  }
+
+  handleCategory(val) {
+    this.setState({ category: val });
+    console.log('handleCategory(); ', val); 
   }
 
   handleFile(file) {
     const uploadData = Object.assign({}, this.state.uploadData);
+    const types = ['audio/mp3', 'audio/wav'];
     uploadData.file = file;
-    this.setState({ uploadData });
+    if(types.indexOf(uploadData.file.type) > -1){
+      this.setState({ uploadData });
+    } else { 
+      this.setState({ error: 'This file type is not allowed.' });
+    }
   }
 
   handleFileName(fileName) {
     const uploadData = Object.assign({}, this.state.uploadData);
     uploadData.fileName = fileName;
 
-    if (fileName.match(/^[a-zA-Z]+$/)) {
+    if (fileName.match(/^[a-zA-Z0-9]+$/)) {
       this.setState({ uploadData, nameNotValid: false });
     } else {
       this.setState({ uploadData, nameNotValid: true });
@@ -42,6 +56,7 @@ class Upload extends Component {
   handleUpload(event) {
     event.preventDefault();
     const user = this.props.user;
+    const category = this.state.category;
     const data = new FormData();
     const notValid = this.state.nameNotValid;
     const friendlyName = this.state.uploadData.fileName;
@@ -49,7 +64,7 @@ class Upload extends Component {
     const file = this.state.uploadData.file;
     this.setState({ error: '' });
     //Very basic validation
-    if (!notValid && friendlyName.length > 0 && fileName != null) {
+    if (!notValid && friendlyName.length > 0 && fileName != null && category !== '') {
       data.append('file', file); 
       data.append('friendlyName', friendlyName); 
       data.append('user', user.username);
@@ -81,7 +96,6 @@ class Upload extends Component {
   }
 
   handleUploadOk() {
-    this.props.updateList();
     this.setState({
       uploadData: {
         file: '',
@@ -123,6 +137,10 @@ class Upload extends Component {
               addClass={true}
             />
             <br />
+            <Select 
+              update={this.handleCategory}
+              categories={this.state.categories}
+            />
             <button onClick={this.handleUpload}>submit</button>
           </form>
         </div>

@@ -5,9 +5,9 @@ class ProfileBar extends Component {
   render() {
     return(
       <div>
-        <Link to="/profile/upload">Upload</Link>
-        <Link to="/profile/samples">Samples</Link>
-        <Link to="/profile/settings">Settings</Link>
+        <Link to="/profile/upload">Upload </Link>
+        <Link to="/profile/samples">Samples </Link>
+        <Link to="/profile/settings">Settings </Link>
       </div>
     );
   }

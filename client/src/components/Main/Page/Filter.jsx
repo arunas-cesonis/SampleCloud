@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Form, FormControl, FormGroup } from 'react-bootstrap';
+import './filter.css';
 
 class Filter extends Component {
   constructor(props){
@@ -33,26 +33,25 @@ class Filter extends Component {
       this.setState({ users: usersArr });
     });
   }
-
-    // Create a new component for Filter Form/Inputs/ETC
+  // Create a new component for Filter Form/Inputs/ETC
   render() {
     return(
-      <Form inline>
-        <FormGroup controlId="formControlsSelect">
-          <FormControl onChange={this.handleSelect} componentClass="select">
-            <option value={'Select'}>Select</option>
-            {this.state.users.map((user, i) => (
-              <option key={i} value={user}>{user}</option>
-              ))}
-          </FormControl>
-          <FormControl 
-            type='text'
-            placeholder='Search...'
-            onChange={this.handleSearch}
-            value={this.props.value}
-          />
-        </FormGroup>
-      </Form>
+      <div>
+        <input 
+          type='text'
+          onChange={this.handleSearch}
+          value={this.props.value}
+          placeHolder='Search...'
+        />
+        <select onChange={this.handleSelect} >
+          <option value=''>Select User</option> 
+          {this.state.users.map((item, i) =>
+          <option 
+            key={i}
+            value={item}
+          >{item}</option>)}
+        </select>
+      </div>
     );
   }
 }

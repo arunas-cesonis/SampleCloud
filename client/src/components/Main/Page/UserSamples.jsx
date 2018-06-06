@@ -31,7 +31,6 @@ class UserSamples extends Component {
           samples={this.state.samples}
           userAttr={this.state.userAttr}
         />
-        <div>{'User Attributes:'}</div>
       </div>
     );
   }
@@ -40,7 +39,6 @@ class UserSamples extends Component {
 const box = {
   display: 'inline-block',
   width: '340px',
-  padding: '5px',
   height: 'auto',
   backgroundColor: 'white' 
 }
@@ -48,32 +46,34 @@ const box = {
 const SampleBox = (props) => (
   props.samples.map((item, i) =>
   <div style={box} key={i}>
+      <SampleControls />
+      <UserProperties
+        userAttr={props.userAttr}
+      />
       <Player
         username={item.username}
         sample={item.friendlyName}
         sampleURL={item.filePath}
         dateAdded={item.dateAdded}
-        test={'none'}
+        block={'inline-block'} 
       />
-        <UserProperties
-          userAttr={props.userAttr}
-        />
     </div>
   )
 );
 
 const SampleControls = (props) => (
   <div>
-    <button>Dump</button>
-    <button>Opt1</button>
-    <button>Opt2</button>
+    <button>Delete</button>
+    <button>Rename</button>
+    <button>Move</button>
   </div>
 );
 
+//CATEFORIES
 const UserProperties = (props) => (
   props.userAttr.map((item, i) =>
     <div key={i}>
-      <p>{item.email}</p>
+      <p>Category: {item.admin}</p>
     </div>
   )
 );

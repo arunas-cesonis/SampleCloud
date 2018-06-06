@@ -1,9 +1,9 @@
 .br_player{
   float: left;
   background-color: rgba(182, 161, 158, .3);
-    width: 335px;
-    height: auto;
-    margin: 2px 5px;
+  margin: 2px 5px;
+  width: 335px;
+  height: auto;
   transition: all 0.3s ease-out;
   opacity: 0.8;
 }
