@@ -28,14 +28,12 @@ class Player extends Component {
     this.state = {
       timeLeft: '00:00',
       progress: 0,
-      isPlaying: false,
-      sampleDuration: 0
+      isPlaying: false
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
     this.showDate = this.showDate.bind(this);
     this.getMousePos = this.getMousePos.bind(this);
-    this.getDuration = this.getDuration.bind(this);
   }
 
   handlePause() {
@@ -100,11 +98,6 @@ class Player extends Component {
     }
   }
 
-  getDuration(){
-    const duration = this.player.duration.toFixed(2) + 's';
-    this.setState({ sampleDuration: duration });
-  }
-
   pauseButton() {
     console.log('pauseButton();');
     this.setState({ isPlaying: false });
@@ -116,7 +109,6 @@ class Player extends Component {
     this.setState({ isPlaying: true });
     this.handlePlay();
   }
-
 
   render() {
     const sampleURL = this.props.sample.filePath;
@@ -153,11 +145,8 @@ class Player extends Component {
           </div>
           <div className='timeleft'>{this.state.timeLeft}</div>
         </div>
-        <div className='player_cat'>Category: {this.props.sample.category}</div>
-        <div className='player_cat'>Time: {this.state.sampleDuration}</div>
         <audio
           onEnded={this.handleEnded.bind(this)}
-          onCanPlay={this.getDuration}
           onPause={this.handleEnded.bind(this)}
           onSeeking={this.handleSeek.bind(this)}
           onTimeUpdate={this.handleTimeUpdate.bind(this)}

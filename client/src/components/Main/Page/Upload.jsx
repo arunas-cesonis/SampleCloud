@@ -69,6 +69,7 @@ class Upload extends Component {
       data.append('friendlyName', friendlyName); 
       data.append('user', user.username);
       data.append('email', user.email);
+      data.append('category', category);
       axios.post('http://localhost:3010/api/profile', data)
         .then(res => {
           console.log('Server res: ', res.data);
@@ -86,7 +87,7 @@ class Upload extends Component {
     } else {
       // VALIDATION
       this.setState({
-        error: 'Specify filename with no white spaces and include a file.'
+        error: 'Check your form, some fields are missing or incorrect.'
       });
     }
   }

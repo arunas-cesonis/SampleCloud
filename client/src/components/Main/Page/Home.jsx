@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Player from './Player.jsx';
+import MiniPlayer from './MiniPlayer.jsx';
 import './home.css';
 import axios from 'axios';
 
@@ -26,13 +26,10 @@ class Home extends Component {
         <div className='home_col1'></div>
         <div className='home_col2'>
           <div className='home_title'>Recent Uploads</div>
-          {this.state.samples.map((item, i) => <Player
-              key={i}
-              sampleURL={item.filePath}
-              username={item.username}
-              sample={item.friendlyName}
-              dateAdded={item.dateAdded}
-              block={'block'}
+          {this.state.samples.map((item, i) => <MiniPlayer
+            sample={item}
+            key={i}
+            block={'block'}
             />
           )}
         </div>

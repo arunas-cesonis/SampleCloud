@@ -9,6 +9,9 @@ import Register from './Register.jsx';
 import Profile from './Profile.jsx';
 import ProfileBar from './ProfileBar.jsx';
 
+//TMP
+import Upload from './Upload.jsx';
+
 
 //Basically this is a main Content or Content Loader
 class Page extends Component {

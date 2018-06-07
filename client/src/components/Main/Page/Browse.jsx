@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Player from './Player.jsx';
+import MiniPlayer from './MiniPlayer.jsx';
 import Filter from './Filter.jsx';
 import axios from 'axios';
 import './browse.css';
@@ -39,10 +39,12 @@ class Browse extends Component {
     });
   }
 
-  filterGetData(filterArg){
+  filterGetData(filterArg, type){
     this.setState({ sampels: [], value: '' });
+    console.log('Filter Type: ', type);
     axios.post('http://localhost:3010/api/browse/getfiles', {
-        arg: filterArg 
+      type: type, 
+      val: filterArg 
     }).then(res => {
       const data = res.data;
       console.log('GetData: ', data.map((item, i) => item.fileName));
@@ -61,12 +63,9 @@ class Browse extends Component {
             filterSearch={this.filterSearch}
             value={this.state.value}
           />
-          {this.state.samples.map((item, i) => <Player 
+          {this.state.samples.map((item, i) => <MiniPlayer 
+            sample={item}
             key={i} 
-            username={item.username}
-            sample={item.friendlyName}
-            sampleURL={item.filePath}
-            dateAdded={item.dateAdded}
             noControls={'none'}
           />)}
         </div>

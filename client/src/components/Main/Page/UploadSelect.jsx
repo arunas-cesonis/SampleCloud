@@ -5,9 +5,11 @@ class UploadSelect extends Component {
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
   }
+
   handleSelect(e) {
     this.props.update(e.target.value); 
   }
+
   render() {
     return (
       <select onChange={this.handleSelect}>

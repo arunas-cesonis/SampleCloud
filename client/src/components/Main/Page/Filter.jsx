@@ -6,14 +6,15 @@ class Filter extends Component {
   constructor(props){
     super(props);
     this.state = {
-      users: []
+      users: [],
+      categories: []
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSelect(e){
-    this.props.filterGetData(e.target.value);
+  handleSelect = (type) => (e) => {
+    this.props.filterGetData(e.target.value, type);
   }
   
   handleSearch(e){
@@ -22,15 +23,12 @@ class Filter extends Component {
 
   componentDidMount() {
     axios.get('http://localhost:3010/api/browse').then(res => {
-      const usersArr = [];
-      const tmpArr = res.data.map((item) => item.username.toLowerCase());
-      for(let i = 0; i < tmpArr.length; i++){
-        //indexOf == -1 if tmpArr[i] is not found in usersArr 
-        if(usersArr.indexOf(tmpArr[i]) === -1){
-          usersArr.push(tmpArr[i]);
-        }
-      }
-      this.setState({ users: usersArr });
+      console.log(res.data.categories);
+      console.log(res.data.users);
+      this.setState({ 
+        users: res.data.users, 
+        categories: res.data.categories
+      });
     });
   }
   // Create a new component for Filter Form/Inputs/ETC
@@ -41,11 +39,19 @@ class Filter extends Component {
           type='text'
           onChange={this.handleSearch}
           value={this.props.value}
-          placeHolder='Search...'
+          placeholder='Search...'
         />
-        <select onChange={this.handleSelect} >
+        <select onChange={this.handleSelect('username')} >
           <option value=''>Select User</option> 
           {this.state.users.map((item, i) =>
+          <option 
+            key={i}
+            value={item}
+          >{item}</option>)}
+        </select>
+        <select onChange={this.handleSelect('category')}>
+          <option value=''>Category</option> 
+          {this.state.categories.map((item, i) =>
           <option 
             key={i}
             value={item}

@@ -51,11 +51,8 @@ const SampleBox = (props) => (
         userAttr={props.userAttr}
       />
       <Player
-        username={item.username}
-        sample={item.friendlyName}
-        sampleURL={item.filePath}
-        dateAdded={item.dateAdded}
-        block={'inline-block'} 
+        sample={item}
+        block={'block'} 
       />
     </div>
   )

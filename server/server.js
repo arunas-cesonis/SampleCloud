@@ -92,6 +92,7 @@ app.post('/api/profile', (req, res) => {
   const data = req.files.file;
   const b = req.body;
   const username = b.user.toLowerCase();
+  const category = b.category;
   const filePath = "http://localhost:3000/uploads/" + username + '/' + data.name;
   const userFolder = '../client/public/uploads/' + username;
   const date = Date();
@@ -100,11 +101,12 @@ app.post('/api/profile', (req, res) => {
   const dotIndex = data.name.lastIndexOf('.');
   const ext = data.name.slice(dotIndex);
   const fileMeta = new File({
-    username: b.user,
+    username: username,
     email: b.email,
     fileName: data.name,
     friendlyName: b.friendlyName,
     filePath: filePath,
+    category: category,
     dateAdded: date 
   });
   // Do something with the file, put it somewhere on the server + ref to db + meta
@@ -113,8 +115,10 @@ app.post('/api/profile', (req, res) => {
       files.push(file);
     }
   });
+  console.log('CATEGORY: ', category); 
   console.log('EXTENSION: ', ext); 
   if(files.length === 0 && extTypes.indexOf(ext) > -1){
+    console.log('File Meta: ', fileMeta);
       fileMeta.save(function(err) {
         if(err) return console.log(err);
         res.send({ success: true });
@@ -176,13 +180,6 @@ app.post('/api/login', (req, res) => {
       res.send(null);
     }
   });
-  /*
-  res.send({
-    name: b.username,
-    success: true,
-    id: sessionId
-  });
-  */
 });
 
 app.get('/api/about', (req, res) => {
@@ -195,14 +192,27 @@ app.get('/api/about', (req, res) => {
 
 //JUST FOR TESTING, WILL BE INTEGRATED WITH DB
 app.get('/api/browse', (req, res) => {
+  const usersArr = [];
+  const catsArr = [];
   File.find(function(err, files){
-    res.send(files);
+    const names = files.map((item) => {
+      if(usersArr.indexOf(item.username.toLowerCase()) === -1){
+        usersArr.push(item.username.toLowerCase());
+      }
+      if(catsArr.indexOf(item.category.toLowerCase()) === -1){
+        catsArr.push(item.category.toLowerCase());
+      }
+    });
+    res.send({
+      users: usersArr,
+      categories: catsArr
+    });
   });
 });
 
 app.post('/api/browse/search', (req, res) => {
   const b = req.body.searchInput;
-  File.find({ 'fileName': { $regex: b } }, function(err, files){
+  File.find({ 'friendlyName': { $regex: b } }, function(err, files){
     if(err) throw err;
     res.send(files);
   });
@@ -217,27 +227,14 @@ app.post('/api/browse/search', (req, res) => {
 
 app.post('/api/browse/getfiles', (req, res) => {
   const b = req.body;
-  const username = b.arg
-  File.find({ 'username': username }, (err, files) => {
+  const value = b.val
+  const type = b.type
+  const query = {};
+  query[type] = value;
+  File.find(query, (err, files) => {
     if(err) return err 
     res.send(files);
   }).collation({ locale: 'en', strength: 1 });
-
-  // EQUIVALENT TO FOR EACH
-  /*
-  const db_query = File.find({ username: username }).cursor();
-  db_query.on('data', function(doc){
-    tmpArr.push(doc); 
-  });
-  db_query.on('close', function(){
-    console.log('done!');
-  });
-  const tmpArr = sampleObj.filter((sample) => ( 
-    sample.username === username
-  ));
-  const samples = Object.values(tmpArr[0].files);
-  console.log('Array: ', samples);
-  res.send(samples);
   /* findIndex
   const i = sampleObj.findIndex(file => file.username === b.arg);
   console.log(sampleObj[i]);
