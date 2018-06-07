@@ -211,11 +211,24 @@ app.get('/api/browse', (req, res) => {
 });
 
 app.post('/api/browse/search', (req, res) => {
-  const b = req.body.searchInput;
-  File.find({ 'friendlyName': { $regex: b } }, function(err, files){
-    if(err) throw err;
-    res.send(files);
-  });
+  const searchVal = req.body.searchInput;
+  const searchCond = req.body.searchCond;
+  const searchType = req.body.searchType;
+  const query = {};
+  query[searchType] = searchCond;
+  console.log('Search Condition: ', searchCond);
+  console.log('Search Type: ', searchType);
+  if(searchCond){
+    File.find({ $and: [{ 'friendlyName': { $regex: searchVal }}, query ]}, function(err, files){
+      if(err) throw err;
+      res.send(files);
+    }).collation({ locale: 'en', strength: 1 });
+  } else {
+    File.find({ 'friendlyName': { $regex: searchVal } }, function(err, files){
+      if(err) throw err;
+      res.send(files);
+    });
+  }
   // Merge array into a single array //
   /*
   filterArr = [].concat.apply([], tmpArr);
@@ -226,9 +239,8 @@ app.post('/api/browse/search', (req, res) => {
 });
 
 app.post('/api/browse/getfiles', (req, res) => {
-  const b = req.body;
-  const value = b.val
-  const type = b.type
+  const value = req.body.val
+  const type = req.body.type
   const query = {};
   query[type] = value;
   File.find(query, (err, files) => {
