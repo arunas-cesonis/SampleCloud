@@ -235,6 +235,7 @@ app.post('/api/browse/getfiles', (req, res) => {
     if(err) return err 
     res.send(files);
   }).collation({ locale: 'en', strength: 1 });
+
   /* findIndex
   const i = sampleObj.findIndex(file => file.username === b.arg);
   console.log(sampleObj[i]);
