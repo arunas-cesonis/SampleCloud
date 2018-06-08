@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import './player.css';
+import './miniplayer.css';
 
 const checkURL = url => {
   if (url) {
@@ -11,9 +11,6 @@ const checkURL = url => {
 };
 
 const formatTime = (timeLeft) => {
-  if(isNaN(timeLeft)){
-    return '00:00';
-  }
   let m = Math.floor(timeLeft / 60);
   let s = timeLeft % 60;
   if(m < 10) m = '0' + m;
@@ -26,7 +23,7 @@ class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeLeft: '00:00',
+      timeLeft: '',
       progress: 0,
       isPlaying: false
     };
@@ -34,6 +31,13 @@ class Player extends Component {
     this.handlePause = this.handlePause.bind(this);
     this.showDate = this.showDate.bind(this);
     this.getMousePos = this.getMousePos.bind(this);
+    this.getDuration = this.getDuration.bind(this);
+  }
+
+  getDuration(){
+    const rawDuration = Math.ceil(this.player.duration);
+    const duration = formatTime(rawDuration);
+    this.setState({ timeLeft: duration });
   }
 
   handlePause() {
@@ -87,7 +91,7 @@ class Player extends Component {
   getMousePos(e) {
     const sample = this.props.sample.filePath;
     const total = Math.floor(this.player.duration);
-    const elMaxX = 200;
+    const elMaxX = 235;
     const mouseX = e.nativeEvent.offsetX; 
     const t = ((mouseX * total) / elMaxX);
     if(checkURL(sample)){
@@ -110,20 +114,8 @@ class Player extends Component {
     this.handlePlay();
   }
 
-  render() {
-    const sampleURL = this.props.sample.filePath;
-    console.log('Props Sample URL: ', sampleURL);
-    //To segment into separate components
-    return (
-      <div className="br_player">
-        <div className="player_title">
-          <div className='player_user'>{this.props.sample.username}</div>
-          <div className='player_sample'>{this.props.sample.friendlyName}</div>
-          <div className='player_date'>{this.showDate()}</div>
-        </div>
-        <div className='player_controls'
-          style={{ display: this.props.block }}
-        >
+  /*
+        <div className='player_controls'>
           <div className='play_button_cont'>
             <div
               className={classNames('pause_button', { playing: this.state.isPlaying })}
@@ -145,8 +137,42 @@ class Player extends Component {
           </div>
           <div className='timeleft'>{this.state.timeLeft}</div>
         </div>
+  */
+  render() {
+    const sampleURL = this.props.sample.filePath;
+    console.log('Props Sample URL: ', sampleURL);
+    //To segment into separate components
+    return (
+      <div className='miniplayer_cont'>
+        <div className='avatar'
+          style={{ backgroundImage: 'url(http://localhost:3000/img/default_avatar.png)' }}
+        >
+          <div className='avatar_name'>{this.props.sample.username}</div>
+        </div>
+        <div className='miniplayer'>
+          <div className='name'>{this.props.sample.friendlyName}</div>
+          <div className='category'>{this.props.sample.category}</div>
+          <div
+            className={classNames('pause_button', { pl: this.state.isPlaying })}
+            onClick={this.pauseButton.bind(this)}
+          ></div>
+          <div 
+            className={classNames('play_button', { playing: this.state.isPlaying })}
+            onClick={this.playButton.bind(this)}
+          ></div>
+          <div className='time'>{this.state.timeLeft}</div>
+          <div 
+            onClick={this.getMousePos}
+            className='progress_cont'>
+            <div 
+              className='progress_bar'
+              style={{ width: this.state.progress + '%' }}
+            ></div>
+          </div>
+        </div>
         <audio
           onEnded={this.handleEnded.bind(this)}
+          onCanPlay={this.getDuration}
           onPause={this.handleEnded.bind(this)}
           onSeeking={this.handleSeek.bind(this)}
           onTimeUpdate={this.handleTimeUpdate.bind(this)}

@@ -41,7 +41,9 @@ class Filter extends Component {
           value={this.props.value}
           placeholder='Search...'
         />
-        <select onChange={this.handleSelect('username')} >
+        <select 
+          value={this.props.selectUser}  
+          onChange={this.handleSelect('username')} >
           <option value=''>Select User</option> 
           {this.state.users.map((item, i) =>
           <option 
@@ -49,7 +51,9 @@ class Filter extends Component {
             value={item}
           >{item}</option>)}
         </select>
-        <select onChange={this.handleSelect('category')}>
+        <select 
+          value={this.props.selectCat} 
+          onChange={this.handleSelect('category')}>
           <option value=''>Category</option> 
           {this.state.categories.map((item, i) =>
           <option 

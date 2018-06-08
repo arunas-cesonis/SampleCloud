@@ -10,7 +10,11 @@ class Browse extends Component {
     this.state = {
       samples: [],
       currentUser: '',
-      value: ''
+      value: '',
+      filterCond: '',
+      filterType: '',
+      selectUser: '',
+      selectCat: ''
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.filterGetData = this.filterGetData.bind(this);
@@ -22,29 +26,50 @@ class Browse extends Component {
     this.setState({ sampleURL: sampleURL });
   }
 
-  filterSearch(filterArg){
-    this.setState({ sampels: [] });
-    console.log('Filter: ', filterArg);
+  filterSearch(filterInputVal){
+    this.setState({ samples: [] });
+    console.log('Filter: ', filterInputVal);
     axios.post('http://localhost:3010/api/browse/search', {
-        searchInput: filterArg 
+      searchInput: filterInputVal, 
+      searchCond: this.state.filterCond, 
+      searchType: this.state.filterType
     }).then(res => {
       const data = res.data;
       console.log('D: ', data);
       if(data){
         this.setState({
           samples: data, 
-          value: filterArg 
+          value: filterInputVal 
         })
       }
     });
   }
 
-  filterGetData(filterArg, type){
-    this.setState({ sampels: [], value: '' });
+  filterGetData(filterInputVal, type){
+    this.setState({ 
+      samples: [], 
+      value: '',
+      filterCond: filterInputVal,
+      filterType: type
+    });
+    // To review later
+    if(type === 'username') { 
+      this.setState({ 
+        selectCat: '', 
+        selectUser: filterInputVal 
+      });
+    }
+    if(type === 'category') { 
+      this.setState({ 
+        selectCat: filterInputVal, 
+        selectUser: '' 
+      });
+    }
+    if(type === 'category') this.setState({ unSelectUser: '' });
     console.log('Filter Type: ', type);
     axios.post('http://localhost:3010/api/browse/getfiles', {
       type: type, 
-      val: filterArg 
+      val: filterInputVal 
     }).then(res => {
       const data = res.data;
       console.log('GetData: ', data.map((item, i) => item.fileName));
@@ -59,6 +84,8 @@ class Browse extends Component {
       <div className="br_container">
         <div className="br_middle">
           <Filter 
+            selectCat={this.state.selectCat}
+            selectUser={this.state.selectUser}
             filterGetData={this.filterGetData}
             filterSearch={this.filterSearch}
             value={this.state.value}
@@ -66,7 +93,6 @@ class Browse extends Component {
           {this.state.samples.map((item, i) => <MiniPlayer 
             sample={item}
             key={i} 
-            noControls={'none'}
           />)}
         </div>
       </div>
