@@ -1,3 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+.profile_main {
+  width: 90%;
+  margin: auto;
+  background-color: rgba(10, 20, 30, 0.4);
+}
 .samples_cont {
   width: 100%;
+}
+.profile_slider_inner {
+  height: 300px;
+  font-size: 34px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  line-height: 300px;
+}
+.tab_box {
+  width: 100%;
+  box-shadow: 0px 2px 7px 0px #535453;
+  /*border-bottom: solid 2px blue;*/
+  background-color: white;
+}
+.tab_box .tab_wrap {
+  position: relative;
+  width: 600px;
+  height: 90px;
+  margin: auto;
+  top: 50px;
+}
+.tab_wrap .tab_cont {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tab_cont .tab {
+  display: inline-block;
+  height: 40px;
+  margin-right: -2px;
+  text-align: center;
+  line-height: 40px;
+  width: 200px;
+}
+.tab_cont .tab.active {
+  border: solid 2px blue;
+  border-bottom: none;
+}
+.tab .tab_item {
+  text-decoration: none;
+  color: #6aabb7;
 }

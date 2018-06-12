@@ -7,11 +7,6 @@ import About from './About.jsx';
 import Browse from './Browse.jsx';
 import Register from './Register.jsx';
 import Profile from './Profile.jsx';
-import ProfileBar from './ProfileBar.jsx';
-
-//TMP
-import Upload from './Upload.jsx';
-
 
 //Basically this is a main Content or Content Loader
 class Page extends Component {
@@ -38,9 +33,6 @@ class Page extends Component {
             path="/profile"
             render={props => 
               <div>
-                <ProfileBar 
-                  serverRed={this.props.serverRed}
-                />
                 <Profile 
                   serverRes={this.props.serverRes}
                 />
