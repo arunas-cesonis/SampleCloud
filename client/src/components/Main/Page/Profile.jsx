@@ -9,8 +9,8 @@ class Profile extends Component {
     return (
       <div>
         <ProfileSlider />
+        <ProfileMenu />
         <div className='profile_main'>
-          <ProfileMenu />
           <ProfileRouter serverRes={this.props.serverRes} />
         </div>
       </div>

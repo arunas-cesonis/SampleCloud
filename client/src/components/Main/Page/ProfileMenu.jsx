@@ -16,7 +16,9 @@ class ProfileMenu extends Component {
       <div className='tab_wrap'>
         <ul className='tab_cont'>
           {items.map((item, i) => 
-            <li className={classNames('tab', { active: current === item.path })} ><Link className='tab_item' to={item.path} >{item.name}</Link></li>
+          <li 
+            className={classNames('tab', { active: current === item.path })} 
+          ><Link className={classNames('tab_item', { active: current === item.path})} to={item.path} >{item.name}</Link></li>
           )}
         </ul>
       </div>
