@@ -2,9 +2,12 @@
   box-sizing: border-box;
 }
 .profile_main {
-  width: 90%;
+  position: relative;
+  z-index: 90;
+  width: 80%;
   margin: auto;
-  background-color: rgba(10, 20, 30, 0.4);
+  background-color: white;
+  /*background-color:  rgba(10, 20, 30, 0.4);*/
 }
 .samples_cont {
   width: 100%;
@@ -18,6 +21,8 @@
   line-height: 300px;
 }
 .tab_box {
+  z-index: 100;
+  position: relative;
   width: 100%;
   box-shadow: 0px 2px 7px 0px #535453;
   /*border-bottom: solid 2px blue;*/

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from './UploadInput.jsx';
+import FileInput from './UploadFileInput.jsx';
 import Select from './UploadSelect.jsx';
 import './upload.css';
 import axios from 'axios';
@@ -118,15 +119,14 @@ class Upload extends Component {
       );
     } else {
       return (
-        <div>
+        <div className='upload_main'>
           <form>
             <p className="error_msg">{this.state.error}</p>
-            <Input
+            <FileInput
               id={'file'}
               label={'File:'}
-              type={'file'}
               upload={this.handleFile}
-              addClass={false}
+              value='value'
             />
             <Input
               id={'filename'}

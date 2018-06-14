@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import TextField from '@material-ui/core/TextField';
 import './upload.css';
 
 class UploadInput extends Component {
@@ -23,9 +24,16 @@ class UploadInput extends Component {
     const addClass = this.props.addClass;
     const id = this.props.id;
     const label = this.props.label;
+    const classes = this.props.classes;
     return (
       <div>
         <label className="uploadLabel" htmlFor={id}>
+        <TextField
+          id="uncontrolled"
+          label="Filename:"
+          className={classes.textField}
+          margin="normal"
+        />
           {label}
         </label>
         <br />

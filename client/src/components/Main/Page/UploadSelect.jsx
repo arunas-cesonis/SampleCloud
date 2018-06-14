@@ -12,12 +12,15 @@ class UploadSelect extends Component {
 
   render() {
     return (
-      <select onChange={this.handleSelect}>
-        <option value=''>Category</option>
-        {this.props.categories.map((item, i) =>
-          <option value={item} key={i}>{item}</option>
-        )}
-      </select>
+      <div className='upload_select'>
+        <select 
+          onChange={this.handleSelect}>
+          <option value=''>Category</option>
+          {this.props.categories.map((item, i) =>
+            <option value={item} key={i}>{item}</option>
+          )}
+        </select>
+      </div>
     );
   }
 }
