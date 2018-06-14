@@ -42,7 +42,7 @@
   text-align: center;
   line-height: 40px;
   width: 200px;
-  transition: all 0.5s;
+  transition: all 0.3s;
   margin-top: 5px;
 }
 .tab_cont .tab.active {

@@ -9,6 +9,7 @@ const app = express();
 mongoose.connect('mongodb://localhost/samplecloud');
 const db = mongoose.connection;
 
+//File MetaData
 const fileSchema = mongoose.Schema({
   username: String,
   email: String,
@@ -19,6 +20,7 @@ const fileSchema = mongoose.Schema({
   dateAdded: Date
 });
 
+//User MetaData
 const userSchema = mongoose.Schema({
   username: String,
   email: String,
@@ -73,6 +75,7 @@ decrypt = data => {
   return cipher.update(data, 'hex', 'utf8') + cipher.final('utf8');
 };
 
+//Handle UserSamples
 app.get('/api/profile/:user', (req, res) => {
   const data = {
     files: '',
@@ -87,6 +90,7 @@ app.get('/api/profile/:user', (req, res) => {
   });
 });
 
+//Handle File Upload
 app.post('/api/profile', (req, res) => {
   const extTypes = ['.mp3', '.wav']; 
   const data = req.files.file;
@@ -135,12 +139,8 @@ app.post('/api/profile', (req, res) => {
   }
 });
 
-app.post('/api/pushtodb', (req, res) => {
-  const data = req.body.username;
-  console.log('received from react: ' + data);
-});
-
-app.post('/api/reg/received', (req, res) => {
+//Handle Register Form
+app.post('/api/register', (req, res) => {
   const b = req.body;
   console.log('U:', b.username);
   console.log('P:', b.password);
@@ -148,7 +148,8 @@ app.post('/api/reg/received', (req, res) => {
   res.send('The user has been added.');
 });
 
-app.post('/api/checkUsername', (req, res) => {
+//Check if username is free
+app.post('/api/validate', (req, res) => {
   const b = req.body;
   console.log('/api/checkUsername req: ', b.username);
   // To check against DB if this username is taken or not and return true or false.
@@ -164,6 +165,7 @@ app.post('/api/checkUsername', (req, res) => {
 });
 const sessions = {};
 
+//Handle Login Form
 app.post('/api/login', (req, res) => {
   const b = req.body;
   const username = b.username;
@@ -182,6 +184,7 @@ app.post('/api/login', (req, res) => {
   });
 });
 
+//Might need to delete this o move it to the login page.
 app.get('/api/about', (req, res) => {
   let obj = {
     arg1: 'I like blue apples.',
@@ -190,12 +193,14 @@ app.get('/api/about', (req, res) => {
   res.send(obj);
 });
 
-//JUST FOR TESTING, WILL BE INTEGRATED WITH DB
+//Selective Search
 app.get('/api/browse', (req, res) => {
   const usersArr = [];
   const catsArr = [];
+  const allFiles = [];
   File.find(function(err, files){
-    const names = files.map((item) => {
+    allFiles.push(files);
+    files.map((item) => {
       if(usersArr.indexOf(item.username.toLowerCase()) === -1){
         usersArr.push(item.username.toLowerCase());
       }
@@ -205,11 +210,13 @@ app.get('/api/browse', (req, res) => {
     });
     res.send({
       users: usersArr,
-      categories: catsArr
+      categories: catsArr,
+      files: allFiles
     });
   });
 });
 
+//Search
 app.post('/api/browse/search', (req, res) => {
   const searchVal = req.body.searchInput;
   const searchCond = req.body.searchCond;
@@ -238,6 +245,7 @@ app.post('/api/browse/search', (req, res) => {
   */
 });
 
+
 app.post('/api/browse/getfiles', (req, res) => {
   const value = req.body.val
   const type = req.body.type
@@ -255,6 +263,7 @@ app.post('/api/browse/getfiles', (req, res) => {
   */
 });
 
+//HOME
 app.get('/api/home', (req, res) => {
   const maxSamples = 10;
   File.find({}).sort({dateAdded: -1}).exec((err, files) => {

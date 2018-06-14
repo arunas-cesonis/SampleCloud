@@ -16,6 +16,7 @@ class Browse extends Component {
       selectUser: '',
       selectCat: ''
     };
+    this.listAllFiles = this.listAllFiles.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.filterGetData = this.filterGetData.bind(this);
     this.filterSearch = this.filterSearch.bind(this);
@@ -79,11 +80,19 @@ class Browse extends Component {
     });
   }
 
+  listAllFiles(files){
+    console.log('Browser props: ', files[0]);
+    this.setState({
+      samples: files[0]
+    });
+  }
+
   render() {
     return (
       <div className="br_container">
         <div className="br_middle">
           <Filter 
+            listAllFiles={this.listAllFiles}
             selectCat={this.state.selectCat}
             selectUser={this.state.selectUser}
             filterGetData={this.filterGetData}

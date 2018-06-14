@@ -71,15 +71,13 @@ class Register extends Component {
       console.log('The form has been submitted.');
       /// POST TO server.js.
       console.log('Push to DB.');
-      axios
-        .post('/api/reg/received', {
-          username: username,
-          email: email,
-          password: password
-        })
-        .then(response => {
-          console.log('res: ', response.data);
-        });
+      axios.post('/api/register', {
+        username: username,
+        email: email,
+        password: password
+      }).then(response => {
+        console.log('res: ', response.data);
+      });
       this.setState({
         username: '',
         password: '',
@@ -128,13 +126,11 @@ class Register extends Component {
   handleUsername(usernameInputVal) {
     const usernameFree = this.state.usernameFree;
     this.setState({ username: usernameInputVal });
-    axios
-      .post('http://localhost:3010/api/checkUsername', {
-        username: usernameInputVal
-      })
-      .then(response => {
-        this.setState({ usernameFree: response.data.free });
-      });
+    axios.post('http://localhost:3010/api/validate', {
+      username: usernameInputVal
+    }).then(response => {
+      this.setState({ usernameFree: response.data.free });
+    });
     if (usernameFree) {
       this.setState({ usernameNotValid: false });
     } else {
@@ -168,49 +164,49 @@ class Register extends Component {
         </div>
       );
     } else {
-    return (
-      <div className='login_cont'>
-        <div className='login_wrapper'>
-          <div className='login_title'>Register Form</div>
-          <div className='login_form'>
-            <form>
-              <Input
-                label={'Username:'}
-                id={'username'}
-                error={this.state.usernameError}
-                type={'text'}
-                notValid={usernameNotValid}
-                check={this.handleUsername}
-                val={username}
-              />
-              <Input
-                label={'Email:'}
-                id={'email'}
-                error={this.state.emailError}
-                type={'text'}
-                notValid={emailNotValid}
-                check={this.handleEmail}
-                val={email}
-              />
-              <Input
-                label={'Password:'}
-                id={'password'}
-                error={this.state.passwordError}
-                type={'password'}
-                notValid={passwordNotValid}
-                check={this.handlePassword}
-                val={password}
-              />
-              <br />
-              <div 
-                onClick={this.handleForm}
-                className='login_button'
-              >Submit</div>
-            </form>
+      return (
+        <div className='login_cont'>
+          <div className='login_wrapper'>
+            <div className='login_title'>Register Form</div>
+            <div className='login_form'>
+              <form>
+                <Input
+                  label={'Username:'}
+                  id={'username'}
+                  error={this.state.usernameError}
+                  type={'text'}
+                  notValid={usernameNotValid}
+                  check={this.handleUsername}
+                  val={username}
+                />
+                <Input
+                  label={'Email:'}
+                  id={'email'}
+                  error={this.state.emailError}
+                  type={'text'}
+                  notValid={emailNotValid}
+                  check={this.handleEmail}
+                  val={email}
+                />
+                <Input
+                  label={'Password:'}
+                  id={'password'}
+                  error={this.state.passwordError}
+                  type={'password'}
+                  notValid={passwordNotValid}
+                  check={this.handlePassword}
+                  val={password}
+                />
+                <br />
+                <div 
+                  onClick={this.handleForm}
+                  className='login_button'
+                >Submit</div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
     }
   }
 }

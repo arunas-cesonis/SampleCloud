@@ -23,12 +23,14 @@ class Filter extends Component {
 
   componentDidMount() {
     axios.get('http://localhost:3010/api/browse').then(res => {
-      console.log(res.data.categories);
-      console.log(res.data.users);
+      console.log('Categories: ', res.data.categories);
+      console.log('Users: ',res.data.users);
+      console.log('All files: ', res.data.files);
       this.setState({ 
         users: res.data.users, 
         categories: res.data.categories
       });
+      this.props.listAllFiles(res.data.files);
     });
   }
   // Create a new component for Filter Form/Inputs/ETC
