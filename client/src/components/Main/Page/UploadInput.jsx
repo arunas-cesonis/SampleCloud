@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
-import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import './upload.css';
+
+const styles = {
+  textSize: {
+    fontSize: '16px',
+    lineHeight: '16px',
+    width: '150px'
+  }
+}
 
 class UploadInput extends Component {
   constructor(props) {
@@ -10,44 +19,32 @@ class UploadInput extends Component {
   }
 
   update(e) {
-    if (this.props.type === 'file') {
-      this.props.upload(e.target.files[0]);
-    } else {
       this.props.filename(e.target.value);
-    }
   }
 
   render() {
-    const type = this.props.type;
     const val = this.props.val;
     const valid = this.props.valid;
-    const addClass = this.props.addClass;
     const id = this.props.id;
     const label = this.props.label;
-    const classes = this.props.classes;
+
     return (
-      <div>
-        <label className="uploadLabel" htmlFor={id}>
-        <TextField
-          id="uncontrolled"
-          label="Filename:"
-          className={classes.textField}
-          margin="normal"
-        />
-          {label}
-        </label>
-        <br />
-        <input
-          id={id}
-          type={type}
-          name={type}
-          onChange={this.update}
-          value={val}
-          className={classNames({ uploadInput: addClass }, { invalid: valid })}
-        />
-      </div>
+        <FormControl>
+          <InputLabel 
+            style={ styles.textSize }
+            htmlFor={id}
+          >{label}
+          </InputLabel>
+          <Input 
+            id={id} 
+            value={val} 
+            onChange={this.update} 
+            style={ styles.textSize }
+            error={valid}
+          />
+        </FormControl>
     );
   }
 }
 
-export default UploadInput;
+export default UploadInput 

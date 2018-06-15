@@ -1,5 +1,5 @@
 .upload_main {
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
   padding: 30px;
 }
@@ -21,9 +21,10 @@
 .upload_file_btn {
   position: relative;
   background-color: #6aabb7;
+  top: 5px;
   padding: 4px;
   text-align: center;
-  min-width: 120;
+  min-width: 150px; 
   max-width: 280px;
   height: auto;
   cursor: pointer;
@@ -33,9 +34,6 @@
   background-color: #fba100;
 }
 input[type='file'] {
-  display: none;
-}
-.upload_select select {
   display: none;
 }
 .upload_select {
@@ -59,14 +57,27 @@ input[type='file'] {
     color: red;
     font-size: 10px;
 }
+.upload_error {
+  color: red;
+  font-size: 10px;
+  text-align: center;
+}
+.uploadInput::after {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+}
 .uploadInput {
+  position: relative;
     border: 0;
     border-bottom: 2px solid #1976D2;
     background: transparent;
     padding: 2px;
+    transition: all 0.3s;
 }
 .uploadInput:focus {
-    outline: 0;
+   outline: 0;
 }
 .uploadInput.invalid {
     border-color: red;

@@ -5,6 +5,24 @@ import Select from './UploadSelect.jsx';
 import './upload.css';
 import axios from 'axios';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+
+const styles = theme => ({
+  root: {
+    flewGrow: 1,
+    width: '320px',
+    height: '350px',
+    margin: '0 auto',
+  },
+  paper: {
+    padding: '10px 20px'
+  }
+});
+
 class Upload extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +34,7 @@ class Upload extends Component {
         file: '',
         fileName: ''
       },
-      error: '',
+      error: 'error field',
       uploaded: '',
       msg: ''
     };
@@ -110,6 +128,7 @@ class Upload extends Component {
 
   render() {
     const notValid = this.state.nameNotValid;
+    const { classes } = this.props;
     if (this.state.uploaded) {
       return (
         <div>
@@ -118,7 +137,7 @@ class Upload extends Component {
         </div>
       );
     } else {
-      return (
+        /*
         <div className='upload_main'>
           <form>
             <p className="error_msg">{this.state.error}</p>
@@ -131,11 +150,9 @@ class Upload extends Component {
             <Input
               id={'filename'}
               label={'File Name:'}
-              type={'text'}
               filename={this.handleFileName}
               val={this.state.uploadData.fileName}
               valid={notValid}
-              addClass={true}
             />
             <br />
             <Select 
@@ -145,6 +162,54 @@ class Upload extends Component {
             <button onClick={this.handleUpload}>submit</button>
           </form>
         </div>
+        */
+      return (
+        <form autoComplete='off' className={classes.root}>
+          <Paper className={classes.paper} >
+          <Grid container justify='center' spacing={8}>
+            <Grid item xs={6}>
+              <p className="upload_error">{this.state.error}</p>
+            </Grid>
+          </Grid>
+          <Grid direction='row' alignItems='flex-end' container spacing={8} >
+            <Grid item >
+              <Input
+                id={'filename'}
+                label={'File Name:'}
+                filename={this.handleFileName}
+                val={this.state.uploadData.fileName}
+                valid={notValid}
+              />
+            </Grid>
+          </Grid>
+          <Grid direction='row' alignItems='flex-end' container justify='flext-start' spacing={8}> 
+            <Grid item >
+              <Select 
+                value={this.state.category}
+                label='Category'
+                id='Category'
+                update={this.handleCategory}
+                categories={this.state.categories}
+              />
+            </Grid>
+          </Grid>
+          <Grid direction='row' alignItems='flex-end' container spacing={8} >
+            <Grid item >
+              <FileInput
+                id={'file'}
+                label={'File:'}
+                upload={this.handleFile}
+                value='value'
+              />
+            </Grid>
+          </Grid>
+          <Grid direction='row' alignItems='flex-end' container justify='flext-start' spacing={8} > 
+            <Grid item >
+              <Button onClick={this.handleUpload} style={{ fontSize: '16px' }} color='primary'>Submit</Button>
+            </Grid>
+          </Grid>
+          </Paper>
+        </form>
       );
     }
   }
@@ -154,4 +219,4 @@ class Upload extends Component {
   }
 }
 
-export default Upload;
+export default withStyles(styles)(Upload);
