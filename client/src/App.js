@@ -5,12 +5,19 @@ import { BrowserRouter } from 'react-router-dom';
 import 'typeface-roboto';
 
 const theme = createMuiTheme({
+  overrides: {
+    MuiInput: {
+      root: {
+        width: '150px',
+      },
+    },
+  },
   palette: {
     primary: { 
       main: '#6aabb7' 
     }, 
     secondary: { 
-      main: '#11cb5f' 
+      main: '#fba100' 
     },
   }
 });

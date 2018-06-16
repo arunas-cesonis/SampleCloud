@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { withStyles } from '@material-ui/core/styles';
 import './upload.css';
 
-const styles = {
-  textSize: {
+const styles = theme => ({
+  root: {
     fontSize: '16px',
     lineHeight: '16px',
-    width: '150px'
   }
-}
+})
 
 class UploadInput extends Component {
   constructor(props) {
@@ -27,19 +27,24 @@ class UploadInput extends Component {
     const valid = this.props.valid;
     const id = this.props.id;
     const label = this.props.label;
+    const classes = this.props.classes;
 
     return (
-        <FormControl>
+      <FormControl>
           <InputLabel 
-            style={ styles.textSize }
+            classes={{
+              root: classes.root 
+            }}
             htmlFor={id}
           >{label}
           </InputLabel>
           <Input 
+            classes={{
+              root: classes.root 
+            }}
             id={id} 
             value={val} 
             onChange={this.update} 
-            style={ styles.textSize }
             error={valid}
           />
         </FormControl>
@@ -47,4 +52,4 @@ class UploadInput extends Component {
   }
 }
 
-export default UploadInput 
+export default withStyles(styles)(UploadInput)

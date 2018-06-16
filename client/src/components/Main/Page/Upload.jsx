@@ -7,7 +7,6 @@ import axios from 'axios';
 
 // Material UI
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 
@@ -203,9 +202,9 @@ class Upload extends Component {
               />
             </Grid>
           </Grid>
-          <Grid direction='row' alignItems='flex-end' container justify='flext-start' spacing={8} > 
+          <Grid direction='row' alignItems='flex-end' container justify='flex-start' spacing={8} > 
             <Grid item >
-              <Button onClick={this.handleUpload} style={{ fontSize: '16px' }} color='primary'>Submit</Button>
+              <div className='upload_submit' onClick={this.handleUpload} >Submit</div>
             </Grid>
           </Grid>
           </Paper>
