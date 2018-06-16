@@ -3,6 +3,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import PropTypes from 'prop-types';
 
 const styles = {
   textSize: {
@@ -12,7 +13,7 @@ const styles = {
   }
 }
 
-class UploadSelect extends Component {
+class InputSelect extends Component {
   constructor(props){
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
@@ -48,8 +49,8 @@ class UploadSelect extends Component {
           id={id}
           onChange={this.handleSelect}
         >
-          <MenuItem style={ styles.textSize } value=''>Category</MenuItem>
-          {this.props.categories.map((item, i) =>
+          <MenuItem style={ styles.textSize } value=''>{label}</MenuItem>
+          {this.props.items.map((item, i) =>
             <MenuItem key={i} style={ styles.textSize } value={item}>{item}</MenuItem>
           )}
         </Select>
@@ -58,4 +59,12 @@ class UploadSelect extends Component {
   }
 }
 
-export default UploadSelect 
+InputSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired
+
+}
+
+export default InputSelect 

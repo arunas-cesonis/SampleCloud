@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import InputSelect from './InputSelect.jsx';
 import './filter.css';
 
 class Filter extends Component {
@@ -7,12 +8,18 @@ class Filter extends Component {
     super(props);
     this.state = {
       users: [],
-      categories: []
+      categories: [],
+      selectVal: ''
     };
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleSelection = this.handleSelection.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  handleSelection(val, type){
+    this.props.filterGetData(val, type);
+    this.setState({ selectVal: val });
+  }
   handleSelect = (type) => (e) => {
     this.props.filterGetData(e.target.value, type);
   }
@@ -53,6 +60,20 @@ class Filter extends Component {
             value={item}
           >{item}</option>)}
         </select>
+        <InputSelect
+          id='User'
+          label='User'
+          update={(e) => this.handleSelection(e, 'username')}
+          items={this.state.users}
+          value={this.state.selectVal}
+        />
+        <InputSelect
+          id='Category'
+          label='Category'
+          update={(e) => this.handleSelection(e, 'category')}
+          items={this.state.categories}
+          value={this.state.category}
+        />
         <select 
           value={this.props.selectCat} 
           onChange={this.handleSelect('category')}>

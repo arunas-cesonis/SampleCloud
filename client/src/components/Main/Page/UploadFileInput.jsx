@@ -23,7 +23,7 @@ class UploadFileInput extends Component {
 
     return (
       <div>
-        <label htmlFor={id} class='upload_file_btn'>
+        <label htmlFor={id} className='upload_file_btn'>
           <div className='upload_icon'></div><div className='upload_file_name'>{name}</div>
         </label>
         <input

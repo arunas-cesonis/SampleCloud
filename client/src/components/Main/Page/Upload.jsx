@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Input from './UploadInput.jsx';
 import FileInput from './UploadFileInput.jsx';
-import Select from './UploadSelect.jsx';
+import InputSelect from './InputSelect.jsx';
 import './upload.css';
 import axios from 'axios';
 
@@ -181,22 +181,22 @@ class Upload extends Component {
               />
             </Grid>
           </Grid>
-          <Grid direction='row' alignItems='flex-end' container justify='flext-start' spacing={8}> 
+          <Grid direction='row' alignItems='flex-end' container justify='flex-start' spacing={8}> 
             <Grid item >
-              <Select 
+              <InputSelect 
                 value={this.state.category}
                 label='Category'
                 id='Category'
                 update={this.handleCategory}
-                categories={this.state.categories}
+                items={this.state.categories}
               />
             </Grid>
           </Grid>
           <Grid direction='row' alignItems='flex-end' container spacing={8} >
             <Grid item >
               <FileInput
-                id={'file'}
-                label={'File:'}
+                id='file'
+                label='File:'
                 upload={this.handleFile}
                 value='value'
               />
