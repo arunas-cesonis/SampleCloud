@@ -24,7 +24,8 @@ class InputSelect extends Component {
   }
 
   render() {
-    const { value, label, id } = this.props;
+    const { items, value, label, id } = this.props;
+    console.log('InputSelect Value: ', value);
       /*
       <div className='upload_select'>
         <select 
@@ -50,7 +51,7 @@ class InputSelect extends Component {
           onChange={this.handleSelect}
         >
           <MenuItem style={ styles.textSize } value=''>{label}</MenuItem>
-          {this.props.items.map((item, i) =>
+          {items.map((item, i) =>
             <MenuItem key={i} style={ styles.textSize } value={item}>{item}</MenuItem>
           )}
         </Select>

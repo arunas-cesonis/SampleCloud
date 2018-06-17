@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import './upload.css';
 
@@ -51,13 +50,6 @@ class UploadInput extends Component {
         </FormControl>
     );
   }
-}
-
-InputText.propTypes = {
-  val: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  update: PropTypes.function.isRequired
 }
 
 export default withStyles(styles)(UploadInput)

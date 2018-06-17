@@ -1,31 +1,41 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import InputSelect from './InputSelect.jsx';
+import InputText from './InputText.jsx';
 import './filter.css';
 
 class Filter extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       users: [],
       categories: [],
-      selectVal: ''
+      selectUser: '',
+      selectCat: ''
     };
-    this.handleSelect = this.handleSelect.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSelection(val, type){
+  handleSelection(val, type) {
     this.props.filterGetData(val, type);
-    this.setState({ selectVal: val });
-  }
-  handleSelect = (type) => (e) => {
-    this.props.filterGetData(e.target.value, type);
+    //TO Review this later.
+    if(type === 'category') {
+      this.setState({ 
+        selectUser: '',
+        selectCat: val 
+      });
+    }
+    if(type === 'username') {
+      this.setState({ 
+        selectCat: '',
+        selectUser: val 
+      });
+    }
   }
   
-  handleSearch(e){
-    this.props.filterSearch(e.target.value);
+  handleSearch(val) {
+    this.props.filterSearch(val);
   }
 
   componentDidMount() {
@@ -40,50 +50,29 @@ class Filter extends Component {
       this.props.listAllFiles(res.data.files);
     });
   }
-  // Create a new component for Filter Form/Inputs/ETC
+
   render() {
     return(
       <div>
-        <input 
-          type='text'
-          onChange={this.handleSearch}
-          value={this.props.value}
-          placeholder='Search...'
-        />
-        <select 
-          value={this.props.selectUser}  
-          onChange={this.handleSelect('username')} >
-          <option value=''>Select User</option> 
-          {this.state.users.map((item, i) =>
-          <option 
-            key={i}
-            value={item}
-          >{item}</option>)}
-        </select>
         <InputSelect
           id='User'
           label='User'
           update={(e) => this.handleSelection(e, 'username')}
           items={this.state.users}
-          value={this.state.selectVal}
+          value={this.state.selectUser}
         />
         <InputSelect
           id='Category'
           label='Category'
           update={(e) => this.handleSelection(e, 'category')}
           items={this.state.categories}
-          value={this.state.category}
+          value={this.state.selectCat}
         />
-        <select 
-          value={this.props.selectCat} 
-          onChange={this.handleSelect('category')}>
-          <option value=''>Category</option> 
-          {this.state.categories.map((item, i) =>
-          <option 
-            key={i}
-            value={item}
-          >{item}</option>)}
-        </select>
+        <InputText 
+          id='Search'
+          label='Search...'
+          update={this.handleSearch}
+        />
       </div>
     );
   }

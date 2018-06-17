@@ -12,9 +12,7 @@ class Browse extends Component {
       currentUser: '',
       value: '',
       filterCond: '',
-      filterType: '',
-      selectUser: '',
-      selectCat: ''
+      filterType: ''
     };
     this.listAllFiles = this.listAllFiles.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
@@ -53,20 +51,6 @@ class Browse extends Component {
       filterCond: filterInputVal,
       filterType: type
     });
-    // To review later
-    if(type === 'username') { 
-      this.setState({ 
-        selectCat: '', 
-        selectUser: filterInputVal 
-      });
-    }
-    if(type === 'category') { 
-      this.setState({ 
-        selectCat: filterInputVal, 
-        selectUser: '' 
-      });
-    }
-    if(type === 'category') this.setState({ unSelectUser: '' });
     console.log('Filter Type: ', type);
     axios.post('http://localhost:3010/api/browse/getfiles', {
       type: type, 
@@ -93,8 +77,6 @@ class Browse extends Component {
         <div className="br_middle">
           <Filter 
             listAllFiles={this.listAllFiles}
-            selectCat={this.state.selectCat}
-            selectUser={this.state.selectUser}
             filterGetData={this.filterGetData}
             filterSearch={this.filterSearch}
             value={this.state.value}

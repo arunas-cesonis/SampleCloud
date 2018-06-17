@@ -140,7 +140,6 @@ class Player extends Component {
   */
   render() {
     const sampleURL = this.props.sample.filePath;
-    console.log('Props Sample URL: ', sampleURL);
     //To segment into separate components
     return (
       <div className='miniplayer_cont'>

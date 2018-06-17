@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from './UploadInput.jsx';
+import Input from './InputText.jsx';
 import FileInput from './UploadFileInput.jsx';
 import InputSelect from './InputSelect.jsx';
 import './upload.css';
@@ -175,7 +175,7 @@ class Upload extends Component {
               <Input
                 id={'filename'}
                 label={'File Name:'}
-                filename={this.handleFileName}
+                update={this.handleFileName}
                 val={this.state.uploadData.fileName}
                 valid={notValid}
               />
@@ -184,11 +184,11 @@ class Upload extends Component {
           <Grid direction='row' alignItems='flex-end' container justify='flex-start' spacing={8}> 
             <Grid item >
               <InputSelect 
-                value={this.state.category}
-                label='Category'
                 id='Category'
+                label='Category'
                 update={this.handleCategory}
                 items={this.state.categories}
+                value={this.state.category}
               />
             </Grid>
           </Grid>
