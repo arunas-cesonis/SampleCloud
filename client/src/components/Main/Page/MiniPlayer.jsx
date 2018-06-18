@@ -46,11 +46,16 @@ class Player extends Component {
     this.handleDownload = this.handleDownload.bind(this);
   }
 
-  handleDownload(e, url) {
+  handleDownload(e, url, name) {
     e.preventDefault();
+    const fileName = name + url.slice(url.lastIndexOf('.'));
     console.log('URL: ', url);
-    axios.get('http://localhost:3000/uploads/paul/a2.mp3').then((res) => {
-      fd(res.data);
+    axios({
+      url: url, 
+      method: 'GET',
+      responseType: 'blob'
+    }).then((res) => {
+      fd(res.data, fileName);
     })
     this.handleMenuClose();
   }
@@ -205,7 +210,7 @@ class Player extends Component {
               open={Boolean(anchorEl)}
               onClose={this.handleMenuClose}
             >
-              <MenuItem onClick={(e) => this.handleDownload(e, this.props.sample.filePath)}>Download</MenuItem>
+              <MenuItem onClick={(e) => this.handleDownload(e, this.props.sample.filePath, this.props.sample.friendlyName)}>Download</MenuItem>
               <MenuItem>More Info</MenuItem>
               <MenuItem>Something</MenuItem>
             </Menu>
