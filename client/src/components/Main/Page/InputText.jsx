@@ -23,7 +23,7 @@ class UploadInput extends Component {
   }
 
   render() {
-    const val = this.props.val;
+    const val = this.props.value;
     const valid = this.props.valid;
     const id = this.props.id;
     const label = this.props.label;

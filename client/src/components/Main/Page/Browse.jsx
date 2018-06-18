@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import MiniPlayer from './MiniPlayer.jsx';
 import Filter from './Filter.jsx';
 import axios from 'axios';
+import ProfileSlider from './ProfileSlider.jsx';
 import './browse.css';
+
+// Material UI
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 class Browse extends Component {
   constructor(props) {
@@ -73,20 +78,34 @@ class Browse extends Component {
 
   render() {
     return (
-      <div className="br_container">
-        <div className="br_middle">
+      <Grid 
+        justify='center' 
+        container 
+        spacing={24}
+      >
+        <Grid item sm={12}>
+          <ProfileSlider />
+          <Paper style={{ padding: '5px' }} >
           <Filter 
             listAllFiles={this.listAllFiles}
             filterGetData={this.filterGetData}
             filterSearch={this.filterSearch}
             value={this.state.value}
           />
-          {this.state.samples.map((item, i) => <MiniPlayer 
-            sample={item}
-            key={i} 
-          />)}
-        </div>
-      </div>
+          </Paper>
+        </Grid>
+        <Grid  item sm={10}>
+          <Grid justify='center' container direction='row' spacing={8} >
+            {this.state.samples.map((item, i) => 
+            <Grid item sm={6} md={4}>
+             <MiniPlayer 
+               sample={item}
+               key={i} 
+              />
+            </Grid>)}
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }

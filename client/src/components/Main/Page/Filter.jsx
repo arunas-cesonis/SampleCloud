@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import InputSelect from './InputSelect.jsx';
 import InputText from './InputText.jsx';
+import Grid from '@material-ui/core/Grid';
 import './filter.css';
 
 class Filter extends Component {
@@ -53,27 +54,39 @@ class Filter extends Component {
 
   render() {
     return(
-      <div>
-        <InputSelect
-          id='User'
-          label='User'
-          update={(e) => this.handleSelection(e, 'username')}
-          items={this.state.users}
-          value={this.state.selectUser}
+      <Grid
+        container
+        direction='row'
+        justify='center'
+        alignItems='flex-end'
+      >
+        <Grid item sm={3} md={2} lg={2} style={{ textAlign: 'center' }} >
+          <InputText 
+            id='Search'
+            label='Search...'
+            update={this.handleSearch}
+            value={this.props.value}
         />
-        <InputSelect
-          id='Category'
-          label='Category'
-          update={(e) => this.handleSelection(e, 'category')}
-          items={this.state.categories}
-          value={this.state.selectCat}
-        />
-        <InputText 
-          id='Search'
-          label='Search...'
-          update={this.handleSearch}
-        />
-      </div>
+        </Grid>
+        <Grid item sm={3} md={2} lg={2} style={{ textAlign: 'center' }} >
+          <InputSelect
+            id='User'
+            label='User'
+            update={(e) => this.handleSelection(e, 'username')}
+            items={this.state.users}
+            value={this.state.selectUser}
+          />
+        </Grid>
+        <Grid item sm={3} md={2} lg={2} style={{ textAlign: 'center' }} >
+          <InputSelect
+            id='Category'
+            label='Category'
+            update={(e) => this.handleSelection(e, 'category')}
+            items={this.state.categories}
+            value={this.state.selectCat}
+          />
+        </Grid>
+      </Grid>
     );
   }
 }
