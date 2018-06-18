@@ -56,19 +56,19 @@ class Filter extends Component {
     return(
       <Grid
         container
-        direction='row'
-        justify='center'
+        direction='column'
         alignItems='flex-end'
       >
-        <Grid item sm={3} md={2} lg={2} style={{ textAlign: 'center' }} >
+        <Grid item sm={6} md={6} lg={6} style={{ margin: '0 auto' }} >
           <InputText 
             id='Search'
             label='Search...'
             update={this.handleSearch}
+            width='300px'
             value={this.props.value}
         />
         </Grid>
-        <Grid item sm={3} md={2} lg={2} style={{ textAlign: 'center' }} >
+        <Grid item sm={6} md={6} lg={6} style={{ margin: '0 auto' }} >
           <InputSelect
             id='User'
             label='User'
@@ -76,8 +76,6 @@ class Filter extends Component {
             items={this.state.users}
             value={this.state.selectUser}
           />
-        </Grid>
-        <Grid item sm={3} md={2} lg={2} style={{ textAlign: 'center' }} >
           <InputSelect
             id='Category'
             label='Category'

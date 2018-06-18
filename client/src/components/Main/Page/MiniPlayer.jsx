@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import axios from 'axios'
+import fd from 'react-file-download';
 import './miniplayer.css';
+
+//Material UI
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Dehaze from '@material-ui/icons/Dehaze';
 
 const checkURL = url => {
   if (url) {
@@ -25,6 +33,7 @@ class Player extends Component {
     this.state = {
       timeLeft: '',
       progress: 0,
+      anchorEl: null,
       isPlaying: false
     };
     this.handlePlay = this.handlePlay.bind(this);
@@ -32,6 +41,26 @@ class Player extends Component {
     this.showDate = this.showDate.bind(this);
     this.getMousePos = this.getMousePos.bind(this);
     this.getDuration = this.getDuration.bind(this);
+    this.handleMenuClick = this.handleMenuClick.bind(this);
+    this.handleMenuClose = this.handleMenuClose.bind(this);
+    this.handleDownload = this.handleDownload.bind(this);
+  }
+
+  handleDownload(e, url) {
+    e.preventDefault();
+    console.log('URL: ', url);
+    axios.get('http://localhost:3000/uploads/paul/a2.mp3').then((res) => {
+      fd(res.data);
+    })
+    this.handleMenuClose();
+  }
+
+  handleMenuClick(e) {
+    this.setState({ anchorEl: e.currentTarget });
+  }
+
+  handleMenuClose() {
+    this.setState({ anchorEl: null });
   }
 
   getDuration(){
@@ -140,6 +169,7 @@ class Player extends Component {
   */
   render() {
     const sampleURL = this.props.sample.filePath;
+    const anchorEl = this.state.anchorEl;
     //To segment into separate components
     return (
       <div className='miniplayer_cont'>
@@ -159,6 +189,27 @@ class Player extends Component {
             className={classNames('play_button', { playing: this.state.isPlaying })}
             onClick={this.playButton.bind(this)}
           ></div>
+          <div className='menu'>
+            <IconButton
+              style={{ width: '30px', height: '30px' }}
+              aria-label='More'
+              aria-owns={anchorEl ? 'miniplayer-menu' : null}
+              aria-haspopup='true'
+              onClick={this.handleMenuClick}
+            >
+              <Dehaze style={{ width: '16px', color: '#6aabb7' }}/>
+            </IconButton>
+            <Menu
+              id='miniplayer-menu'
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.handleMenuClose}
+            >
+              <MenuItem onClick={(e) => this.handleDownload(e, this.props.sample.filePath)}>Download</MenuItem>
+              <MenuItem>More Info</MenuItem>
+              <MenuItem>Something</MenuItem>
+            </Menu>
+          </div>
           <div className='time'>{this.state.timeLeft}</div>
           <div 
             onClick={this.getMousePos}

@@ -28,6 +28,7 @@ class UploadInput extends Component {
     const id = this.props.id;
     const label = this.props.label;
     const classes = this.props.classes;
+    const w = { width: this.props.width ? this.props.width : '150px' }
 
     return (
       <FormControl>
@@ -39,6 +40,7 @@ class UploadInput extends Component {
           >{label}
           </InputLabel>
           <Input 
+            style={w}
             classes={{
               root: classes.root 
             }}

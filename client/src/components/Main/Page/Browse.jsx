@@ -77,6 +77,7 @@ class Browse extends Component {
   }
 
   render() {
+    // To review Grid later
     return (
       <Grid 
         justify='center' 
@@ -86,18 +87,22 @@ class Browse extends Component {
         <Grid item sm={12}>
           <ProfileSlider />
           <Paper style={{ padding: '5px' }} >
-          <Filter 
-            listAllFiles={this.listAllFiles}
-            filterGetData={this.filterGetData}
-            filterSearch={this.filterSearch}
-            value={this.state.value}
-          />
+            <Grid container justify='center'>
+              <Grid item sm={10}>
+                <Filter 
+                  listAllFiles={this.listAllFiles}
+                  filterGetData={this.filterGetData}
+                  filterSearch={this.filterSearch}
+                  value={this.state.value}
+                />
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
-        <Grid  item sm={10}>
+        <Grid  item sm={8} lg={6}>
           <Grid justify='center' container direction='row' spacing={8} >
             {this.state.samples.map((item, i) => 
-            <Grid item sm={6} md={4}>
+            <Grid item sm={12} md={6} lg={6}>
              <MiniPlayer 
                sample={item}
                key={i} 
