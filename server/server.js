@@ -90,6 +90,11 @@ app.get('/api/profile/:user', (req, res) => {
   });
 });
 
+//Update Pwd in the DB
+app.post('/api/profile/pwd', (req, res) => {
+  console.log('api/profile/pwd: ', req);
+});
+
 //Handle File Upload
 app.post('/api/profile', (req, res) => {
   const extTypes = ['.mp3', '.wav']; 
@@ -184,7 +189,7 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-//Might need to delete this o move it to the login page.
+//Might need to delete this or move it to the login page.
 app.get('/api/about', (req, res) => {
   let obj = {
     arg1: 'I like blue apples.',
@@ -244,7 +249,6 @@ app.post('/api/browse/search', (req, res) => {
   res.send(filterArr);
   */
 });
-
 
 app.post('/api/browse/getfiles', (req, res) => {
   const value = req.body.val

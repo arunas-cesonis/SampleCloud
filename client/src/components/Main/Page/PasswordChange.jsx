@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import axios from 'axios';
 import Input from './InputText.jsx';
 
 const styles = {
@@ -6,6 +7,15 @@ const styles = {
     width: '99px'
   }
 }
+
+const postToServer = (pwd, user) => {
+  axios.post('http://localhost:3000/api/profile/pwd', {
+    user: user, 
+    newPwd: pwd
+  }).then(res => {
+  });
+}
+
 class PasswordChange extends Component {
   constructor(props){
     super(props);
@@ -23,37 +33,45 @@ class PasswordChange extends Component {
     this.handleConfirmPwd = this.handleConfirmPwd.bind(this);
     this.handleNewPwd = this.handleNewPwd.bind(this);
     this.handlePwdChange = this.handlePwdChange.bind(this);
+    this.checkNewPwd = this.checkNewPwd.bind(this);
   }
 
   handlePwdChange(){
     const user = this.props.user;
-    const { currentPwd, newPwd, confirmPwd } = this.state;
+    const { currentPwd } = this.state;
     console.log(
       'Current: ', this.state.currentPwd, '\n',
       'New: ', this.state.currentPwd, '\n',
       'Confirm: ', this.state.currentPwd, '\n',
     );
     if(user.password === currentPwd){
-      console.log('good to go!');
       this.setState({ 
         errorMsg: '',
         invalidCurrent: false 
       })
+      this.checkNewPwd();
     } else {
       this.setState({
-        errorMsg: 'Current Password did not match.\n',
+        errorMsg: 'Password is incorrect.\n',
         invalidCurrent: true
       })
     }
+  }
+  
+  checkNewPwd(){
+    const { newPwd, confirmPwd } = this.state;
+    const user = this.props.user;
     if(confirmPwd === newPwd && newPwd.length > 5 && newPwd.match(/[A-Z]/)){
+      console.log('good to go!');
       this.setState({
         errorMatch: '',
         invalidNew: false,
         invalidConfirm: false
       })
+      postToServer(newPwd, user);
     } else {
       this.setState({
-        errorMatch: 'Password is to week of they did not match.\n',
+        errorMatch: 'Password is to week or did not match.\n',
         invalidNew: true,
         invalidConfirm: true
       })
@@ -78,7 +96,13 @@ class PasswordChange extends Component {
       return (
         <Fragment>
           <div className='pwd_cont'>
-            <p style={{ color: 'red', fontSize: '10px', padding: '4px' }} >{this.state.errorMsg}{this.state.errorMatch}</p>
+            <p 
+              style={{ 
+                color: 'red', 
+                fontSize: '10px', 
+                padding: '4px' 
+              }} 
+            >{this.state.errorMsg}{this.state.errorMatch}</p>
             <Input
               id='currentPwd'
               label='Current Password'
