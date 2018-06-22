@@ -53,7 +53,7 @@ class Player extends Component {
     axios({
       url: url, 
       method: 'GET',
-      responseType: 'blob'
+      responseType: 'blob' // It won't work without this
     }).then((res) => {
       fd(res.data, fileName);
     })

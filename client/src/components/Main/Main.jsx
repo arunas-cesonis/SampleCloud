@@ -29,6 +29,7 @@ class Main extends Component {
     const serverRes = Object.assign({}, this.state.serverRes);
     serverRes.successLogin = auth;
     serverRes.username = user.username;
+    serverRes.password = user.password;
     serverRes.email = user.email;
     serverRes.admin = user.admin;
     serverRes.dateCreated = user.dateCreated;

@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper'
 const styles = theme => ({
   root: {
     flewGrow: 1,
-    width: '320px',
+    width: '195px',
     height: '350px',
     margin: '0 auto',
   },
@@ -33,7 +33,7 @@ class Upload extends Component {
         file: '',
         fileName: ''
       },
-      error: 'error field',
+      error: '',
       uploaded: '',
       msg: ''
     };

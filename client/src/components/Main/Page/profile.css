@@ -4,9 +4,7 @@
 .profile_main {
   position: relative;
   z-index: 90;
-  width: 80%;
   margin: auto;
-  background-color: white;
   /*background-color:  rgba(10, 20, 30, 0.4);*/
 }
 .samples_cont {

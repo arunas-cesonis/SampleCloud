@@ -3,6 +3,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types'; 
 import './upload.css';
 
 const styles = theme => ({
@@ -12,7 +13,7 @@ const styles = theme => ({
   }
 })
 
-class UploadInput extends Component {
+class InputText extends Component {
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
@@ -24,6 +25,7 @@ class UploadInput extends Component {
 
   render() {
     const val = this.props.value;
+    const type = this.props.type;
     const valid = this.props.valid;
     const id = this.props.id;
     const label = this.props.label;
@@ -41,6 +43,7 @@ class UploadInput extends Component {
           </InputLabel>
           <Input 
             style={w}
+            type={type}
             classes={{
               root: classes.root 
             }}
@@ -54,4 +57,9 @@ class UploadInput extends Component {
   }
 }
 
-export default withStyles(styles)(UploadInput)
+InputText.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+}
+
+export default withStyles(styles)(InputText)

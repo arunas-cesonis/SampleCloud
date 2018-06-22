@@ -1,0 +1,57 @@
+.settings_wrap {
+  display: flex;
+  flex-direction: column;
+}
+.settings_wrap .settings_cont {
+  display: flex;
+  flex-direction: row;
+} 
+.settings_cont .settings_left {
+  flex-grow: 1;
+  width: 60%;
+  height: 400px;
+  padding-top: 50px;
+}
+.settings_cont .settings_right {
+  flex-grow: 1;
+  width: 40%;
+  height: 400px;
+  padding-top: 50px;
+}
+.settings_left .avatar {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  border: solid 1px;
+}
+.settings_left .avatar_username {
+  margin: 0 auto;
+  width: 200px;  
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+  border: solid 1px;
+}
+.settings_right .upload_btn {
+  text-align: center;
+  width: 200px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+  background-color: #6aabb7;
+  color: white;
+  line-height: 25px;
+  height: 25px;
+}
+.pwd_cont {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+.pwd_buttons_cont {
+  display: flex;
+  width: 200px;
+  flex-direction: row;
+  justify-content: space-between;
+}
