@@ -26,11 +26,15 @@ const userSchema = mongoose.Schema({
   email: String,
   password: String,
   dateCreated: String,
-  admin: Boolean
+  admin: Boolean,
+  active: Boolean,
+  link: String
 });
 
 const User = mongoose.model('user', userSchema);
 const File = mongoose.model('file', fileSchema);
+
+const registerRequests = [];
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -153,13 +157,41 @@ app.post('/api/profile', (req, res) => {
   }
 });
 
+app.get('/api/verify/:hash', (req, res) => {
+  const hash = req.params.hash;
+  User.findOne({ 'link': hash }, (err, user) => {
+    if(err) throw err;
+    console.log('User.findOne: ', user);
+    User.update(user, { 'active': true }, (err, response) => {
+      if(err) throw err;
+      console.log('User.update: ', response);
+      res.end();
+    });
+  });
+});
+
 //Handle Register Form
 app.post('/api/register', (req, res) => {
-  const b = req.body;
-  console.log('U:', b.username);
-  console.log('P:', b.password);
-  console.log('E:', b.email);
-  res.send('The user has been added.');
+  const password = req.body.password;
+  const username = req.body.username;
+  const email = req.body.email;
+  const hash = Math.random().toString(12).substr(2);
+  const date = Date();
+  const userMeta = new User({
+    username: username,
+    email: email,
+    password: password,
+    dateCreated: date, 
+    admin: false,
+    active: false,
+    link: hash
+  });
+  console.log('hash: ', hash);
+  registerRequests.push(hash);
+  userMeta.save(function(err) {
+    if(err) throw err;
+    res.send('The user has been added.');
+  });
 });
 
 //Check if username is free
@@ -188,7 +220,7 @@ app.post('/api/login', (req, res) => {
   console.log('p: ', b.password);
   const sessionId = Math.random();
   
-  User.findOne({ 'username': username, 'password': password }, function(err, user){
+  User.findOne({ 'username': username, 'password': password }, (err, user) => {
     if(err) throw err;
     if(user){
       res.send(user);
