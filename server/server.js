@@ -92,7 +92,16 @@ app.get('/api/profile/:user', (req, res) => {
 
 //Update Pwd in the DB
 app.post('/api/profile/pwd', (req, res) => {
-  console.log('api/profile/pwd: ', req);
+  const username = req.body.user.username;
+  const newPwd = req.body.newPwd;
+  const email = req.body.user.email;
+  console.log('e: ', email);
+  const q = { 'username': username, 'email': email };
+  User.update(q, { 'password': newPwd }, (err, response) => {
+    if (err) throw err;
+    console.log('Mongo: ', response);
+    res.send({ updated: true });
+  }).collation({ locale: 'en', strength: 1 });;
 });
 
 //Handle File Upload

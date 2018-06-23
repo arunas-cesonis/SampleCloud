@@ -28,6 +28,7 @@ class Main extends Component {
   handleAuthResponse(auth, user){
     const serverRes = Object.assign({}, this.state.serverRes);
     serverRes.successLogin = auth;
+    serverRes._id = user.id;
     serverRes.username = user.username;
     serverRes.password = user.password;
     serverRes.email = user.email;

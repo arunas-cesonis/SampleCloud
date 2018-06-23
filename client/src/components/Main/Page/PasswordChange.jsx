@@ -8,13 +8,6 @@ const styles = {
   }
 }
 
-const postToServer = (pwd, user) => {
-  axios.post('http://localhost:3000/api/profile/pwd', {
-    user: user, 
-    newPwd: pwd
-  }).then(res => {
-  });
-}
 
 class PasswordChange extends Component {
   constructor(props){
@@ -34,6 +27,7 @@ class PasswordChange extends Component {
     this.handleNewPwd = this.handleNewPwd.bind(this);
     this.handlePwdChange = this.handlePwdChange.bind(this);
     this.checkNewPwd = this.checkNewPwd.bind(this);
+    this.postToServer = this.postToServer.bind(this);
   }
 
   handlePwdChange(){
@@ -41,8 +35,8 @@ class PasswordChange extends Component {
     const { currentPwd } = this.state;
     console.log(
       'Current: ', this.state.currentPwd, '\n',
-      'New: ', this.state.currentPwd, '\n',
-      'Confirm: ', this.state.currentPwd, '\n',
+      'New: ', this.state.newPwd, '\n',
+      'Confirm: ', this.state.confirmPwd, '\n',
     );
     if(user.password === currentPwd){
       this.setState({ 
@@ -61,14 +55,14 @@ class PasswordChange extends Component {
   checkNewPwd(){
     const { newPwd, confirmPwd } = this.state;
     const user = this.props.user;
-    if(confirmPwd === newPwd && newPwd.length > 5 && newPwd.match(/[A-Z]/)){
+    if(confirmPwd === newPwd && newPwd.length > 0){ // && newPwd.match(/[A-Z]/)){
       console.log('good to go!');
       this.setState({
         errorMatch: '',
         invalidNew: false,
         invalidConfirm: false
       })
-      postToServer(newPwd, user);
+      this.postToServer(newPwd, user);
     } else {
       this.setState({
         errorMatch: 'Password is to week or did not match.\n',
@@ -76,6 +70,19 @@ class PasswordChange extends Component {
         invalidConfirm: true
       })
     }
+  }
+
+  postToServer = (pwd, user) => {
+    axios.post('http://localhost:3000/api/profile/pwd', {
+      user: user, 
+      newPwd: pwd
+    }).then(res => {
+      if(res.data.updated){
+        this.props.updated();
+      } else {
+        this.setState({ errorMsg: 'Could not update your password. Please try again later.' })
+      }
+    });
   }
 
   handleCurrentPwd(inputVal){

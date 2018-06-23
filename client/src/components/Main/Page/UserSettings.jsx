@@ -8,9 +8,7 @@ class UserSettings extends Component {
     this.state = {
       currentPwd: '',
       newPwd: '',
-      confirmPwd: ''
-    }
-    this.state = {
+      confirmPwd: '',
       showPwdChange: false
     }
     this.handlePwdBtn = this.handlePwdBtn.bind(this);
@@ -19,6 +17,7 @@ class UserSettings extends Component {
   }
 
   handlePwdChange(){
+    this.setState({ showPwdChange: false });
   }
 
   handlePwdClose() {
@@ -44,6 +43,7 @@ class UserSettings extends Component {
             <div className='upload_btn'>Upload Pic</div>
             <div className='upload_btn' onClick={this.handlePwdBtn}>Change Password</div>
             <PasswordChange 
+              updated={this.handlePwdChange}
               pwdChange={this.state.showPwdChange}
               pwdClose={this.handlePwdClose}
               user={details}
