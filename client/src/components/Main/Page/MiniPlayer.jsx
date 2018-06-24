@@ -36,6 +36,7 @@ class Player extends Component {
       anchorEl: null,
       isPlaying: false
     };
+    this.checkAvatar = this.checkAvatar.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
     this.showDate = this.showDate.bind(this);

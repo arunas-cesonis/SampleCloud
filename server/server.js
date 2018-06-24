@@ -123,7 +123,25 @@ app.post('/api/profile/pwd', (req, res) => {
   }).collation({ locale: 'en', strength: 1 });;
 });
 
-//Handle File Upload
+//Handle Avatar Upload
+app.post('/api/profile/avatar', (req, res) => {
+  const extTypes = ['.png', '.jpg', '.jpeg'];
+  const data = req.files.file;
+  const username = req.body.username.toLowerCase();
+  const dotIndex = data.name.lastIndexOf('.');
+  const ext = data.name.slice(dotIndex);
+  const fullPath = '../client/public/uploads/' + username + '/avatar/avatar' + ext; 
+  if(extTypes.indexOf(ext) > -1) {
+    data.mv(fullPath, (err) => {
+      if(err) throw err;
+      console.log('Data.mv(); called');
+    });
+  }
+  console.log('/api/profile/avatar');
+  res.end();
+});
+
+//Handle Sample Upload
 app.post('/api/profile', (req, res) => {
   const extTypes = ['.mp3', '.wav']; 
   const data = req.files.file;
@@ -172,13 +190,14 @@ app.post('/api/profile', (req, res) => {
   }
 });
 
+//New User Verification
 app.get('/api/verify/:hash', (req, res) => {
   const hash = req.params.hash;
   User.findOne({ 'link': hash }, (err, user) => {
     if(err) throw err;
     if(user) {
       console.log('User.findOne: ', user);
-      User.update(user, { 'active': true }, (err, response) => {
+      User.update(user, { 'active': true, 'link': null }, (err, response) => {
         if(err) throw err;
         console.log('User.update: ', response);
         res.send('The account has been activated. <a href="http://localhost:3000">Login</a>');
@@ -189,7 +208,7 @@ app.get('/api/verify/:hash', (req, res) => {
   });
 });
 
-//Handle Register Form
+//Handle Register Form + Send a verification email
 app.post('/api/register', (req, res) => {
   const password = req.body.password;
   const username = req.body.username;
@@ -218,7 +237,7 @@ app.post('/api/register', (req, res) => {
     });
   });
 
-  //Check if username is free
+//Check if username is free
 app.post('/api/validate', (req, res) => {
   const b = req.body;
   console.log('/api/checkUsername req: ', b.username);
@@ -233,15 +252,12 @@ app.post('/api/validate', (req, res) => {
     });
   }
 });
-const sessions = {};
 
 //Handle Login Form
 app.post('/api/login', (req, res) => {
   const b = req.body;
   const username = b.username;
   const password = b.password;
-  console.log('u: ', b.username);
-  console.log('p: ', b.password);
   const sessionId = Math.random();
   
   User.findOne({ 'username': username, 'password': password }, (err, user) => {
@@ -268,6 +284,7 @@ app.get('/api/browse', (req, res) => {
   const usersArr = [];
   const catsArr = [];
   const allFiles = [];
+
   File.find(function(err, files){
     allFiles.push(files);
     files.map((item) => {
@@ -292,6 +309,7 @@ app.post('/api/browse/search', (req, res) => {
   const searchCond = req.body.searchCond;
   const searchType = req.body.searchType;
   const query = {};
+
   query[searchType] = searchCond;
   console.log('Search Condition: ', searchCond);
   console.log('Search Type: ', searchType);
@@ -319,6 +337,7 @@ app.post('/api/browse/getfiles', (req, res) => {
   const value = req.body.val
   const type = req.body.type
   const query = {};
+
   query[type] = value;
   File.find(query, (err, files) => {
     if(err) return err 
@@ -335,6 +354,7 @@ app.post('/api/browse/getfiles', (req, res) => {
 //HOME
 app.get('/api/home', (req, res) => {
   const maxSamples = 10;
+
   File.find({}).sort({dateAdded: -1}).exec((err, files) => {
     console.log('/api/home FILES by DATE: ', files);
     const samples = files.splice(0, maxSamples);

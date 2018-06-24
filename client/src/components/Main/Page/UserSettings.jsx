@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PasswordChange from './PasswordChange.jsx';
+import Avatar from './AvatarUpload.jsx';
 import './settings.css';
 
 class UserSettings extends Component {
@@ -9,11 +10,14 @@ class UserSettings extends Component {
       currentPwd: '',
       newPwd: '',
       confirmPwd: '',
+      showAvatar: false,
       showPwdChange: false
     }
     this.handlePwdBtn = this.handlePwdBtn.bind(this);
     this.handlePwdClose = this.handlePwdClose.bind(this);
     this.handlePwdChange = this.handlePwdChange.bind(this);
+    this.handleAvatarBtn = this.handleAvatarBtn.bind(this);
+    this.handleAvatarClose = this.handleAvatarClose.bind(this);
   }
 
   handlePwdChange(){
@@ -24,9 +28,23 @@ class UserSettings extends Component {
     this.setState({ showPwdChange: false });
   }
 
+  handleAvatarClose(){
+    this.setState({ showAvatar: false });
+  }
+
+  handleAvatarBtn() {
+    this.setState({ 
+      showPwdChange: false, 
+      showAvatar: true 
+    });
+  }
+
   handlePwdBtn() {
     console.log('handlePwdBtn();'); 
-    this.setState({ showPwdChange: true });
+    this.setState({ 
+      showPwdChange: true, 
+      showAvatar: false
+    });
   }
 
   render() {
@@ -40,7 +58,12 @@ class UserSettings extends Component {
             <div className='avatar_username'>{details.username}</div>
           </div>
           <div className='settings_right'>
-            <div className='upload_btn'>Upload Pic</div>
+            <div className='upload_btn' onClick={this.handleAvatarBtn}>Upload Pic</div>
+            <Avatar
+              showAvatar={this.state.showAvatar}
+              avatarClose={this.handleAvatarClose}
+              user={details}
+            />
             <div className='upload_btn' onClick={this.handlePwdBtn}>Change Password</div>
             <PasswordChange 
               updated={this.handlePwdChange}

@@ -20,10 +20,15 @@ class UploadFileInput extends Component {
     const id = this.props.id;
     const label = this.props.label;
     const name = this.state.name;
+    const w = this.props.width;
 
     return (
       <div>
-        <label htmlFor={id} className='upload_file_btn'>
+        <label 
+          htmlFor={id} 
+          className='upload_file_btn' 
+          style={{ width: w }} 
+        >
           <div className='upload_icon'></div><div className='upload_file_name'>{name}</div>
         </label>
         <input
