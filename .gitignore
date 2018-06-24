@@ -4,6 +4,7 @@
 /server/node_modules
 /client/node_modules
 /client/public/uploads/*
+/server/store.js
 
 # testing
 /coverage

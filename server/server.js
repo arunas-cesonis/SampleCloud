@@ -4,7 +4,22 @@ const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const transporterObject = require('./store.js');
 const app = express();
+
+const transporter = nodemailer.createTransport(transporterObject);
+
+const generateLink = (link, to) => {
+  const mailOptions = {
+    from: 'n3op21@gmail.com', 
+    to: to, 
+    subject: 'SampleCloud', 
+    html: link
+  };
+  return mailOptions;
+}
+
 
 mongoose.connect('mongodb://localhost/samplecloud');
 const db = mongoose.connection;
@@ -161,12 +176,16 @@ app.get('/api/verify/:hash', (req, res) => {
   const hash = req.params.hash;
   User.findOne({ 'link': hash }, (err, user) => {
     if(err) throw err;
-    console.log('User.findOne: ', user);
-    User.update(user, { 'active': true }, (err, response) => {
-      if(err) throw err;
-      console.log('User.update: ', response);
-      res.end();
-    });
+    if(user) {
+      console.log('User.findOne: ', user);
+      User.update(user, { 'active': true }, (err, response) => {
+        if(err) throw err;
+        console.log('User.update: ', response);
+        res.send('The account has been activated. <a href="http://localhost:3000">Login</a>');
+      });
+    } else {
+      res.send('The link is no longer active.');
+    }
   });
 });
 
@@ -186,15 +205,20 @@ app.post('/api/register', (req, res) => {
     active: false,
     link: hash
   });
+  const link = 'http://localhost:3010/api/verify/' + hash;
   console.log('hash: ', hash);
   registerRequests.push(hash);
   userMeta.save(function(err) {
     if(err) throw err;
-    res.send('The user has been added.');
+      transporter.sendMail(generateLink(link, email), (err, info) => {
+        if(err) throw err;
+        console.log(info);
+      });
+      res.send('The user has been added.');
+    });
   });
-});
 
-//Check if username is free
+  //Check if username is free
 app.post('/api/validate', (req, res) => {
   const b = req.body;
   console.log('/api/checkUsername req: ', b.username);
