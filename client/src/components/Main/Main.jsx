@@ -13,7 +13,8 @@ class Main extends Component {
         successLogin: false,
         email: '',
         admin: '',
-        dateCreated: ''
+        dateCreated: '',
+        avatar: ''
       }
     };
     this.handleAuthResponse = this.handleAuthResponse.bind(this);
@@ -34,6 +35,7 @@ class Main extends Component {
     serverRes.email = user.email;
     serverRes.admin = user.admin;
     serverRes.dateCreated = user.dateCreated;
+    serverRes.avatar = user.avatar;
     console.log('handleAuthResponse(): ', serverRes);
     this.setState({ serverRes });
   }
@@ -47,7 +49,7 @@ class Main extends Component {
         />
         <Page 
           authResponse={this.handleAuthResponse} 
-          serverRes={this.state.serverRes}
+          user={this.state.serverRes}
           alpha={this.state.alpha}
           handleSliderAlpha={this.handleSliderAlpha}
         />

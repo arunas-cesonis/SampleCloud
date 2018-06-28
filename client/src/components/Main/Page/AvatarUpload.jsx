@@ -29,6 +29,7 @@ class AvatarUpload extends Component {
     if(file) {
       data.append('file', file);
       data.append('username', this.props.user.username);
+      data.append('email', this.props.user.email);
       axios.post('http://localhost:3010/api/profile/avatar', data).then(res => {
         
       }); 

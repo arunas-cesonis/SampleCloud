@@ -88,6 +88,7 @@ class Register extends Component {
       console.log('Failed!');
     }
   }
+
   handleEmail(emailInputVal) {
     const validatedEmail = emailInputVal;
     if (

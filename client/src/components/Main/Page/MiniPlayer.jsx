@@ -34,9 +34,9 @@ class Player extends Component {
       timeLeft: '',
       progress: 0,
       anchorEl: null,
+      avatarURL: '',
       isPlaying: false
     };
-    this.checkAvatar = this.checkAvatar.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
     this.showDate = this.showDate.bind(this);
@@ -173,14 +173,23 @@ class Player extends Component {
           <div className='timeleft'>{this.state.timeLeft}</div>
         </div>
   */
+  componentDidMount(){
+    axios.post('http://localhost:3000/api/avatar', {
+      sample: this.props.sample
+    }).then(res => {
+      this.setState({ avatarURL: res.data.avatar }); 
+    });
+  }
+
   render() {
     const sampleURL = this.props.sample.filePath;
     const anchorEl = this.state.anchorEl;
+    console.log('Avatar URL: ', this.state.avatarURL);
     //To segment into separate components
     return (
       <div className='miniplayer_cont'>
         <div className='avatar'
-          style={{ backgroundImage: 'url(http://localhost:3000/img/default_avatar.png)' }}
+          style={{ backgroundImage: 'url('+ this.state.avatarURL +')' }}
         >
           <div className='avatar_name'>{this.props.sample.username}</div>
         </div>

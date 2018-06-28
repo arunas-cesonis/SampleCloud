@@ -11,7 +11,7 @@ class Profile extends Component {
         <ProfileSlider />
         <ProfileMenu />
         <div className='profile_main'>
-          <ProfileRouter serverRes={this.props.serverRes} />
+          <ProfileRouter user={this.props.user} />
         </div>
       </div>
     );

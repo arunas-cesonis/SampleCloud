@@ -12,28 +12,28 @@ class ProfileRouter extends Component {
           exact path="/profile"
           render={props =>
             <UserSamples
-              user={this.props.serverRes}
+              user={this.props.user}
             />}
         />
         <Route 
           path="/profile/upload" 
           render={props => 
             <Upload 
-              user={this.props.serverRes}
+              user={this.props.user}
             />}
         />
         <Route
           path="/profile/samples"
           render={props =>
           <UserSamples 
-            user={this.props.serverRes}
+            user={this.props.user}
           />}
         />
         <Route
           path="/profile/settings"
           render={props =>
           <UserSettings 
-            user={this.props.serverRes}
+            user={this.props.user}
           />}
         />
       </Switch>

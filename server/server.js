@@ -10,7 +10,7 @@ const app = express();
 
 const transporter = nodemailer.createTransport(transporterObject);
 
-const generateLink = (link, to) => {
+const setHeaders = (link, to) => {
   const mailOptions = {
     from: 'n3op21@gmail.com', 
     to: to, 
@@ -43,13 +43,12 @@ const userSchema = mongoose.Schema({
   dateCreated: String,
   admin: Boolean,
   active: Boolean,
+  avatar: String,
   link: String
 });
 
 const User = mongoose.model('user', userSchema);
 const File = mongoose.model('file', fileSchema);
-
-const registerRequests = [];
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -109,6 +108,19 @@ app.get('/api/profile/:user', (req, res) => {
   });
 });
 
+//Return users avatar from db
+app.post('/api/avatar', (req, res) => {
+  const username = req.body.sample.username; 
+  const email = req.body.sample.email;
+  const q = {
+    username: username,
+    email: email
+  };
+  User.findOne(q, (err, user) => {
+    res.send(user);
+  });
+});
+
 //Update Pwd in the DB
 app.post('/api/profile/pwd', (req, res) => {
   const username = req.body.user.username;
@@ -126,19 +138,28 @@ app.post('/api/profile/pwd', (req, res) => {
 //Handle Avatar Upload
 app.post('/api/profile/avatar', (req, res) => {
   const extTypes = ['.png', '.jpg', '.jpeg'];
-  const data = req.files.file;
   const username = req.body.username.toLowerCase();
+  const email = req.body.email;
+  const data = req.files.file;
   const dotIndex = data.name.lastIndexOf('.');
   const ext = data.name.slice(dotIndex);
   const fullPath = '../client/public/uploads/' + username + '/avatar/avatar' + ext; 
+  const avatarURL = 'http://localhost:3000/uploads/' + username + '/avatar/avatar' + ext;
+  const q = {
+    username: username,
+    email: email
+  };
+
   if(extTypes.indexOf(ext) > -1) {
     data.mv(fullPath, (err) => {
       if(err) throw err;
       console.log('Data.mv(); called');
+      User.update(q, { 'avatar': avatarURL }, (err, response) => {
+        console.log('Mongo:', response);
+        res.end();
+      });
     });
   }
-  console.log('/api/profile/avatar');
-  res.end();
 });
 
 //Handle Sample Upload
@@ -222,6 +243,7 @@ app.post('/api/register', (req, res) => {
     dateCreated: date, 
     admin: false,
     active: false,
+    avatar: 'http://localhost:3000/img/default_avatar.png',
     link: hash
   });
   const link = 'http://localhost:3010/api/verify/' + hash;
@@ -229,7 +251,7 @@ app.post('/api/register', (req, res) => {
   registerRequests.push(hash);
   userMeta.save(function(err) {
     if(err) throw err;
-      transporter.sendMail(generateLink(link, email), (err, info) => {
+      transporter.sendMail(setHeaders(link, email), (err, info) => {
         if(err) throw err;
         console.log(info);
       });

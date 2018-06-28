@@ -12,7 +12,7 @@ import Profile from './Profile.jsx';
 class Page extends Component {
   // CHECK {...props} - This is the way to pass props using Route module.
   render() {
-    if(this.props.serverRes.successLogin) {
+    if(this.props.user.successLogin) {
       return (
         <Switch>
           <Route exact path="/" component={Home} />
@@ -34,7 +34,7 @@ class Page extends Component {
             render={props => 
               <div>
                 <Profile 
-                  serverRes={this.props.serverRes}
+                  user={this.props.user}
                 />
               </div>
             }
