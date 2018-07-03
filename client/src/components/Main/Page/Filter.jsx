@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import InputSelect from './InputSelect.jsx';
 import InputText from './InputText.jsx';
-import Grid from '@material-ui/core/Grid';
 import './filter.css';
 
 class Filter extends Component {
@@ -54,37 +53,37 @@ class Filter extends Component {
 
   render() {
     return(
-      <Grid
-        container
-        direction='column'
-        alignItems='flex-end'
-      >
-        <Grid item sm={6} md={6} lg={6} style={{ margin: '0 auto' }} >
+      <div className='filter_main'>
+        <div className='filter_item'>
           <InputText 
             id='Search'
             label='Search...'
             update={this.handleSearch}
-            width='300px'
+            width='180px'
             value={this.props.value}
         />
-        </Grid>
-        <Grid item sm={6} md={6} lg={6} style={{ margin: '0 auto' }} >
+        </div>
+        <div className='filter_item'>
           <InputSelect
             id='User'
             label='User'
+            width='100px'
             update={(e) => this.handleSelection(e, 'username')}
             items={this.state.users}
             value={this.state.selectUser}
           />
+        </div>
+        <div className='filter_item'>
           <InputSelect
             id='Category'
             label='Category'
+            width='100px'
             update={(e) => this.handleSelection(e, 'category')}
             items={this.state.categories}
             value={this.state.selectCat}
           />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     );
   }
 }

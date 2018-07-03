@@ -16,7 +16,8 @@ class AvatarUpload extends Component {
       uploadData: {
         file: '',
         fileName: ''
-      }
+      },
+      errorMsg: ''
     }
     this.handleAvatarFile = this.handleAvatarFile.bind(this);
     this.handleAvatarUpload = this.handleAvatarUpload.bind(this);
@@ -31,10 +32,10 @@ class AvatarUpload extends Component {
       data.append('username', this.props.user.username);
       data.append('email', this.props.user.email);
       axios.post('http://localhost:3010/api/profile/avatar', data).then(res => {
-        
+        //Notify on success or failure
       }); 
     } else {
-        console.log('Error uploading file. File must be below 1Mb.');
+      this.setState({ errorMsg: 'Error uploading file. File must be below 1Mb.' });
     }
   }
 
@@ -47,7 +48,7 @@ class AvatarUpload extends Component {
     if(types.indexOf(uploadData.file.type) > -1){
       this.setState({ uploadData: uploadData });
     } else {
-      console.log('Error, this file type is not allowed.');
+      this.setState({ errorMsg: 'Error, this file type is not allowed.' });
     } 
   }
 
@@ -57,6 +58,14 @@ class AvatarUpload extends Component {
         <Fragment>
           <div className='avt_main'>
             <div className='setting_title'>UPLOAD YOUR AVATAR PICTURE</div>
+            <p
+              style={{
+                color: 'red',
+                fontSize: '10px',
+                padding: '4px',
+                textAlign: 'center'
+              }}
+            >{this.state.errorMsg}</p>
             <form autoComplete='off' className='avt_cont'>
               <FileInput 
                 id='avatar'

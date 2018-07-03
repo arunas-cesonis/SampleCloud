@@ -220,9 +220,15 @@ class Player extends Component {
               open={Boolean(anchorEl)}
               onClose={this.handleMenuClose}
             >
-              <MenuItem onClick={(e) => this.handleDownload(e, this.props.sample.filePath, this.props.sample.friendlyName)}>Download</MenuItem>
-              <MenuItem>More Info</MenuItem>
-              <MenuItem>Something</MenuItem>
+              <MenuItem 
+                style={{ fontSize: '10px', lineHeight: '10px', padding: '0px 5px' }}
+                onClick={(e) => this.handleDownload(e, this.props.sample.filePath, this.props.sample.friendlyName)}>Download</MenuItem>
+              <MenuItem
+                style={{ fontSize: '10px', lineHeight: '10px', padding: '0px 5px' }}
+              >More Info</MenuItem>
+              <MenuItem
+                style={{ fontSize: '10px', lineHeight: '10px', padding: '0px 5px' }}
+              >Something</MenuItem>
             </Menu>
           </div>
           <div className='time'>{this.state.timeLeft}</div>

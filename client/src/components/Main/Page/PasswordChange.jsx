@@ -48,7 +48,7 @@ class PasswordChange extends Component {
       this.setState({
         errorMsg: 'Password is incorrect.\n',
         invalidCurrent: true
-      })
+      });
     }
   }
   
