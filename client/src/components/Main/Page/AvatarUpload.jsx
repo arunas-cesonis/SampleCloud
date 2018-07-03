@@ -26,7 +26,7 @@ class AvatarUpload extends Component {
     e.preventDefault();
     const data = new FormData();
     const file = this.state.uploadData.file;
-    if(file) {
+    if(file && file.size < 1000000) {
       data.append('file', file);
       data.append('username', this.props.user.username);
       data.append('email', this.props.user.email);
@@ -34,7 +34,7 @@ class AvatarUpload extends Component {
         
       }); 
     } else {
-        console.log('Error uploading file.');
+        console.log('Error uploading file. File must be below 1Mb.');
     }
   }
 

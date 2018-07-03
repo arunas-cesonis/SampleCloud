@@ -80,9 +80,11 @@ class Upload extends Component {
     const friendlyName = this.state.uploadData.fileName;
     const fileName = this.state.uploadData.file.name;
     const file = this.state.uploadData.file;
+    const size = () => { return file.size < 5000000 };
+    console.log('Size: ', size());
     this.setState({ error: '' });
     //Very basic validation
-    if (!notValid && friendlyName.length > 0 && fileName != null && category !== '') {
+    if (!notValid && friendlyName.length > 0 && fileName != null && category !== '' && size()) {
       data.append('file', file); 
       data.append('friendlyName', friendlyName); 
       data.append('user', user.username);
@@ -105,7 +107,7 @@ class Upload extends Component {
     } else {
       // VALIDATION
       this.setState({
-        error: 'Check your form, some fields are missing or incorrect.'
+        error: 'Check your form, some fields are missing or incorrect. Max file size = 5Mb.'
       });
     }
   }
