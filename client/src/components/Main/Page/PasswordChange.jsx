@@ -55,7 +55,7 @@ class PasswordChange extends Component {
   checkNewPwd(){
     const { newPwd, confirmPwd } = this.state;
     const user = this.props.user;
-    if(confirmPwd === newPwd && newPwd.length > 0){ // && newPwd.match(/[A-Z]/)){
+    if(confirmPwd === newPwd && newPwd.length > 0 && newPwd.match(/[A-Z]/)){
       console.log('good to go!');
       this.setState({
         errorMatch: '',
@@ -102,50 +102,53 @@ class PasswordChange extends Component {
     if(this.props.pwdChange){
       return (
         <Fragment>
-          <div className='pwd_cont'>
-            <p 
-              style={{ 
-                color: 'red', 
-                fontSize: '10px', 
-                padding: '4px' 
-              }} 
-            >{this.state.errorMsg}{this.state.errorMatch}</p>
-            <Input
-              id='currentPwd'
-              label='Current Password'
-              type='password'
-              width='200px'
-              update={this.handleCurrentPwd}
-              valid={this.state.invalidCurrent}
-            />
-            <Input
-              id='newPwd'
-              label='New Password'
-              type='password'
-              width='200px'
-              update={this.handleNewPwd}
-              valid={this.state.invalidNew}
-            />
-            <Input
-              id='confirmPwd'
-              label='Confirm Password'
-              type='password'
-              width='200px'
-              update={this.handleConfirmPwd}
-              valid={this.state.invalidConfirm}
-            />
-          </div>
-          <div className='pwd_buttons_cont'>
-            <div 
-              className='upload_btn' 
-              style={ styles.btnWidth }
-              onClick={this.handlePwdChange}
-            >Submit</div>
-            <div 
-              className='upload_btn' 
-              style={ styles.btnWidth } 
-              onClick={this.props.pwdClose}
-            >Cancel</div>
+          <div className='pwd_main'>
+            <div className='setting_title'>CHANGE YOUR PASSWORD</div>
+            <div className='pwd_cont'>
+              <p 
+                style={{ 
+                  color: 'red', 
+                  fontSize: '10px', 
+                  padding: '4px' 
+                }} 
+              >{this.state.errorMsg}{this.state.errorMatch}</p>
+              <Input
+                id='currentPwd'
+                label='Current Password'
+                type='password'
+                width='200px'
+                update={this.handleCurrentPwd}
+                valid={this.state.invalidCurrent}
+              />
+              <Input
+                id='newPwd'
+                label='New Password'
+                type='password'
+                width='200px'
+                update={this.handleNewPwd}
+                valid={this.state.invalidNew}
+              />
+              <Input
+                id='confirmPwd'
+                label='Confirm Password'
+                type='password'
+                width='200px'
+                update={this.handleConfirmPwd}
+                valid={this.state.invalidConfirm}
+              />
+            </div>
+            <div className='pwd_buttons_cont'>
+              <div 
+                className='upload_btn' 
+                style={ styles.btnWidth }
+                onClick={this.handlePwdChange}
+              >Submit</div>
+              <div 
+                className='upload_btn' 
+                style={ styles.btnWidth } 
+                onClick={this.props.pwdClose}
+              >Cancel</div>
+            </div>
           </div>
         </Fragment>
       );

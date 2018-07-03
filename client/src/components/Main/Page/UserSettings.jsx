@@ -49,28 +49,34 @@ class UserSettings extends Component {
 
   render() {
     const details = this.props.user;
-    console.log(this.props.user);
+    console.log('Avatar URL: ', this.props.user.avatar);
+
     return (
       <div className='settings_wrap'>
         <div className='settings_cont'>
           <div className='settings_left'>
-            <div className='avatar'>Profile Picture</div>
+            <div 
+              className='avatar'
+              style={{ backgroundImage: 'url('+ this.props.user.avatar +')'}}
+            ></div>
             <div className='avatar_username'>{details.username}</div>
+            <div className='upload_btn' onClick={this.handleAvatarBtn}>Upload Pic</div>
+            <div className='upload_btn' onClick={this.handlePwdBtn}>Change Password</div>
           </div>
           <div className='settings_right'>
-            <div className='upload_btn' onClick={this.handleAvatarBtn}>Upload Pic</div>
-            <Avatar
-              showAvatar={this.state.showAvatar}
-              avatarClose={this.handleAvatarClose}
-              user={details}
-            />
-            <div className='upload_btn' onClick={this.handlePwdBtn}>Change Password</div>
-            <PasswordChange 
-              updated={this.handlePwdChange}
-              pwdChange={this.state.showPwdChange}
-              pwdClose={this.handlePwdClose}
-              user={details}
-            />
+            <div className='right_cont'>
+              <Avatar
+                showAvatar={this.state.showAvatar}
+                avatarClose={this.handleAvatarClose}
+                user={details}
+              />
+              <PasswordChange 
+                updated={this.handlePwdChange}
+                pwdChange={this.state.showPwdChange}
+                pwdClose={this.handlePwdClose}
+                user={details}
+              />
+            </div>
           </div>
         </div>
       </div>

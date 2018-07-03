@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import FileInput from './UploadFileInput.jsx';
 
@@ -54,27 +54,32 @@ class AvatarUpload extends Component {
   render() {
     if(this.props.showAvatar){
       return (
-        <form autoComplete='off'>
-          <FileInput
-            id='avatar'
-            label='Avatar File:'
-            upload={this.handleAvatarFile}
-            value='value'
-            width='200px'
-          />
-          <div className='pwd_buttons_cont' >
-            <div
-              className='upload_btn'
-              style={ styles.btnWidth }
-              onClick={this.handleAvatarUpload}
-            >Submit</div>
-            <div
-              className='upload_btn'
-              style={ styles.btnWidth }
-              onClick={this.props.avatarClose}
-            >Cancel</div>
+        <Fragment>
+          <div className='avt_main'>
+            <div className='setting_title'>UPLOAD YOUR AVATAR PICTURE</div>
+            <form autoComplete='off' className='avt_cont'>
+              <FileInput 
+                id='avatar'
+                label='Avatar File:'
+                upload={this.handleAvatarFile}
+                value='value'
+                width='200px'
+              />
+              <div className='pwd_buttons_cont' >
+                <div
+                  className='upload_btn'
+                  style={ styles.btnWidth }
+                  onClick={this.handleAvatarUpload}
+                >Submit</div>
+                <div
+                  className='upload_btn'
+                  style={ styles.btnWidth }
+                  onClick={this.props.avatarClose}
+                >Cancel</div>
+              </div>
+            </form>
           </div>
-        </form>
+        </Fragment>
       );
     } else {
       return null;
