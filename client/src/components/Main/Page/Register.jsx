@@ -14,7 +14,6 @@ class Register extends Component {
       emailNotValid: true,
       passwordNotValid: true,
       usernameNotValid: true,
-      usernameFree: false,
       emailError: '',
       passswordError: '',
       usernameError: '',
@@ -125,18 +124,12 @@ class Register extends Component {
   }
 
   handleUsername(usernameInputVal) {
-    const usernameFree = this.state.usernameFree;
     this.setState({ username: usernameInputVal });
     axios.post('http://localhost:3010/api/validate', {
       username: usernameInputVal
     }).then(response => {
-      this.setState({ usernameFree: response.data.free });
+      this.setState({ usernameNotValid: response.data.free });
     });
-    if (usernameFree) {
-      this.setState({ usernameNotValid: false });
-    } else {
-      this.setState({ usernameNotValid: true });
-    }
   }
 
   validationHelper(valid, itemState) {

@@ -195,10 +195,10 @@ app.post('/api/profile', (req, res) => {
   console.log('EXTENSION: ', ext); 
   if(files.length === 0 && extTypes.indexOf(ext) > -1){
     console.log('File Meta: ', fileMeta);
-      fileMeta.save(function(err) {
-        if(err) return console.log(err);
-        res.send({ success: true });
-      });
+    fileMeta.save(function(err) {
+      if(err) return console.log(err);
+      res.send({ success: true });
+    });
     data.mv(fullPath, (err) => {
       console.log('DATA.mv(); called!');
       if(err) console.log('ERROR: ', err);
@@ -264,15 +264,20 @@ app.post('/api/validate', (req, res) => {
   const b = req.body;
   console.log('/api/checkUsername req: ', b.username);
   // To check against DB if this username is taken or not and return true or false.
-  if (b.username.length > 4) {
-    res.send({
-      free: true
-    });
-  } else {
-    res.send({
-      free: false
-    });
-  }
+  User.findOne({ 'username': b.username }, (err, user) => {
+    if(err) throw err;
+    if(user){
+      console.log('User found!');
+      res.send({
+        free: true
+      });
+    } else {
+      console.log('User NOT found!');
+      res.send({
+        free: false
+      });
+    }
+  });
 });
 
 //Handle Login Form
