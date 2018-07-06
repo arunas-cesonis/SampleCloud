@@ -3,6 +3,10 @@ import PasswordChange from './PasswordChange.jsx';
 import Avatar from './AvatarUpload.jsx';
 import './settings.css';
 
+const capitalize = (str) => {
+  return str[0].toUpperCase() + str.slice(1);
+}
+
 class UserSettings extends Component {
   constructor(props) {
     super(props);
@@ -59,8 +63,8 @@ class UserSettings extends Component {
               className='avatar'
               style={{ backgroundImage: 'url('+ this.props.user.avatar +')'}}
             ></div>
-            <div className='avatar_username'>{details.username}</div>
-            <div className='upload_btn' onClick={this.handleAvatarBtn}>Upload Pic</div>
+            <div className='avatar_username'>{capitalize(details.username)}</div>
+            <div className='upload_btn' onClick={this.handleAvatarBtn}>Upload Avatar</div>
             <div className='upload_btn' onClick={this.handlePwdBtn}>Change Password</div>
           </div>
           <div className='settings_right'>

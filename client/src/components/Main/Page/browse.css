@@ -9,9 +9,9 @@
 }
 .br_container .br_middle {
   float: left;
-    width: 340px; 
-    margin: 0 auto;
-    height: auto;
+  width: 340px; 
+  margin: 0 auto;
+  height: auto;
 }
 #formControlsSelect {
   margin-right: 20px;
