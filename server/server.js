@@ -211,13 +211,22 @@ app.post('/api/profile', (req, res) => {
   }
 });
 
+const createDir = (dir) => {
+  if(!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
+}
+
 //New User Verification
 app.get('/api/verify/:hash', (req, res) => {
   const hash = req.params.hash;
   User.findOne({ 'link': hash }, (err, user) => {
     if(err) throw err;
     if(user) {
+      const userFolder = '../client/public/uploads/' + user.username;
+      console.log('dir: ', userFolder);
       console.log('User.findOne: ', user);
+      createDir(userFolder);
       User.update(user, { 'active': true, 'link': null }, (err, response) => {
         if(err) throw err;
         console.log('User.update: ', response);
@@ -248,7 +257,6 @@ app.post('/api/register', (req, res) => {
   });
   const link = 'http://localhost:3010/api/verify/' + hash;
   console.log('hash: ', hash);
-  registerRequests.push(hash);
   userMeta.save(function(err) {
     if(err) throw err;
       transporter.sendMail(setHeaders(link, email), (err, info) => {

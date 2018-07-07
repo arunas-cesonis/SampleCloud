@@ -64,8 +64,8 @@ class UserSettings extends Component {
               style={{ backgroundImage: 'url('+ this.props.user.avatar +')'}}
             ></div>
             <div className='avatar_username'>{capitalize(details.username)}</div>
-            <div className='upload_btn' onClick={this.handleAvatarBtn}>Upload Avatar</div>
-            <div className='upload_btn' onClick={this.handlePwdBtn}>Change Password</div>
+            <div className='settings_btn' onClick={this.handleAvatarBtn}>Upload Avatar</div>
+            <div className='settings_btn' onClick={this.handlePwdBtn}>Change Password</div>
           </div>
           <div className='settings_right'>
             <div className='right_cont'>
