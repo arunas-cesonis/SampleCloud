@@ -212,8 +212,10 @@ app.post('/api/profile', (req, res) => {
 });
 
 const createDir = (dir) => {
+  const avatarDir = dir + '/avatar/';
   if(!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
+    fs.mkdirSync(dir);
+    fs.mkdirSync(avatarDir);
   }
 }
 
