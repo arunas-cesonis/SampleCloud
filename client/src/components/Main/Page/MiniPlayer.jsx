@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import axios from 'axios'
 import fd from 'react-file-download';
 import './miniplayer.css';
+import { Link } from 'react-router-dom';
 
 //Material UI
 import IconButton from '@material-ui/core/IconButton';
@@ -184,15 +185,18 @@ class Player extends Component {
   render() {
     const sampleURL = this.props.sample.filePath;
     const anchorEl = this.state.anchorEl;
+    const userURL = '/userpage/' + this.props.sample.username;
     console.log('Avatar URL: ', this.state.avatarURL);
     //To segment into separate components
     return (
       <div className='miniplayer_cont'>
-        <div className='avatar'
-          style={{ backgroundImage: 'url('+ this.state.avatarURL +')' }}
-        >
-          <div className='avatar_name'>{this.props.sample.username}</div>
-        </div>
+        <Link to={userURL}>
+          <div className='avatar'
+            style={{ backgroundImage: 'url('+ this.state.avatarURL +')' }}
+          >
+            <div className='avatar_name'>{this.props.sample.username}</div>
+          </div>
+        </Link>
         <div className='miniplayer'>
           <div className='name'>{this.props.sample.friendlyName}</div>
           <div className='category'>{this.props.sample.category}</div>

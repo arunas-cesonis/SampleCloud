@@ -1,11 +1,12 @@
 .navBar {
   position: fixed;
-  z-index: 99;
+  z-index: 999;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
   width: 100%;
   text-align: center;
+  background-color: white;
 }
 .navBar .navLi {
   position: relative;
@@ -21,7 +22,6 @@
   transition: all .3s ease-in;
 }
 .navLi .navItem:hover {
-	color: white; 
 }
 .navItem::after {
   position: absolute;
@@ -38,7 +38,6 @@
     width: 70%;
 }
 .navItem.active {
-    color: white;
 }
 .navItem.active::after {
   width: 70%;

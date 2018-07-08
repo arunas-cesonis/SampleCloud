@@ -7,6 +7,7 @@ import About from './About.jsx';
 import Browse from './Browse.jsx';
 import Register from './Register.jsx';
 import Profile from './Profile.jsx';
+import UserPage from './UserPage.jsx';
 
 //Basically this is a main Content or Content Loader
 class Page extends Component {
@@ -17,6 +18,7 @@ class Page extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
+          <Route path='/userpage/:name' component={UserPage} />
           <Route 
             path="/login" 
             render={props => 

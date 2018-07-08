@@ -307,6 +307,25 @@ app.post('/api/login', (req, res) => {
   });
 });
 
+//User Page
+app.get('/api/user/:username', (req, res) => {
+  const username = req.params.username;
+  User.findOne({ 'username': username }, (err, user) => {
+    if(err) throw err;
+    const q = {
+      username: user.username,
+      email: user.email
+    };
+    user.password = Math.random().toString(36).substring(2, 15);
+    File.find(q, (err, files) => {
+      if(err) throw err;
+      res.send({
+        user: user
+      });
+    });
+  });
+});
+
 //Might need to delete this or move it to the login page.
 app.get('/api/about', (req, res) => {
   let obj = {
