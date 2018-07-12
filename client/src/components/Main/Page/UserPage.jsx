@@ -3,6 +3,7 @@ import axios from 'axios';
 import ParallaxImage from './ParallaxImage.jsx';
 import MiniPlayer from './MiniPlayer.jsx';
 import './userpage.css';
+import Paper from '@material-ui/core/Paper';
 
 class UserPage extends Component {
   constructor(props){
@@ -36,7 +37,6 @@ class UserPage extends Component {
       }
     }
     this.setState({ categories: categories });
-    console.log('CATS[]: ', categories);
   }
 
   componentDidMount() {
@@ -55,7 +55,7 @@ class UserPage extends Component {
     return (
       <div className='user_wrap'>
         <ParallaxImage
-          image=''
+          image='http://localhost:3000/img/slide2.jpeg'
         />
         <div 
           className='user_avatar'
@@ -64,6 +64,11 @@ class UserPage extends Component {
         <div className='user_cont'>
           <div className='user_left'>
             <div className='categories_cont'>
+              <Paper
+                style={{ borderRadius: '0', padding: '5px', marginTop: '5px' }}
+              >
+                <div className='cat_title'>CATEGORIES:</div>
+              </Paper>
               {this.state.categories.map((item, i) => 
                 <div 
                   onClick={(e) => this.handleCatClick(item)}
@@ -71,13 +76,18 @@ class UserPage extends Component {
                   key={i}
                 >{item}</div>
               )}
+              <Paper
+                style={{ borderRadius: '0', padding: '5px', marginTop: '5px' }}
+              >
+                <div className='cat_title'>Showing: {this.state.catFiles.length}</div>
+              </Paper>
             </div>
             <p>{this.state.catFiles.length}</p>
-            {this.state.catFiles.map((item, i) => <p key={i}>{item.friendlyName}</p> )}
           </div>
           <div className='user_right'>
             {this.state.catFiles.map((item, i) => 
               <MiniPlayer
+                hideAvatar='true'
                 sample={item}
                 key={i}
               />

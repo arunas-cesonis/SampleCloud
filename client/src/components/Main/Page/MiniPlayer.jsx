@@ -36,7 +36,9 @@ class Player extends Component {
       progress: 0,
       anchorEl: null,
       avatarURL: '',
-      isPlaying: false
+      isPlaying: false,
+      marginLeft: '35px',
+      hideAvatar: 'block'
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -176,14 +178,23 @@ class Player extends Component {
   */
   componentDidMount(){
     if(!this.props.sample.username){
-      console.log('sample.username = null');
+        console.log('sample.username = null');
     } else {
-    axios.post('http://localhost:3000/api/avatar', {
-      sample: this.props.sample
-    }).then(res => {
-      this.setState({ avatarURL: res.data.avatar }); 
-    });
+      axios.post('http://localhost:3000/api/avatar', {
+        sample: this.props.sample
+      }).then(res => {
+        this.setState({ avatarURL: res.data.avatar }); 
+      });
     }
+    this.props.hideAvatar ? 
+      this.setState({ 
+        hideAvatar: 'none',
+        marginLeft: '15px'
+      }) : 
+      this.setState({ 
+        hideAvatar: 'block', 
+        marginLeft: '35px'
+      });
   }
 
   render() {
@@ -195,7 +206,10 @@ class Player extends Component {
       <div className='miniplayer_cont'>
         <Link to={userURL}>
           <div className='avatar'
-            style={{ backgroundImage: 'url('+ this.state.avatarURL +')' }}
+            style={{ 
+              display: this.state.hideAvatar,
+              backgroundImage: 'url('+ this.state.avatarURL +')' 
+            }}
           >
             <div className='avatar_name'>{this.props.sample.username}</div>
           </div>
@@ -206,10 +220,12 @@ class Player extends Component {
           <div
             className={classNames('pause_button', { pl: this.state.isPlaying })}
             onClick={this.pauseButton.bind(this)}
+            style={{ marginLeft: this.state.marginLeft }}
           ></div>
           <div 
             className={classNames('play_button', { playing: this.state.isPlaying })}
             onClick={this.playButton.bind(this)}
+            style={{ marginLeft: this.state.marginLeft }}
           ></div>
           <div className='menu'>
             <IconButton
