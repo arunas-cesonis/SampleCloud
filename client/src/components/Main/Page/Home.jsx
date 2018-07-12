@@ -29,7 +29,6 @@ class Home extends Component {
           {this.state.samples.map((item, i) => <MiniPlayer
             sample={item}
             key={i}
-            block={'block'}
             />
           )}
         </div>

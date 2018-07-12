@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MiniPlayer from './MiniPlayer.jsx';
 import Filter from './Filter.jsx';
 import axios from 'axios';
-import ProfileSlider from './ProfileSlider.jsx';
+import ParallaxImage from './ParallaxImage.jsx';
 import './browse.css';
 
 // Material UI
@@ -85,7 +85,9 @@ class Browse extends Component {
         spacing={24}
       >
         <Grid item sm={12}>
-          <ProfileSlider />
+          <ParallaxImage 
+            image='http://localhost:3000/img/slide4.jpeg'
+          />
           <Paper style={{ padding: '5px' }} >
             <Grid container justify='center'>
               <Grid item sm={10}>

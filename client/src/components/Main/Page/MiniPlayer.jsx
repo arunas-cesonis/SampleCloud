@@ -175,18 +175,21 @@ class Player extends Component {
         </div>
   */
   componentDidMount(){
+    if(!this.props.sample.username){
+      console.log('sample.username = null');
+    } else {
     axios.post('http://localhost:3000/api/avatar', {
       sample: this.props.sample
     }).then(res => {
       this.setState({ avatarURL: res.data.avatar }); 
     });
+    }
   }
 
   render() {
     const sampleURL = this.props.sample.filePath;
     const anchorEl = this.state.anchorEl;
     const userURL = '/userpage/' + this.props.sample.username;
-    console.log('Avatar URL: ', this.state.avatarURL);
     //To segment into separate components
     return (
       <div className='miniplayer_cont'>

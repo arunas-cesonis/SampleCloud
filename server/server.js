@@ -117,6 +117,7 @@ app.post('/api/avatar', (req, res) => {
     email: email
   };
   User.findOne(q, (err, user) => {
+    if(err) throw err;
     res.send(user);
   });
 });
@@ -320,13 +321,14 @@ app.get('/api/user/:username', (req, res) => {
     File.find(q, (err, files) => {
       if(err) throw err;
       res.send({
-        user: user
+        user: user,
+        files: files
       });
     });
   });
 });
 
-//Might need to delete this or move it to the login page.
+//Might need to delete this or move it.
 app.get('/api/about', (req, res) => {
   let obj = {
     arg1: 'I like blue apples.',
