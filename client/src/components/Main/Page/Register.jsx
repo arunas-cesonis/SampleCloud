@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import Input from './RegInput.jsx';
 import './register.css';
 
@@ -22,6 +22,7 @@ class Register extends Component {
     this.handleEmail = this.handleEmail.bind(this);
     this.handleForm = this.handleForm.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.handleLoginButton = this.handleLoginButton.bind(this);
     this.handleUsername = this.handleUsername.bind(this);
   }
   /*
@@ -34,6 +35,11 @@ class Register extends Component {
                     ref={(ref) => {this.password = ref}} 
                 /> 
     */
+
+  handleLoginButton(e) {
+    e.preventDefault();
+    this.props.history.push('/login');
+  }
   handleForm(e) {
     e.preventDefault();
     const email = this.state.email;
@@ -150,11 +156,14 @@ class Register extends Component {
     const emailNotValid = this.state.emailNotValid;
     const passwordNotValid = this.state.passwordNotValid;
     const usernameNotValid = this.state.usernameNotValid;
-    if(this.state.registered){
+    if(1 > 0){
       return (
-        <div>
-          <h1> Form Has been Submited </h1>
-          <Link className='login_button' to='/login'>Click to Login.</Link>
+        <div className='reg_success_wrap'>
+          <div className='reg_success_cont'>
+            <div className='login_title'>Register Form</div>
+            <p style={{ color: 'white' }}>Your registration has been successful. The activation link has been sent to {this.state.email} email address. In order to verify your account please click on the link.</p> 
+            <div onClick={this.handleLoginButton} className='login_button'>Login</div>
+          </div>
         </div>
       );
     } else {
@@ -205,4 +214,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(Register);

@@ -26,3 +26,27 @@ p {
     font-size: 10px;
     color: red;
 }
+.reg_button:hover {
+  background-color: #6aabb7;
+}
+.reg_button {
+  text-decoration: none;
+  padding: 8px;
+  background-color: #fba100;
+  color: white;
+  width: 100px;
+  text-align: center;
+}
+.reg_success_wrap {
+  width: 100%;
+  position: absolute;
+  top: 100px;
+  display: block;
+  padding-bottom: 5px;
+}
+.reg_success_cont {
+  margin: 0 auto;
+  text-align: center;
+  width: 335px;
+  background-color: rgba(107, 186, 167, .8);
+}
