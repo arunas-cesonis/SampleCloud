@@ -11,7 +11,7 @@
   height: 17px;
   background-size: cover;
   background-position: center;
-  background-image: url('http://localhost:3000/img/upload.png');
+  background-image: url('//img/upload.png');
 }
 .upload_file_btn {
   position: relative;

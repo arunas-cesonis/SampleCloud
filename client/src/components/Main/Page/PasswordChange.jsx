@@ -73,7 +73,7 @@ class PasswordChange extends Component {
   }
 
   postToServer = (pwd, user) => {
-    axios.post('http://localhost:3000/api/profile/pwd', {
+    axios.post('/api/profile/pwd', {
       user: user, 
       newPwd: pwd
     }).then(res => {

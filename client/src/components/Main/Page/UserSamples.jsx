@@ -12,7 +12,7 @@ class UserSamples extends Component {
   }
 
   componentDidMount(){
-    const url = 'http://localhost:3000/api/profile/' + this.props.user.username;
+    const url = '/api/profile/' + this.props.user.username;
     axios.get(url).then(res => {
       console.log('RES: ', res.data);
       this.setState({ 

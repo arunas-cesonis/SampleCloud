@@ -131,7 +131,7 @@ class Register extends Component {
 
   handleUsername(usernameInputVal) {
     this.setState({ username: usernameInputVal });
-    axios.post('http://localhost:3010/api/validate', {
+    axios.post('/api/validate', {
       username: usernameInputVal
     }).then(response => {
       this.setState({ usernameNotValid: response.data.free });
@@ -156,7 +156,7 @@ class Register extends Component {
     const emailNotValid = this.state.emailNotValid;
     const passwordNotValid = this.state.passwordNotValid;
     const usernameNotValid = this.state.usernameNotValid;
-    if(1 > 0){
+    if(this.state.registered){
       return (
         <div className='reg_success_wrap'>
           <div className='reg_success_cont'>

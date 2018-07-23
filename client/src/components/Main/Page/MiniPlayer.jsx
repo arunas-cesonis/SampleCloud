@@ -180,7 +180,7 @@ class Player extends Component {
     if(!this.props.sample.username){
         console.log('sample.username = null');
     } else {
-      axios.post('http://localhost:3000/api/avatar', {
+      axios.post('/api/avatar', {
         sample: this.props.sample
       }).then(res => {
         this.setState({ avatarURL: res.data.avatar }); 

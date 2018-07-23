@@ -84,7 +84,7 @@
   margin-top: 13px;
   margin-left: 35px;
   cursor: pointer;
-  background-image: url('http://localhost:3000/img/pause.png');
+  background-image: url('//img/pause.png');
   transition: all 0.4s;
 }
 .miniplayer .play_button {
@@ -94,7 +94,7 @@
   height: 24px;
   margin-top: 13px;
   margin-left: 35px;
-  background-image: url('http://localhost:3000/img/play.png');
+  background-image: url('//img/play.png');
   transition: all 0.4s;
 }
 .play_button.playing {

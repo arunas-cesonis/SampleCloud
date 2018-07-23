@@ -93,7 +93,27 @@ decrypt = data => {
   return cipher.update(data, 'hex', 'utf8') + cipher.final('utf8');
 };
 
-//Handle UserSamples
+
+//My Helper:
+app.get('/', (req, res) => {
+  const s = encrypt('mama');
+  console.log(s);
+  /*
+  File.find({}, (err, files) => {
+    for(let i in files) {
+      let s = files[i].filePath.slice(21);
+      console.log(s);
+      File.update({ filePath: files[i].filePath }, { filePath: s }, (err, response) => {
+        if(err) throw err
+        console.log(response);
+      });
+    }
+  });
+  */
+  res.send('hi');
+});
+
+//User Page
 app.get('/api/profile/:user', (req, res) => {
   const data = {
     files: '',
@@ -145,7 +165,7 @@ app.post('/api/profile/avatar', (req, res) => {
   const dotIndex = data.name.lastIndexOf('.');
   const ext = data.name.slice(dotIndex);
   const fullPath = '../client/public/uploads/' + username + '/avatar/avatar' + ext; 
-  const avatarURL = 'http://localhost:3000/uploads/' + username + '/avatar/avatar' + ext;
+  const avatarURL = '/uploads/' + username + '/avatar/avatar' + ext;
   const q = {
     username: username,
     email: email
@@ -170,7 +190,7 @@ app.post('/api/profile', (req, res) => {
   const b = req.body;
   const username = b.user.toLowerCase();
   const category = b.category;
-  const filePath = "http://localhost:3000/uploads/" + username + '/' + data.name;
+  const filePath = "/uploads/" + username + '/' + data.name;
   const userFolder = '../client/public/uploads/' + username;
   const date = Date();
   const files = [];
@@ -233,7 +253,7 @@ app.get('/api/verify/:hash', (req, res) => {
       User.update(user, { 'active': true, 'link': null }, (err, response) => {
         if(err) throw err;
         console.log('User.update: ', response);
-        res.send('The account has been activated. <a href="http://localhost:3000">Login</a>');
+        res.send('The account has been activated. <a href="http://n3op2.com">Login</a>');
       });
     } else {
       res.send('The link is no longer active.');
@@ -255,10 +275,10 @@ app.post('/api/register', (req, res) => {
     dateCreated: date, 
     admin: false,
     active: false,
-    avatar: 'http://localhost:3000/img/default_avatar.png',
+    avatar: '/img/default_avatar.png',
     link: hash
   });
-  const link = 'http://localhost:3010/api/verify/' + hash;
+  const link = 'http://n3op2.com/api/verify/' + hash;
   console.log('hash: ', hash);
   userMeta.save(function(err) {
     if(err) throw err;
@@ -366,13 +386,14 @@ app.post('/api/browse/search', (req, res) => {
   const searchVal = req.body.searchInput;
   const searchCond = req.body.searchCond;
   const searchType = req.body.searchType;
+  const regExp = new RegExp(['^', searchVal, '$'].join(''), 'i');
   const query = {};
 
   query[searchType] = searchCond;
   console.log('Search Condition: ', searchCond);
   console.log('Search Type: ', searchType);
   if(searchCond){
-    File.find({ $and: [{ 'friendlyName': { $regex: searchVal }}, query ]}, function(err, files){
+    File.find({ $and: [{ 'friendlyName': { $regex: new RegExp("^" + searchVal, 'i') }}, query ]}, (err, files) => {
       if(err) throw err;
       res.send(files);
     }).collation({ locale: 'en', strength: 1 });

@@ -33,7 +33,7 @@ class Browse extends Component {
   filterSearch(filterInputVal){
     this.setState({ samples: [] });
     console.log('Filter: ', filterInputVal);
-    axios.post('http://localhost:3010/api/browse/search', {
+    axios.post('/api/browse/search', {
       searchInput: filterInputVal, 
       searchCond: this.state.filterCond, 
       searchType: this.state.filterType
@@ -57,7 +57,7 @@ class Browse extends Component {
       filterType: type
     });
     console.log('Filter Type: ', type);
-    axios.post('http://localhost:3010/api/browse/getfiles', {
+    axios.post('/api/browse/getfiles', {
       type: type, 
       val: filterInputVal 
     }).then(res => {
@@ -86,7 +86,7 @@ class Browse extends Component {
       >
         <Grid item sm={12}>
           <ParallaxImage 
-            image='http://localhost:3000/img/slide4.jpeg'
+            image='/img/slide4.jpeg'
           />
           <Paper style={{ padding: '5px' }} >
             <Grid container justify='center'>

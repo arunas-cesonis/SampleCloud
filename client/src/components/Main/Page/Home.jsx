@@ -13,7 +13,7 @@ class Home extends Component {
 
   componentDidMount(){
     console.log('Home.jsx mounted.');
-    axios.get('http://localhost:3000/api/home').then(res => {
+    axios.get('/api/home').then(res => {
       console.log('GET /api/home: ', res.data);
       this.setState({ samples: res.data });
       

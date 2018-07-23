@@ -36,7 +36,7 @@ class Login extends Component {
     e.preventDefault();
     console.log('handleForm(); called.');
     axios
-      .post('http://localhost:3010/api/login', {
+      .post('/api/login', {
         //BYPASS Login
         /* 
         username: 'paul', 

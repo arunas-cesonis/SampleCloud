@@ -9,7 +9,7 @@ class Profile extends Component {
     return (
       <div>
         <ParallaxImage 
-          image='http://localhost:3000/img/slide4.jpeg'
+          image='/img/slide4.jpeg'
         />
         <ProfileMenu />
         <div className='profile_main'>

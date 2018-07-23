@@ -39,7 +39,7 @@ class Filter extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3010/api/browse').then(res => {
+    axios.get('/api/browse').then(res => {
       console.log('Categories: ', res.data.categories);
       console.log('Users: ',res.data.users);
       console.log('All files: ', res.data.files);

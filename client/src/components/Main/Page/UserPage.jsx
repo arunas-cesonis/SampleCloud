@@ -40,7 +40,7 @@ class UserPage extends Component {
   }
 
   componentDidMount() {
-    const userURL = 'http://localhost:3010/api/user/' + this.props.match.params.name;
+    const userURL = '/api/user/' + this.props.match.params.name;
     axios.get(userURL).then(res => {
       this.setState({ 
         user: res.data.user,
@@ -55,7 +55,7 @@ class UserPage extends Component {
     return (
       <div className='user_wrap'>
         <ParallaxImage
-          image='http://localhost:3000/img/slide2.jpeg'
+          image='/img/slide2.jpeg'
         />
         <div 
           className='user_avatar'
@@ -63,28 +63,32 @@ class UserPage extends Component {
         ></div>
         <div className='user_cont'>
           <div className='user_left'>
-            <div className='categories_cont'>
-              <Paper
-                style={{ borderRadius: '0', padding: '5px', marginTop: '5px' }}
-              >
-                <div className='cat_title'>CATEGORIES:</div>
-              </Paper>
-              {this.state.categories.map((item, i) => 
-                <div 
-                  onClick={(e) => this.handleCatClick(item)}
-                  className='category_btn' 
+            <div className='spacing10'></div>
+            <Paper
+              style={{ width: '80%', margin: '0 auto' }}
+            >
+              <div className='categories_cont'>
+                  <div className='cat_title'>CATEGORIES:</div>
+                {this.state.categories.map((item, i) => 
+                  <div 
+                    onClick={(e) => this.handleCatClick(item)}
+                    className='category_btn' 
                   key={i}
                 >{item}</div>
-              )}
-              <Paper
-                style={{ borderRadius: '0', padding: '5px', marginTop: '5px' }}
-              >
-                <div className='cat_title'>Showing: {this.state.catFiles.length}</div>
-              </Paper>
-            </div>
-            <p>{this.state.catFiles.length}</p>
+                )}
+              </div>
+            </Paper>
+            <div className='spacing10'></div>
+            <Paper
+              style={{ width: '80%', margin: '0 auto' }}
+            >
+              <div className='cat_title'>Showing: {this.state.catFiles.length}</div>
+            </Paper>
           </div>
           <div className='user_right'>
+            <Paper
+              style={{ width: '90%', margin: '0 auto' }}
+            >
             {this.state.catFiles.map((item, i) => 
               <MiniPlayer
                 hideAvatar='true'
@@ -92,6 +96,7 @@ class UserPage extends Component {
                 key={i}
               />
             )}
+          </Paper>
           </div>
         </div>
       </div>
