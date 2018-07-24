@@ -80,7 +80,7 @@ class Upload extends Component {
     const friendlyName = this.state.uploadData.fileName;
     const fileName = this.state.uploadData.file.name;
     const file = this.state.uploadData.file;
-    const size = () => { return file.size < 5000000 };
+    const size = () => { return (file.size > 10000 && file.size < 11000000) };
     console.log('Size: ', size());
     this.setState({ error: '' });
     //Very basic validation
@@ -107,7 +107,7 @@ class Upload extends Component {
     } else {
       // VALIDATION
       this.setState({
-        error: 'Check your form, some fields are missing or incorrect. Max file size = 5Mb.'
+        error: 'Check your form, some fields are missing or incorrect. Max file size = 11Mb.'
       });
     }
   }

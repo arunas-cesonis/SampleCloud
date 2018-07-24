@@ -52,7 +52,7 @@ class Login extends Component {
 
         if (data._id) {
           //Object needs to be updated and polished.
-          this.props.history.push('/');
+          this.props.history.push('/userhome');
           this.props.authResponse(
             true, 
             data

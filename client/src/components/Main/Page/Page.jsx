@@ -16,7 +16,9 @@ class Page extends Component {
     if(this.props.user.successLogin) {
       return (
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/userhome" render={(props) => 
+              <UserPage currentUser={this.props.user.username} />
+          }/>
           <Route path="/about" component={About} />
           <Route path='/userpage/:name' component={UserPage} />
           <Route 
@@ -34,11 +36,9 @@ class Page extends Component {
           <Route
             path="/profile"
             render={props => 
-              <div>
-                <Profile 
-                  user={this.props.user}
-                />
-              </div>
+              <Profile 
+                user={this.props.user}
+              />
             }
           />
         </Switch>

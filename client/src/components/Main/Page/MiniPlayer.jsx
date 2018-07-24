@@ -118,7 +118,10 @@ class Player extends Component {
 
   handleEnded() {
     console.log('ended/paused');
-    this.setState({ isPlaying: false });
+    this.setState({ 
+      isPlaying: false,
+      progress: 0
+    });
   }
 
   showDate() {

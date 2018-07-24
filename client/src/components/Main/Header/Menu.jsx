@@ -11,8 +11,8 @@ class Menu extends Component {
       { path: '/register', name: 'Register' }
     ];
     if(this.props.serverRes){
-      navItems.splice(1,2);
-      navItems = [...navItems,
+      navItems = [
+        { path: '/userhome', name: 'Home' },
         { path: '/browse', name: 'Browse' }, 
         { path: '/profile', name: 'Profile' }, 
         { path: '/about', name: 'About' }

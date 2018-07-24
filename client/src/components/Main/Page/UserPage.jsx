@@ -40,7 +40,13 @@ class UserPage extends Component {
   }
 
   componentDidMount() {
-    const userURL = '/api/user/' + this.props.match.params.name;
+    let userURL;
+    if(!this.props.match){
+      userURL = '/api/user/' + this.props.currentUser;
+    } else {
+      userURL = '/api/user/' + this.props.match.params.name;
+    }
+    console.log(userURL);
     axios.get(userURL).then(res => {
       this.setState({ 
         user: res.data.user,
