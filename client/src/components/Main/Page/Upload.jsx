@@ -90,7 +90,7 @@ class Upload extends Component {
       data.append('user', user.username);
       data.append('email', user.email);
       data.append('category', category);
-      axios.post('//api/profile', data)
+      axios.post('/api/profile', data)
         .then(res => {
           console.log('Server res: ', res.data);
           if(res.data.success){
