@@ -61,7 +61,7 @@ class UserPage extends Component {
     return (
       <div className='user_wrap'>
         <ParallaxImage
-          image='/img/slide2.jpeg'
+          image={this.state.user.wallpaper}
         />
         <div 
           className='user_avatar'

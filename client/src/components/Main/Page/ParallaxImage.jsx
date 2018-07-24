@@ -8,6 +8,7 @@ class ParallaxImage extends Component {
         strength={300}
         bgWidth={'1920px'}
         bgImage={this.props.image}
+        style={{ height: '300px' }}
       >
         <div className="profile_slider_inner">
           {this.props.someText}

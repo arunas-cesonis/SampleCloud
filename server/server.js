@@ -44,6 +44,7 @@ const userSchema = mongoose.Schema({
   admin: Boolean,
   active: Boolean,
   avatar: String,
+  wallpaper: String,
   link: String
 });
 
@@ -154,6 +155,33 @@ app.post('/api/profile/pwd', (req, res) => {
     console.log('Mongo: ', response);
     res.send({ updated: true });
   }).collation({ locale: 'en', strength: 1 });;
+});
+
+//Handle Wallpaper Upload
+app.post('/api/profile/wallpaper', (req, res) => {
+  const extTypes = ['.png', '.jpg', '.jpeg'];
+  const username = req.body.username.toLowerCase();
+  const email = req.body.email;
+  const data = req.files.file;
+  const dotIndex = data.name.lastIndexOf('.');
+  const ext = data.name.slice(dotIndex);
+  const fullPath = '../client/public/uploads/' + username + '/wallpaper/wallpaper' + ext; 
+  const wallpaperURL = '/uploads/' + username + '/wallpaper/wallpaper' + ext;
+  const q = {
+    username: username,
+    email: email
+  };
+
+  if(extTypes.indexOf(ext) > -1) {
+    data.mv(fullPath, (err) => {
+      if(err) throw err;
+      console.log('Data.mv(); called');
+      User.update(q, { 'wallpaper': wallpaperURL }, (err, response) => {
+        console.log('Mongo:', response);
+        res.end();
+      });
+    });
+  }
 });
 
 //Handle Avatar Upload

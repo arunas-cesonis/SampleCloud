@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PasswordChange from './PasswordChange.jsx';
 import Avatar from './AvatarUpload.jsx';
+import Wallpaper from './WallpaperUpload.jsx';
 import './settings.css';
 
 const capitalize = (str) => {
@@ -15,13 +16,16 @@ class UserSettings extends Component {
       newPwd: '',
       confirmPwd: '',
       showAvatar: false,
-      showPwdChange: false
+      showPwdChange: false,
+      showWallpaper: false
     }
     this.handlePwdBtn = this.handlePwdBtn.bind(this);
     this.handlePwdClose = this.handlePwdClose.bind(this);
     this.handlePwdChange = this.handlePwdChange.bind(this);
     this.handleAvatarBtn = this.handleAvatarBtn.bind(this);
     this.handleAvatarClose = this.handleAvatarClose.bind(this);
+    this.handleWallpaperBtn = this.handleWallpaperBtn.bind(this);
+    this.handleWallpaperClose = this.handleWallpaperClose.bind(this);
   }
 
   handlePwdChange(){
@@ -32,6 +36,10 @@ class UserSettings extends Component {
     this.setState({ showPwdChange: false });
   }
 
+  handleWallpaperClose() {
+    this.setState({ showWallpaper: false });
+  }
+
   handleAvatarClose(){
     this.setState({ showAvatar: false });
   }
@@ -39,7 +47,8 @@ class UserSettings extends Component {
   handleAvatarBtn() {
     this.setState({ 
       showPwdChange: false, 
-      showAvatar: true 
+      showAvatar: true,
+      showWallpaper: false
     });
   }
 
@@ -47,7 +56,17 @@ class UserSettings extends Component {
     console.log('handlePwdBtn();'); 
     this.setState({ 
       showPwdChange: true, 
-      showAvatar: false
+      showAvatar: false,
+      showWallpaper: false
+    });
+  }
+
+  handleWallpaperBtn() {
+    console.log('handlePwdBtn();'); 
+    this.setState({ 
+      showPwdChange: false, 
+      showAvatar: false,
+      showWallpaper: true
     });
   }
 
@@ -65,10 +84,16 @@ class UserSettings extends Component {
             ></div>
             <div className='avatar_username'>{capitalize(details.username)}</div>
             <div className='settings_btn' onClick={this.handleAvatarBtn}>Upload Avatar</div>
+            <div className='settings_btn' onClick={this.handleWallpaperBtn}>Upload Wallpaper</div>
             <div className='settings_btn' onClick={this.handlePwdBtn}>Change Password</div>
           </div>
           <div className='settings_right'>
             <div className='right_cont'>
+              <Wallpaper
+                showWallpaper={this.state.showWallpaper}
+                wallpaperClose={this.handleWallpaperClose}
+                user={details}
+              />
               <Avatar
                 showAvatar={this.state.showAvatar}
                 avatarClose={this.handleAvatarClose}
