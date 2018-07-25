@@ -342,7 +342,7 @@ app.post('/api/validate', (req, res) => {
 //Handle Login Form
 app.post('/api/login', (req, res) => {
   const b = req.body;
-  const username = b.username;
+  const username = b.username.toLowerCase();
   const password = b.password;
   const sessionId = Math.random();
   
@@ -353,7 +353,7 @@ app.post('/api/login', (req, res) => {
     } else {
       res.send(null);
     }
-  });
+  }).collation({ locale: 'en', strength: 1 });
 });
 
 //User Page

@@ -35,34 +35,29 @@ class Login extends Component {
   handleForm(e) {
     e.preventDefault();
     console.log('handleForm(); called.');
-    axios
-      .post('/api/login', {
-        //BYPASS Login
-        /* 
-        username: 'paul', 
-        password: 'a' 
-        */
-        username: this.state.username,
-        password: this.state.password
-      })
-      .then(res => {
-        const data = Object.assign({}, res.data);
-        console.log('User Account: ', res.data);
-        console.log('USER ID: ', res.data._id);
+    axios.post('/api/login', {
+      //BYPASS Login
+      /* 
+      username: 'paul', 
+      password: 'a' 
+      */
+      username: this.state.username,
+      password: this.state.password
+    }).then(res => {
+      const data = Object.assign({}, res.data);
+      console.log('User Account: ', res.data);
+      console.log('USER ID: ', res.data._id);
 
-        if (data._id) {
-          //Object needs to be updated and polished.
-          this.props.history.push('/userhome');
-          this.props.authResponse(
-            true, 
-            data
-          );
-        } else {
-          this.setState({
-            error: 'Username and password combination is incorrect'
-          });
-        }
-      });
+      if (data._id) {
+        //Object needs to be updated and polished.
+        this.props.history.push('/userhome');
+        this.props.authResponse(true, data);
+      } else {
+        this.setState({
+        error: 'Username and password combination is incorrect'
+        });
+      }
+    });
   }
 
   mountReg() {
