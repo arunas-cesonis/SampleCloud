@@ -7,6 +7,9 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const transporterObject = require('./store.js');
 const app = express();
+const session = require('client-sessions');
+
+const sessionId = Math.random().toString(12).slice(2);
 
 const transporter = nodemailer.createTransport(transporterObject);
 
@@ -72,6 +75,13 @@ sampleFile.save(function(err) {
 });
 */
 
+// MIDLEWARE
+app.use(session({
+  cookieName: 'session',
+  secret: sessionId,
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(fileUpload());
@@ -82,6 +92,20 @@ app.use((req, res, next) => {
     'Origin, X-Requested-With, Content-Type, Accept'
   );
   next();
+});
+app.use((req, res, next) => {
+  if(req.session && req.session.user) {
+    User.findOne({ email: req.session.user.email }, (err, user) => {
+      req.user = user;
+      delete req.user.password;
+      console.log('session: ', req.session.user);
+      req.session.user = user;
+      res.locals.user = user;
+    });
+    next();
+  } else {
+    next();
+  }
 });
 
 encrypt = data => {
@@ -349,6 +373,7 @@ app.post('/api/login', (req, res) => {
   User.findOne({ 'username': username, 'password': password }, (err, user) => {
     if(err) throw err;
     if(user){
+      req.session.user = user;
       res.send(user);
     } else {
       res.send(null);
@@ -463,7 +488,6 @@ app.get('/api/home', (req, res) => {
   const maxSamples = 10;
 
   File.find({}).sort({dateAdded: -1}).exec((err, files) => {
-    console.log('/api/home FILES by DATE: ', files);
     const samples = files.splice(0, maxSamples);
     res.send(samples);
   });

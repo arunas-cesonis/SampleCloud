@@ -17,6 +17,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
+    "client-sessions": "^0.8.0",
     "concurrently": "^3.5.1",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ParallaxImage from './ParallaxImage.jsx';
 import MiniPlayer from './MiniPlayer.jsx';
 import './userpage.css';
 import Paper from '@material-ui/core/Paper';
+import './wallpaper.css';
 
 class UserPage extends Component {
   constructor(props){
@@ -60,7 +60,7 @@ class UserPage extends Component {
   render() {
     return (
       <div className='user_wrap'>
-        <ParallaxImage
+        <Wallpaper
           image={this.state.user.wallpaper}
         />
         <div 
@@ -93,7 +93,7 @@ class UserPage extends Component {
           </div>
           <div className='user_right'>
             <Paper
-              style={{ width: '90%', margin: '0 auto' }}
+              style={{ width: '670px', margin: '0' }}
             >
             {this.state.catFiles.map((item, i) => 
               <MiniPlayer
@@ -108,6 +108,16 @@ class UserPage extends Component {
       </div>
     );
   }
+}
+
+const Wallpaper = props => {
+  return (
+    <div
+      className='wall_wrap'
+      style={{ backgroundImage: 'url(' + props.image + ')' }}
+    >
+    </div>
+  );
 }
 
 export default UserPage;
