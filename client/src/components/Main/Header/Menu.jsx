@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
+import axios from 'axios';
 import './menu.css';
 
 class Menu extends Component {
@@ -10,7 +11,7 @@ class Menu extends Component {
       { path: '/login', name: 'Login' },
       { path: '/register', name: 'Register' }
     ];
-    if(this.props.serverRes){
+    if(this.props.serverRes.connected || this.props.userIn){
       navItems = [
         { path: '/userhome', name: 'Home' },
         { path: '/browse', name: 'Browse' }, 

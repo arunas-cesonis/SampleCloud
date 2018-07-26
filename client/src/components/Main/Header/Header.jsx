@@ -5,11 +5,12 @@ import './header.css';
 
 class Header extends Component {
   render() {
-    if(this.props.serverRes.successLogin){
+    console.log('Header: ', this.props.serverRes.connected);
+    if(this.props.serverRes.connected){
       return (
         <div>
           <Menu 
-            serverRes={this.props.serverRes.successLogin} 
+            serverRes={this.props.serverRes} 
           />
           <div className='userTitleBar'>welcome: {this.props.serverRes.username}</div>
         </div>
@@ -18,7 +19,8 @@ class Header extends Component {
       return (
         <div>
           <Menu 
-            serverRes={this.props.serverRes.successLogin} 
+            serverRes={this.props.serverRes} 
+            userIn={this.props.userIn}
           />
           <Logo 
             alpha={this.props.alpha}

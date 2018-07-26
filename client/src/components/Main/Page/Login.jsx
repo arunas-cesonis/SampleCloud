@@ -48,10 +48,10 @@ class Login extends Component {
       console.log('User Account: ', res.data);
       console.log('USER ID: ', res.data._id);
 
-      if (data._id) {
+      if (data.id) {
         //Object needs to be updated and polished.
+        this.props.authResponse(true);
         this.props.history.push('/userhome');
-        this.props.authResponse(true, data);
       } else {
         this.setState({
         error: 'Username and password combination is incorrect'
@@ -74,7 +74,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.props.handleSliderAlpha(0.3);
+    //this.props.handleSliderAlpha(0.3);
     this.setState({ title: 'Login Form' });
   }
 
@@ -139,7 +139,7 @@ class Login extends Component {
   componentWillUnmount() {
     // Clear some states and etc. To implement later.
     console.log('Login.jsx, UnMounted');
-    this.props.handleSliderAlpha(1);
+    //this.props.handleSliderAlpha(1);
   }
 }
 

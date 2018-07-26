@@ -8,12 +8,18 @@ import Browse from './Browse.jsx';
 import Register from './Register.jsx';
 import Profile from './Profile.jsx';
 import UserPage from './UserPage.jsx';
+import { withCookies, Cookies } from 'react-cookie';
 
 //Basically this is a main Content or Content Loader
 class Page extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   // CHECK {...props} - This is the way to pass props using Route module.
   render() {
-    if(this.props.user.successLogin) {
+    const { cookies } = this.props;
+    //if(this.props.user.successLogin) {
       return (
         <Switch>
           <Route exact path="/userhome" render={(props) => 
@@ -43,6 +49,7 @@ class Page extends Component {
           />
         </Switch>
       );
+      /*
     } else {
       return (
         <Switch>
@@ -71,7 +78,8 @@ class Page extends Component {
         </Switch>
       );
     }
+    */
   }
 }
 
-export default Page 
+export default withCookies(Page); 

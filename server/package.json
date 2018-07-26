@@ -19,6 +19,7 @@
     "classnames": "^2.2.5",
     "client-sessions": "^0.8.0",
     "concurrently": "^3.5.1",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "express": "^4.16.3",

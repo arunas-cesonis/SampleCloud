@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Main from './components/Main/Main.jsx';
 import { BrowserRouter } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 import 'typeface-roboto';
 
 const theme = createMuiTheme({
@@ -28,7 +29,9 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
+          <CookiesProvider>
           <Main />
+          </CookiesProvider>
         </BrowserRouter>
       </MuiThemeProvider>
     );
