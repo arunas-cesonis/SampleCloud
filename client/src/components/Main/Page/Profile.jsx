@@ -11,7 +11,6 @@ class Profile extends Component {
         <ParallaxImage 
           image='/img/slide4.jpeg'
         />
-        <ProfileMenu />
         <div className='profile_main'>
           <ProfileRouter user={this.props.user} />
         </div>

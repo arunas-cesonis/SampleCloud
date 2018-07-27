@@ -11,10 +11,13 @@ class ProfileRouter extends Component {
         <Route
           exact path="/profile"
           render={props =>
-            <UserSamples
+            <UserSettings
               user={this.props.user}
             />}
         />
+      </Switch>
+    );
+    /*
         <Route 
           path="/profile/upload" 
           render={props => 
@@ -38,6 +41,7 @@ class ProfileRouter extends Component {
         />
       </Switch>
     );
+    */
   } 
 }
 

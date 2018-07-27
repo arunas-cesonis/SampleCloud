@@ -73,9 +73,7 @@ class UserSettings extends Component {
   render() {
     const details = this.props.user;
     console.log('Avatar URL: ', this.props.user.avatar);
-
-    return (
-      <div className='settings_wrap'>
+    /*
         <div className='settings_cont'>
           <div className='settings_left'>
             <div 
@@ -108,6 +106,9 @@ class UserSettings extends Component {
             </div>
           </div>
         </div>
+    */
+    return (
+      <div className='settings_wrap'>
       </div>
     );
   }
