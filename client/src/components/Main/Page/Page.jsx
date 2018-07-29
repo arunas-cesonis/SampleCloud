@@ -18,8 +18,8 @@ class Page extends Component {
 
   // CHECK {...props} - This is the way to pass props using Route module.
   render() {
-    const { cookies } = this.props;
     //if(this.props.user.successLogin) {
+    console.log('U: ', this.props.user.username);
       return (
         <Switch>
           <Route exact path="/userhome" render={(props) => 

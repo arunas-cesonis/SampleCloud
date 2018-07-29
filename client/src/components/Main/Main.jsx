@@ -30,23 +30,13 @@ class Main extends Component {
   }
 
   handleAuthResponse(auth){
-    axios.get('/s').then(res => {
-      const data = res.data;
-      const userData = Object.assign({}, this.state.userData);
-      userData.username = data.username;
-      userData.avatar = data.avatar;
-      userData.wallpaper = data.wallpapper;
-      userData.email = data.email;
-      userData.id = data.id;
-      userData.connected = data.connected;
-      console.log('Main did mount() get(/s): ', res.data);
-      this.setState({ userData, userIn: auth });
+    axios.get('/api/session').then(res => {
+      this.setState({ userData: res.data });
     });
   }
 
   componentDidMount() {
-    console.log('a');
-    axios.get('/s').then(res => {
+    axios.get('/api/session').then(res => {
       const data = res.data;
       const userData = Object.assign({}, this.state.userData);
       userData.username = data.username;
@@ -61,7 +51,6 @@ class Main extends Component {
   }
 
   render() {
-    console.log('Cookies :', this.props.cookies.getAll());
     return (
       <div className='main_cont'>
         <h1>{this.state.userData.username}</h1>

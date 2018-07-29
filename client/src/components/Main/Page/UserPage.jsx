@@ -12,9 +12,11 @@ class UserPage extends Component {
       user: [],
       categories: [],
       files: ['', ''],
-      catFiles: []
+      catFiles: [],
+      getUser: true
     }
     this.getCategories = this.getCategories.bind(this);
+    this.getUser = this.getUser.bind(this);
     this.handleCatClick = this.handleCatClick.bind(this);
   }
 
@@ -39,25 +41,34 @@ class UserPage extends Component {
     this.setState({ categories: categories });
   }
 
-  componentDidMount() {
-    let userURL;
-    if(!this.props.match){
-      userURL = '/api/user/' + this.props.currentUser;
-    } else {
-      userURL = '/api/user/' + this.props.match.params.name;
-    }
-    console.log(userURL);
-    axios.get(userURL).then(res => {
-      this.setState({ 
-        user: res.data.user,
-        files: res.data.files,
-        catFiles: res.data.files
+  getUser(user) {
+    if(user) {
+      let userURL;
+      const prefix = '/api/user/';
+      if(!this.props.match){
+        userURL = prefix + user;
+      } else {
+        userURL = prefix + this.props.match.params.name;
+      }
+      console.log('User Page: ', userURL);
+      axios.get(userURL).then(res => {
+        this.setState({ 
+          user: res.data.user,
+          files: res.data.files,
+          catFiles: res.data.files,
+          getUser:  false
+        });
+        this.getCategories();
       });
-      this.getCategories();
-    });
+    } else {
+      console.log('ERROR: argument was not specified.');
+    }
   }
 
   render() {
+    if(this.state.getUser){
+      this.getUser(this.props.currentUser);
+    }
     return (
       <div className='user_wrap'>
         <Wallpaper

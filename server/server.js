@@ -96,26 +96,18 @@ app.use((req, res, next) => {
 });
 app.use(fileUpload());
 app.use(bodyParser.json());
-app.get('/s', (req, res) => {
+app.get('/api/session', (req, res) => {
   const session = JSON.parse(req.cookies.session);
   console.log('IDS: ', ids);
   console.log('Server req.cookies: ', session);
-  for(let i in ids){
-    if(ids[i].id.indexOf(session.id) > -1){
-      console.log('match found! ', ids[i]);
-      if(ids[i]){
-        res.send(ids[i]);
-      } else {
-        res.end();
-      }
-    } else {
-      res.send('Ooops.');
-      console.log('no sessions found');
+  for(let i = 0; i < ids.length; i++){
+    const id = ids[i].id;
+    if(id.indexOf(session.id) > -1){
+      console.log('Mind your session: ', ids[i]);
+      res.send(ids[i]);
     }
   }
-  if(ids.length === 0){
-    res.end('Oops');
-  }
+  res.end();
 });
 /*
 app.get('/s', (req, res) => {
@@ -399,7 +391,6 @@ app.post('/api/login', (req, res) => {
   const username = b.username.toLowerCase();
   const password = b.password;
   const sessionId = Math.random();
-  
   User.findOne({ 'username': username, 'password': password }, (err, user) => {
     if(err) throw err;
     if(user){
@@ -422,15 +413,15 @@ app.post('/api/login', (req, res) => {
 
 //User Page
 app.get('/api/user/:username', (req, res) => {
-  /*
   const username = req.params.username;
+  console.log('p :',req.params); 
   User.findOne({ 'username': username }, (err, user) => {
-    if(err) throw err;
+    console.log('User: ', user);
+    if(err) console.log( err);
     const q = {
       username: user.username,
       email: user.email
     };
-    user.password = Math.random().toString(36).substring(2, 15);
     File.find(q, (err, files) => {
       if(err) throw err;
       res.send({
@@ -439,7 +430,6 @@ app.get('/api/user/:username', (req, res) => {
       });
     });
   });
-  */
 });
 
 //Might need to delete this or move it.
