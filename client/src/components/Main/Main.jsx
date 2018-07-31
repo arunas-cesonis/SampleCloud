@@ -12,9 +12,11 @@ class Main extends Component {
   constructor(props){
     super(props);
     const { cookies } = this.props;
+    /*
     if(!cookies.get('session')){
       cookies.set('session', { id: Math.random().toString(12).slice(2) }, { path: '/' });
     }
+    */
     this.state = {
       alpha: 1,
       userData: {},
@@ -36,6 +38,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    // To review this later (object)
     axios.get('/api/session').then(res => {
       const data = res.data;
       const userData = Object.assign({}, this.state.userData);

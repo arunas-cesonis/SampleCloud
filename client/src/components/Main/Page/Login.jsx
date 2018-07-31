@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import './login.css';
 import axios from 'axios';
+import { withCookies, Cookies } from 'react-cookie';
 import Register from './Register.jsx';
 import Input from './LoginInput.jsx';
 
@@ -34,27 +35,24 @@ class Login extends Component {
 
   handleForm(e) {
     e.preventDefault();
+    const { cookies } = this.props
     console.log('handleForm(); called.');
     axios.post('/api/login', {
-      //BYPASS Login
-      /* 
-      username: 'paul', 
-      password: 'a' 
-      */
       username: this.state.username,
       password: this.state.password
     }).then(res => {
       const data = Object.assign({}, res.data);
       console.log('User Account: ', res.data);
-      console.log('USER ID: ', res.data._id);
 
       if (data.id) {
-        //Object needs to be updated and polished.
+        if(!cookies.get('session')){
+          cookies.set('session', { id: res.data.id }, { path: '/' });
+        }
         this.props.authResponse(true);
         this.props.history.push('/userhome');
       } else {
         this.setState({
-        error: 'Username and password combination is incorrect'
+          error: 'Username and password combination is incorrect'
         });
       }
     });
@@ -143,4 +141,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+export default withRouter(withCookies(Login));

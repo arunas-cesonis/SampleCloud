@@ -9,10 +9,7 @@ const nodemailer = require('nodemailer');
 const transporterObject = require('./store.js');
 const app = express();
 const session = require('client-sessions');
-
-const sessionId = Math.random().toString(12).slice(2);
-const ids = [];
-
+const sessions = [];
 const transporter = nodemailer.createTransport(transporterObject);
 
 const setHeaders = (link, to) => {
@@ -78,8 +75,9 @@ sampleFile.save(function(err) {
 */
 
 // MIDLEWARE
+// CLIENT-SESSIONS
 app.use(session({
-  cookieName: 'session2',
+  cookieName: 'session323',
   secret: Math.random().toString(12).slice(2),
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
@@ -96,38 +94,7 @@ app.use((req, res, next) => {
 });
 app.use(fileUpload());
 app.use(bodyParser.json());
-app.get('/api/session', (req, res) => {
-  const session = JSON.parse(req.cookies.session);
-  console.log('IDS: ', ids);
-  console.log('Server req.cookies: ', session);
-  for(let i = 0; i < ids.length; i++){
-    const id = ids[i].id;
-    if(id.indexOf(session.id) > -1){
-      console.log('Mind your session: ', ids[i]);
-      res.send(ids[i]);
-    }
-  }
-  res.end();
-});
-/*
-app.get('/s', (req, res) => {
-  if(req.session && req.session.user) {
-    console.log('req.sessions && req.session.user = true');
-    User.findOne({ email: req.session.user.email }, (err, user) => {
-      if(user){
-        req.user = user;
-        delete req.user.password;
-        console.log(reg.session);
-        res.locals.user = user;
-        res.send(true);
-      } else {
-        req.session.reset();
-        res.end();
-      }
-    });
-  }
-});
-*/
+
 
 encrypt = data => {
   let cipher = crypto.createCipher('aes-256-ecb', 'password');
@@ -157,6 +124,44 @@ app.get('/', (req, res) => {
   });
   */
   res.send('hi');
+});
+
+// CLIENT-SESSIONS
+/*
+app.get('/s', (req, res) => {
+  if(req.session && req.session.user) {
+    console.log('req.sessions && req.session.user = true');
+    User.findOne({ email: req.session.user.email }, (err, user) => {
+      if(user){
+        req.user = user;
+        delete req.user.password;
+        console.log(reg.session);
+        res.locals.user = user;
+        res.send(true);
+      } else {
+        req.session.reset();
+        res.end();
+      }
+    });
+  }
+});
+*/
+
+//Main, Sessions
+app.get('/api/session', (req, res) => {
+  if(req.cookies.session){
+    const currentSession = JSON.parse(req.cookies.session);
+    console.log('IDS: ', sessions);
+    console.log('Server req.cookies: ', currentSession);
+    for(let i = 0; i < sessions.length; i++){
+      const id = sessions[i].id;
+      if(id.indexOf(currentSession.id) > -1){
+        console.log('Mind your session: ', sessions[i]);
+        res.send(sessions[i]);
+      }
+    }
+  }
+  res.end();
 });
 
 //User Page
@@ -390,20 +395,19 @@ app.post('/api/login', (req, res) => {
   const b = req.body;
   const username = b.username.toLowerCase();
   const password = b.password;
-  const sessionId = Math.random();
   User.findOne({ 'username': username, 'password': password }, (err, user) => {
     if(err) throw err;
     if(user){
-      const id = JSON.parse(req.cookies.session);
+      const id = Math.random().toString(12).slice(2);
       const data = { 
         username: user.username,
         avatar: user.avatar,
         wallpaper: user.wallpaper,
         email: user.email, 
-        id: id.id, 
+        id: id, 
         connected: true
       }  
-      ids.push(data);
+      sessions.push(data);
       res.send(data);
     } else {
       res.send(null);
