@@ -42,27 +42,23 @@ class UserPage extends Component {
   }
 
   getUser(user) {
-    if(user) {
-      let userURL;
-      const prefix = '/api/user/';
-      if(!this.props.match){
-        userURL = prefix + user;
-      } else {
-        userURL = prefix + this.props.match.params.name;
-      }
-      console.log('User Page: ', userURL);
-      axios.get(userURL).then(res => {
-        this.setState({ 
-          user: res.data.user,
-          files: res.data.files,
-          catFiles: res.data.files,
-          getUser:  false
-        });
-        this.getCategories();
-      });
+    let userURL;
+    const prefix = '/api/user/';
+    if(!this.props.match){
+      userURL = prefix + user;
     } else {
-      console.log('ERROR: argument was not specified.');
+      userURL = prefix + this.props.match.params.name;
     }
+    console.log('User Page: ', userURL);
+    axios.get(userURL).then(res => {
+      this.setState({ 
+        user: res.data.user,
+        files: res.data.files,
+        catFiles: res.data.files,
+        getUser:  false
+      });
+      this.getCategories();
+    });
   }
 
   render() {

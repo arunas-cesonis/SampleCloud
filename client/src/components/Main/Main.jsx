@@ -18,7 +18,6 @@ class Main extends Component {
     this.state = {
       alpha: 1,
       userData: {},
-      userIn: false
     };
     this.handleAuthResponse = this.handleAuthResponse.bind(this);
     this.handleSliderAlpha = this.handleSliderAlpha.bind(this);
@@ -52,7 +51,6 @@ class Main extends Component {
         <h1>{this.state.userData.username}</h1>
         <Header 
           serverRes={this.state.userData} 
-          userIn={this.state.userIn}
           alpha={this.state.alpha}
         />
         <Page 

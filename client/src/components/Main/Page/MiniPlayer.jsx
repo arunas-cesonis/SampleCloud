@@ -204,6 +204,7 @@ class Player extends Component {
     const sampleURL = this.props.sample.filePath;
     const anchorEl = this.state.anchorEl;
     const userURL = '/userpage/' + this.props.sample.username;
+    console.log('MiniPlayer.jsx User URL: ', userURL);
     //To segment into separate components
     return (
       <div className='miniplayer_cont'>

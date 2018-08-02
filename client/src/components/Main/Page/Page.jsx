@@ -27,13 +27,6 @@ class Page extends Component {
           <Route path="/about" component={About} />
           <Route path='/userpage/:name' component={UserPage} />
           <Route 
-            path="/login" 
-            render={props => 
-              <Login 
-                authResponse={this.props.authResponse} 
-              />} 
-          />
-          <Route 
             path="/browse" 
             render={props => 
                 <Browse />} 

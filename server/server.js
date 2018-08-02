@@ -4,14 +4,11 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const jwt = require('jsonwebtoken');
 const JWT = require('./jwt/auth.js');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const session = require('client-sessions');
 const transporterObject = require('./store.js');
 const app = express();
-const sessions = [];
 const transporter = nodemailer.createTransport(transporterObject);
 
 const setHeaders = (link, to) => {
@@ -24,7 +21,6 @@ const setHeaders = (link, to) => {
   return mailOptions;
 }
 
-console.log('Sessions: ', sessions);
 mongoose.connect('mongodb://localhost/samplecloud');
 const db = mongoose.connection;
 
@@ -77,13 +73,6 @@ sampleFile.save(function(err) {
 */
 
 // MIDLEWARE
-// CLIENT-SESSIONS
-app.use(session({
-  cookieName: 'session323',
-  secret: Math.random().toString(12).slice(2),
-  duration: 30 * 60 * 1000,
-  activeDuration: 5 * 60 * 1000,
-}));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
@@ -97,7 +86,7 @@ app.use((req, res, next) => {
 app.use(fileUpload());
 app.use(bodyParser.json());
 
-app.all('/api/*', JWT.verifyJWT_MW);
+app.use('/api/*', JWT.verifyJWT_MW);
 
 encrypt = data => {
   let cipher = crypto.createCipher('aes-256-ecb', 'password');
@@ -134,7 +123,7 @@ app.get('/api/test', (req, res) => {
   res.send('boo!');
 });
 
-//Main, Sessions - This will go
+//Main, Sessions - This will go // Review later.
 app.get('/api/session', (req, res) => {
   if(req.cookies.session){
     const cookie = JSON.parse(req.cookies.session);
@@ -394,7 +383,6 @@ app.post('/login', (req, res) => {
         return decodedToken;
       }));
       */
-      sessions.push(data);
       res.send(data);
     } else {
       res.send(null);
