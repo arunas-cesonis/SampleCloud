@@ -41,8 +41,6 @@ class Login extends Component {
       password: this.state.password
     }).then(res => {
       const data = Object.assign({}, res.data);
-      console.log('User Account: ', res.data);
-
       if(data.id) {
         cookies.set('session', { token: data.token }, { path: '/' });
         this.props.authResponse(true, data);

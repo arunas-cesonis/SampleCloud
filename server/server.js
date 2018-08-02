@@ -97,29 +97,7 @@ app.use((req, res, next) => {
 app.use(fileUpload());
 app.use(bodyParser.json());
 
-
-verifyJWT_MW = (req, res, next) => {
-  if(req.cookies.session){
-    const currentSession = JSON.parse(req.cookies.session);
-    console.log('IDS: ', sessions);
-    console.log('Server req.cookies: ', currentSession);
-    for(let i = 0; i < sessions.length; i++){
-      const id = sessions[i].id;
-      if(id.indexOf(currentSession.id) > -1){
-        console.log('Mind your session: ', sessions[i]);
-        let token = sessions[i];
-      }
-    }
-
-  JWT.verifyJWT(token).then((decodedToken) => {
-    req.user = decodedToken.data;
-    console.log('verifyJWT_MW: ', req.user);
-    next();
-  }).catch((err) => {
-    throw err;
-  });
-  }
-}
+app.all('/api/*', JWT.verifyJWT_MW);
 
 encrypt = data => {
   let cipher = crypto.createCipher('aes-256-ecb', 'password');
@@ -151,42 +129,19 @@ app.get('/', (req, res) => {
   res.send('hi');
 });
 
-// CLIENT-SESSIONS
-/*
-app.get('/s', (req, res) => {
-  if(req.session && req.session.user) {
-    console.log('req.sessions && req.session.user = true');
-    User.findOne({ email: req.session.user.email }, (err, user) => {
-      if(user){
-        req.user = user;
-        delete req.user.password;
-        console.log(reg.session);
-        res.locals.user = user;
-        res.send(true);
-      } else {
-        req.session.reset();
-        res.end();
-      }
-    });
-  }
+//My test Routes
+app.get('/api/test', (req, res) => {
+  res.send('boo!');
 });
-*/
 
-//app.all('/api/session', verifyJWT_MW);
-
-//Main, Sessions
+//Main, Sessions - This will go
 app.get('/api/session', (req, res) => {
   if(req.cookies.session){
     const cookie = JSON.parse(req.cookies.session);
     const token = cookie.token;
-    const jwt = {
-      connected: true,
-      token
-    }
-    console.log('Cookie: ', cookie);
-    res.send(jwt);
+    res.send(token);
   } else {
-    console.log('Token was not found.');
+    console.log('/api/session: Token was not found.');
   }
   res.end();
 });
@@ -526,10 +481,14 @@ app.post('/api/browse/search', (req, res) => {
   // Merge array into a single array //
   /*
   filterArr = [].concat.apply([], tmpArr);
-  // Filter by given value indexOf(val) > -1 (if > -1 element found)
   filterArr = filterArr.filter((sample) => sample.toLowerCase().indexOf(b) > -1);
-  res.send(filterArr);
   */
+});
+
+
+app.get('/test/p', (req, res) => {
+  console.log('/test/p: ', req);
+  res.send('hi');
 });
 
 app.post('/api/browse/getfiles', (req, res) => {
@@ -551,11 +510,7 @@ app.post('/api/browse/getfiles', (req, res) => {
 });
 
 //HOME
-app.get('/api/home', (req, res) => {
-  let options = {
-    maxAge: 1000 * 60 * 15,
-    httpOnly: true,
-  }
+app.get('/home', (req, res) => {
   const maxSamples = 10;
 
   File.find({}).sort({dateAdded: -1}).exec((err, files) => {

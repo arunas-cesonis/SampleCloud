@@ -2,21 +2,23 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const secret = 'secret'
 
-testJWT = (arg) => {
+const testJWT = (arg) => {
   console.log('Testing: ', arg);
 }
 
-verifyJWT = (token) => {
-  jwt.verify(token, secret, (err, decodedToken) => {
-    if(err || !decodedToken) {
-      return err;
-    }
-    console.log('jwt/auth.js Decoded Token: ', decodedToken);
-    return decodedToken;
+const verifyJWT = (token) => {
+  // To implement ASYNC AWAIT solution instead of Promise
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, secret, (err, decodedToken) => {
+      if(err || !decodedToken) {
+        return reject(err);
+      }
+      resolve(decodedToken);
+    }); 
   });
 }
 
-createJWT = (details) => {
+const createJWT = (details) => {
   if(!details.maxAge || typeof details.maxAge !== 'number') {
     details.maxAge = 3600;
   }
@@ -39,8 +41,25 @@ createJWT = (details) => {
   return token;
 }
 
+const verifyJWT_MW = (req, res, next) => {
+  if(req.cookies.session){
+    const cookie = JSON.parse(req.cookies.session);
+    const token = cookie.token;
+    verifyJWT(token)
+      .then((decodedToken) => {
+        req.user = decodedToken.data;
+        next();
+      }).catch((err) => {
+        throw err;
+      });
+  } else {
+    console.log('Token was not found.');
+  }
+}
+
 module.exports = {
   verifyJWT,
   createJWT,
+  verifyJWT_MW,
   testJWT
 }
