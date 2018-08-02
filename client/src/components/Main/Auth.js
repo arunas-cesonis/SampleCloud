@@ -7,7 +7,10 @@ export const verifyJWT = (token) => {
     }
     return decodedToken;
   });
-  const userDetail = decoded.data._doc;
-  userDetail.connected = true;
-  return userDetail;
+  if(decoded.data) {
+    const userDetail = decoded.data._doc;
+    userDetail.connected = true;
+    return userDetail;
+  }
+  return null;
 }

@@ -11,7 +11,7 @@ class Menu extends Component {
       { path: '/login', name: 'Login' },
       { path: '/register', name: 'Register' }
     ];
-    if(this.props.serverRes.connected || this.props.userIn){
+    if(this.props.serverRes.connected) { 
       navItems = [
         { path: '/userhome', name: 'Home' },
         { path: '/browse', name: 'Browse' }, 
@@ -41,8 +41,7 @@ class Menu extends Component {
 //Move to a new file.
 const Item = props => (
   <Link
-    className={classNames('navItem', { active: props.current === props.to || props.current.substr(0, 8) === props.to})}
-
+    className={classNames('navItem', { active: props.current === props.to })}
     to={props.to}
   >
     {props.name}

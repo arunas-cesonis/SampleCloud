@@ -45,13 +45,12 @@ const verifyJWT_MW = (req, res, next) => {
   if(req.cookies.session){
     const cookie = JSON.parse(req.cookies.session);
     const token = cookie.token;
-    verifyJWT(token)
-      .then((decodedToken) => {
-        req.user = decodedToken.data;
-        next();
-      }).catch((err) => {
-        throw err;
-      });
+    verifyJWT(token).then((decodedToken) => {
+      req.user = decodedToken.data;
+      next();
+    }).catch((err) => {
+      console.log('ERROR: ', err.message, '\nExpired At: ', err.expiredAt);
+    });
   } else {
     console.log('Token was not found.');
   }
