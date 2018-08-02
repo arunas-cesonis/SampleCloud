@@ -35,20 +35,17 @@ class Login extends Component {
 
   handleForm(e) {
     e.preventDefault();
-    const { cookies } = this.props
-    console.log('handleForm(); called.');
-    axios.post('/api/login', {
+    const { cookies } = this.props;
+    axios.post('/login', {
       username: this.state.username,
       password: this.state.password
     }).then(res => {
       const data = Object.assign({}, res.data);
       console.log('User Account: ', res.data);
 
-      if (data.id) {
-        if(!cookies.get('session')){
-          cookies.set('session', { id: res.data.id }, { path: '/' });
-        }
-        this.props.authResponse(true);
+      if(data.id) {
+        cookies.set('session', { token: data.token }, { path: '/' });
+        this.props.authResponse(true, data);
         this.props.history.push('/userhome');
       } else {
         this.setState({

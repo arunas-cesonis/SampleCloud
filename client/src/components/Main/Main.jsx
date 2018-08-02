@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import { instanceOf } from 'prop-types';
 import Header from './Header/Header.jsx';
+// To review later (auth.js);
+import { verifyJWT } from './auth.js';
+import jwt from 'jsonwebtoken';
 import Page from './Page/Page.jsx';
 import axios from 'axios';
 import { withCookies, Cookies } from 'react-cookie';
+
+
+const verifyToken = (token) => { 
+  jwt.verify(token, 'secret', (err, decodedToken) => {
+    if(err || !decodedToken) {
+      return err;
+    }
+    return decodedToken 
+  });
+}
 
 class Main extends Component {
   static propTypes = {
@@ -11,7 +24,6 @@ class Main extends Component {
   }
   constructor(props){
     super(props);
-    const { cookies } = this.props;
     /*
     if(!cookies.get('session')){
       cookies.set('session', { id: Math.random().toString(12).slice(2) }, { path: '/' });
@@ -31,25 +43,37 @@ class Main extends Component {
     this.setState({ alpha: alpha });
   }
 
-  handleAuthResponse(auth){
+  handleAuthResponse(auth, session){
+    const token = jwt.verify(session.token, 'secret', (err, decodedToken) => {
+      if(err || !decodedToken) {
+        return err;
+      }
+      return decodedToken 
+    });
+    console.log('authResponse(); ', session);
+    console.log('TOKEN: ', token);
+    this.setState({ userData: token.data._doc }); 
+    /*
     axios.get('/api/session').then(res => {
       this.setState({ userData: res.data });
     });
+    */
   }
 
   componentDidMount() {
-    // To review this later (object)
     axios.get('/api/session').then(res => {
-      const data = res.data;
-      const userData = Object.assign({}, this.state.userData);
-      userData.username = data.username;
-      userData.avatar = data.avatar;
-      userData.wallpaper = data.wallpapper;
-      userData.email = data.email;
-      userData.id = data.id;
-      userData.connected = data.connected;
-      console.log('Main did mount() get(/s): ', res.data);
-      this.setState({ userData });
+      const token = jwt.verify(res.data.token, 'secret', (err, decodedToken) => {
+        if(err || !decodedToken) {
+          return err;
+        }
+        return decodedToken
+      });
+      if(res.data.token) {
+        const userDetails = token.data._doc;
+        userDetails.connected = true;
+        console.log('MAIN: ', userDetails); 
+        this.setState({ userData: userDetails }); 
+      }
     });
   }
 

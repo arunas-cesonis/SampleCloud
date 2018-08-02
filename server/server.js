@@ -4,11 +4,13 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const JWT = require('./jwt/auth.js');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const session = require('client-sessions');
 const transporterObject = require('./store.js');
 const app = express();
-const session = require('client-sessions');
 const sessions = [];
 const transporter = nodemailer.createTransport(transporterObject);
 
@@ -22,7 +24,7 @@ const setHeaders = (link, to) => {
   return mailOptions;
 }
 
-
+console.log('Sessions: ', sessions);
 mongoose.connect('mongodb://localhost/samplecloud');
 const db = mongoose.connection;
 
@@ -96,6 +98,29 @@ app.use(fileUpload());
 app.use(bodyParser.json());
 
 
+verifyJWT_MW = (req, res, next) => {
+  if(req.cookies.session){
+    const currentSession = JSON.parse(req.cookies.session);
+    console.log('IDS: ', sessions);
+    console.log('Server req.cookies: ', currentSession);
+    for(let i = 0; i < sessions.length; i++){
+      const id = sessions[i].id;
+      if(id.indexOf(currentSession.id) > -1){
+        console.log('Mind your session: ', sessions[i]);
+        let token = sessions[i];
+      }
+    }
+
+  JWT.verifyJWT(token).then((decodedToken) => {
+    req.user = decodedToken.data;
+    console.log('verifyJWT_MW: ', req.user);
+    next();
+  }).catch((err) => {
+    throw err;
+  });
+  }
+}
+
 encrypt = data => {
   let cipher = crypto.createCipher('aes-256-ecb', 'password');
   return cipher.update(data, 'utf8', 'hex') + cipher.final('hex');
@@ -147,19 +172,21 @@ app.get('/s', (req, res) => {
 });
 */
 
+//app.all('/api/session', verifyJWT_MW);
+
 //Main, Sessions
 app.get('/api/session', (req, res) => {
   if(req.cookies.session){
-    const currentSession = JSON.parse(req.cookies.session);
-    console.log('IDS: ', sessions);
-    console.log('Server req.cookies: ', currentSession);
-    for(let i = 0; i < sessions.length; i++){
-      const id = sessions[i].id;
-      if(id.indexOf(currentSession.id) > -1){
-        console.log('Mind your session: ', sessions[i]);
-        res.send(sessions[i]);
-      }
+    const cookie = JSON.parse(req.cookies.session);
+    const token = cookie.token;
+    const jwt = {
+      connected: true,
+      token
     }
+    console.log('Cookie: ', cookie);
+    res.send(jwt);
+  } else {
+    console.log('Token was not found.');
   }
   res.end();
 });
@@ -391,22 +418,27 @@ app.post('/api/validate', (req, res) => {
 });
 
 //Handle Login Form
-app.post('/api/login', (req, res) => {
+app.post('/login', (req, res) => {
   const b = req.body;
   const username = b.username.toLowerCase();
   const password = b.password;
   User.findOne({ 'username': username, 'password': password }, (err, user) => {
     if(err) throw err;
     if(user){
-      const id = Math.random().toString(12).slice(2);
-      const data = { 
-        username: user.username,
-        avatar: user.avatar,
-        wallpaper: user.wallpaper,
-        email: user.email, 
-        id: id, 
-        connected: true
-      }  
+      user.password = Math.random().toString(12).slice(2);
+      const data = {
+        id: Math.random().toString(12).slice(2),
+        token: JWT.createJWT({
+          sessionData: user,
+          maxAge: 3600
+        })
+      }
+      /*
+      console.log('EnCoded Token: ', data.token);
+      console.log('Decoded Token: ', jwt.verify(data.token, 'secret', (err, decodedToken) => {
+        return decodedToken;
+      }));
+      */
       sessions.push(data);
       res.send(data);
     } else {
@@ -520,7 +552,6 @@ app.post('/api/browse/getfiles', (req, res) => {
 
 //HOME
 app.get('/api/home', (req, res) => {
-  console.log(req.session);
   let options = {
     maxAge: 1000 * 60 * 15,
     httpOnly: true,

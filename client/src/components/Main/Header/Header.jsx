@@ -5,8 +5,8 @@ import './header.css';
 
 class Header extends Component {
   render() {
-    console.log('Header: ', this.props.serverRes.connected);
-    if(this.props.serverRes.connected){
+    const { serverRes } = this.props;
+    if(serverRes.username && serverRes.email){
       return (
         <div>
           <Menu 
