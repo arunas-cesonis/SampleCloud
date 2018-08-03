@@ -126,9 +126,9 @@ app.get('/api/test', (req, res) => {
 //Main, Sessions - This will go // Review later.
 app.get('/api/session', (req, res) => {
   if(req.cookies.session){
-    const cookie = JSON.parse(req.cookies.session);
-    cookie.secret = JWT.secret;
-    res.send(cookie);
+    const data = JSON.parse(req.cookies.session);
+    data.secret = JWT.secret;
+    res.send(data);
   } else {
     console.log('/api/session: Token was not found.');
   }
