@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const fs = require('fs');
-const JWT = require('./jwt/auth.js');
+const JWT = require('./jwt/Auth.js');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const transporterObject = require('./store.js');
@@ -127,8 +127,8 @@ app.get('/api/test', (req, res) => {
 app.get('/api/session', (req, res) => {
   if(req.cookies.session){
     const cookie = JSON.parse(req.cookies.session);
-    const token = cookie.token;
-    res.send(token);
+    cookie.secret = JWT.secret;
+    res.send(cookie);
   } else {
     console.log('/api/session: Token was not found.');
   }
@@ -371,6 +371,7 @@ app.post('/login', (req, res) => {
     if(user){
       user.password = Math.random().toString(12).slice(2);
       const data = {
+        secret: JWT.secret,
         id: Math.random().toString(12).slice(2),
         token: JWT.createJWT({
           sessionData: user,

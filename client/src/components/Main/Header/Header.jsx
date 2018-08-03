@@ -20,7 +20,7 @@ class Header extends Component {
         <div>
           <Menu 
             serverRes={this.props.serverRes} 
-            userIn={this.props.userIn}
+            signOut={this.props.signOut}
           />
           <Logo 
             alpha={this.props.alpha}

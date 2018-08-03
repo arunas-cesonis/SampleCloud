@@ -24,7 +24,6 @@ const createJWT = (details) => {
   }
   if(!details.connected){
   }
-  // To review later
   details.sessionData = _.reduce(details.sessionData || {}, (memo, val, key) => {
     if(typeof val !== 'function' && key !== 'password') {
       memo[key] = val;
@@ -58,6 +57,7 @@ const verifyJWT_MW = (req, res, next) => {
 }
 
 module.exports = {
+  secret,
   verifyJWT,
   createJWT,
   verifyJWT_MW,

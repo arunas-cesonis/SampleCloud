@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-export const verifyJWT = (token) => {
-  const decoded = jwt.verify(token, 'secret', (err, decodedToken) => {
+export const verifyJWT = (token, secret) => {
+  const decoded = jwt.verify(token, secret, (err, decodedToken) => {
     if(err || !decodedToken) {
       return err;
     }

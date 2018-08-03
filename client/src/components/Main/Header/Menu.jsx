@@ -9,14 +9,14 @@ class Menu extends Component {
     let navItems = [
       { path: '/', name: 'Home' },
       { path: '/login', name: 'Login' },
-      { path: '/register', name: 'Register' }
+      { path: '/register', name: 'Register' },
     ];
     if(this.props.serverRes.connected) { 
       navItems = [
         { path: '/userhome', name: 'Home' },
         { path: '/browse', name: 'Browse' }, 
         { path: '/profile', name: 'Profile' }, 
-        { path: '/about', name: 'About' }
+        { path: '/about', name: 'About' },
       ];
     }
     // Get the current location of the APP so I can check against <Link> path
@@ -33,12 +33,22 @@ class Menu extends Component {
             />
           </li>
         ))}
+        <SignOut 
+          isLogged={this.props.serverRes.connected}
+          signOut={this.props.signOut}
+        />
       </ul>
     );
   }
 }
 
 //Move to a new file.
+const SignOut = props => {
+  if(props.isLogged){
+    return (<li onClick={props.signOut} className='navLi sign_out'>Sign Out</li>);
+  }
+  return null;
+}
 const Item = props => (
   <Link
     className={classNames('navItem', { active: props.current === props.to })}

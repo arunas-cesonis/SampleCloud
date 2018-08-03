@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { instanceOf } from 'prop-types';
 import Header from './Header/Header';
 // To review later (auth.js);
-import { verifyJWT } from './Auth';
+import { verifyJWT } from '../../js/Auth';
 import jwt from 'jsonwebtoken';
 import Page from './Page/Page';
 import axios from 'axios';
@@ -21,6 +21,11 @@ class Main extends Component {
     };
     this.handleAuthResponse = this.handleAuthResponse.bind(this);
     this.handleSliderAlpha = this.handleSliderAlpha.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
+  }
+
+  handleSignOut() {
+    console.log('handleSignOut()');
   }
 
   handleSliderAlpha(alpha) {
@@ -29,7 +34,7 @@ class Main extends Component {
   }
 
   handleAuthResponse(auth, session){
-    const data = verifyJWT(session.token);
+    const data = verifyJWT(session.token, session.secret);
     this.setState({ userData: data }); 
   }
 
@@ -37,7 +42,8 @@ class Main extends Component {
     const { cookies } = this.props;
     if(cookies.get('session')) {
       axios.get('/api/session').then(res => {
-        const data = verifyJWT(res.data);
+        const data = verifyJWT(res.data.token, res.data.secret);
+        console.log('DATA: ', data);
         this.setState({ userData: data });
       });
     } else { 
@@ -52,6 +58,7 @@ class Main extends Component {
         <Header 
           serverRes={this.state.userData} 
           alpha={this.state.alpha}
+          signOut={this.handleSignOut}
         />
         <Page 
           authResponse={this.handleAuthResponse} 
