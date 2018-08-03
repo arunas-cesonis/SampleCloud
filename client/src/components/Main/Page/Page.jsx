@@ -18,7 +18,6 @@ class Page extends Component {
   // CHECK {...props} - This is the way to pass props using Route module.
   render() {
     if(this.props.user.connected) {
-    console.log('U: ', this.props.user.username);
       return (
         <Switch>
           <Route exact path="/userhome" render={(props) => 
@@ -50,7 +49,7 @@ class Page extends Component {
           />
           <Route 
             path="/register"
-            render={props =>
+            render={(props) =>
                 <Register
                 />}
           />

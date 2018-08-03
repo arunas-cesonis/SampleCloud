@@ -27,7 +27,7 @@ class Home extends Component {
       <div className='home_cont'>
         <div className='home_col1'></div>
         <div className='home_col2'>
-          <div className='home_title'>Recent Uploads</div>
+          <div className='home_title'>Section #1</div>
           {this.state.samples.map((item, i) => <MiniPlayer
             sample={item}
             key={i}
