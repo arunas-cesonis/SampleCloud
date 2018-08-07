@@ -6,6 +6,7 @@ import { verifyJWT } from '../../js/Auth';
 import jwt from 'jsonwebtoken';
 import Page from './Page/Page';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import { withCookies, Cookies } from 'react-cookie';
 
 
@@ -26,6 +27,11 @@ class Main extends Component {
 
   handleSignOut() {
     console.log('handleSignOut()');
+    /*
+    const { cookies } = this.props;
+    cookies.remove('session');
+    this.props.history.push('/');
+    */
   }
 
   handleSliderAlpha(alpha) {
@@ -58,7 +64,7 @@ class Main extends Component {
         <Header 
           serverRes={this.state.userData} 
           alpha={this.state.alpha}
-          signOut={this.handleSignOut}
+          do={this.handleSignOut}
         />
         <Page 
           authResponse={this.handleAuthResponse} 
@@ -71,4 +77,4 @@ class Main extends Component {
   }
 }
 
-export default withCookies(Main);
+export default withRouter(withCookies(Main));

@@ -43,7 +43,7 @@ class Login extends Component {
       const data = Object.assign({}, res.data);
       if(data.id) {
         cookies.set('session', { token: data.token }, { path: '/' });
-        this.props.authResponse(true, data);
+        this.props.authResponse(true, data)
         this.props.history.push('/userhome');
       } else {
         this.setState({

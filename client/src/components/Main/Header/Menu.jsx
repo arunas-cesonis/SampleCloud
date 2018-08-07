@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { withCookies, Cookies } from 'react-cookie';
 import classNames from 'classnames';
 import axios from 'axios';
 import './menu.css';
 
 class Menu extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSignOut = this.handleSignOut.bind(this);
+  }
+ 
+  handleSignOut() {
+    const { cookies } = this.props;
+    console.log('Menu.jsx: handleSignOut();');
+    cookies.remove('session');
+    this.props.history.push('/');
+    window.location.reload();
+  }
+
   render() {
     let navItems = [
       { path: '/', name: 'Home' },
@@ -35,7 +49,7 @@ class Menu extends Component {
         ))}
         <SignOut 
           isLogged={this.props.serverRes.connected}
-          signOut={this.props.signOut}
+          signOut={this.handleSignOut}
         />
       </ul>
     );
@@ -59,4 +73,4 @@ const Item = props => (
 );
 
 //In oder to use withRouter the component has to be wrapped in it
-export default withRouter(Menu);
+export default withRouter(withCookies(Menu));
