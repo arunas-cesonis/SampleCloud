@@ -22,16 +22,6 @@ class Main extends Component {
     };
     this.handleAuthResponse = this.handleAuthResponse.bind(this);
     this.handleSliderAlpha = this.handleSliderAlpha.bind(this);
-    this.handleSignOut = this.handleSignOut.bind(this);
-  }
-
-  handleSignOut() {
-    console.log('handleSignOut()');
-    /*
-    const { cookies } = this.props;
-    cookies.remove('session');
-    this.props.history.push('/');
-    */
   }
 
   handleSliderAlpha(alpha) {
@@ -64,7 +54,6 @@ class Main extends Component {
         <Header 
           serverRes={this.state.userData} 
           alpha={this.state.alpha}
-          do={this.handleSignOut}
         />
         <Page 
           authResponse={this.handleAuthResponse} 

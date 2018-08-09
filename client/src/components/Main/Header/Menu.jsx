@@ -11,6 +11,7 @@ class Menu extends Component {
     this.handleSignOut = this.handleSignOut.bind(this);
   }
  
+  //Move this to the functions component or something 
   handleSignOut() {
     const { cookies } = this.props;
     console.log('Menu.jsx: handleSignOut();');

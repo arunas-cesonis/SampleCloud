@@ -166,9 +166,9 @@ class Upload extends Component {
         */
       return (
         <form autoComplete='off' className={classes.root}>
-          <Paper className={classes.paper} >
           <Grid container justify='center' spacing={8}>
             <Grid item xs={6}>
+              <div className='up_title1' style={{ padding: '5px'}}>Upload File:</div>
               <p className="upload_error">{this.state.error}</p>
             </Grid>
           </Grid>
@@ -209,7 +209,6 @@ class Upload extends Component {
               <div className='upload_submit' onClick={this.handleUpload} >Submit</div>
             </Grid>
           </Grid>
-          </Paper>
         </form>
       );
     }

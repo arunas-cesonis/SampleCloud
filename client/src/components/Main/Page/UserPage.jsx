@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import MiniPlayer from './MiniPlayer.jsx';
-import './userpage.css';
+import MiniPlayer from './MiniPlayer';
 import Paper from '@material-ui/core/Paper';
+import Upload from './Upload';
 import './wallpaper.css';
+import './userpage.css';
 
 class UserPage extends Component {
   constructor(props){
@@ -81,7 +82,7 @@ class UserPage extends Component {
               style={{ width: '80%', margin: '0 auto' }}
             >
               <div className='categories_cont'>
-                  <div className='cat_title'>CATEGORIES:</div>
+                  <div className='up_title1'>Categories:</div>
                 {this.state.categories.map((item, i) => 
                   <div 
                     onClick={(e) => this.handleCatClick(item)}
@@ -96,6 +97,12 @@ class UserPage extends Component {
               style={{ width: '80%', margin: '0 auto' }}
             >
               <div className='cat_title'>Showing: {this.state.catFiles.length}</div>
+            </Paper>
+            <div className='spacing10'></div>
+            <Paper
+              style={{ width: '80%', margin: '0 auto', height: '220px'}}
+            >
+              <Upload />
             </Paper>
           </div>
           <div className='user_right'>

@@ -25,16 +25,6 @@ class Register extends Component {
     this.handleLoginButton = this.handleLoginButton.bind(this);
     this.handleUsername = this.handleUsername.bind(this);
   }
-  /*
-    handleRegister(event){
-        // Access REF
-        const password = this.password.value;
-    }
-    //.... TO REVIEW ref={(ref) => {var = ref}} 
-                <input type='password' 
-                    ref={(ref) => {this.password = ref}} 
-                /> 
-    */
 
   handleLoginButton(e) {
     e.preventDefault();

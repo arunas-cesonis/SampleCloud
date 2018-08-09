@@ -45,9 +45,9 @@
 }
 .sign_out {
   display: block;
-	padding: 8px 16px;
+	padding: 11px 16px;
   float: right;
+  font-size: 12px;
 	color: #455069;
   cursor: pointer;
-  font-weight: bold;
 }
