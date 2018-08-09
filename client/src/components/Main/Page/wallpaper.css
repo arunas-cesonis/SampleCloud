@@ -6,3 +6,11 @@
   margin: 0;
   padding: 0;
 }
+.wall_caption {
+  position: absolute;
+  margin-left: 48%;
+  line-height: 300px;
+  font-weight: bold;
+  font-size: 34px;
+  color: white;
+}

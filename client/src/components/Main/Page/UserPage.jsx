@@ -61,7 +61,7 @@ class UserPage extends Component {
       this.getCategories();
     });
   }
-
+  /// MOVE CATEGORIES TO ANOTHER COMPONENT LIKE <Upload />
   render() {
     if(this.state.getUser){
       this.getUser(this.props.currentUser);
@@ -70,6 +70,7 @@ class UserPage extends Component {
       <div className='user_wrap'>
         <Wallpaper
           image={this.state.user.wallpaper}
+          name={this.state.user.username}
         />
         <div 
           className='user_avatar'
@@ -96,7 +97,7 @@ class UserPage extends Component {
             <Paper
               style={{ width: '80%', margin: '0 auto' }}
             >
-              <div className='cat_title'>Showing: {this.state.catFiles.length}</div>
+              <div className='up_title1' style={{ padding: '10px 0', marginLeft: '20px' }}>Showing: {this.state.catFiles.length}</div>
             </Paper>
             <div className='spacing10'></div>
             <Paper
@@ -130,6 +131,9 @@ const Wallpaper = props => {
       className='wall_wrap'
       style={{ backgroundImage: 'url(' + props.image + ')' }}
     >
+      <div className='wall_caption'>
+        {props.name}
+      </div>
     </div>
   );
 }
