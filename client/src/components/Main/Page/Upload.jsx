@@ -63,7 +63,7 @@ class Upload extends Component {
     const friendlyName = this.state.uploadData.fileName;
     const fileName = this.state.uploadData.file.name;
     const file = this.state.uploadData.file;
-    const size = () => { return (file.size > 10000 && file.size < 11000000) };
+    const size = () => { return (file.size > 1000 && file.size < 11000000) };
     console.log('Size: ', size());
     this.setState({ error: '' });
     //Very basic validation
@@ -81,6 +81,7 @@ class Upload extends Component {
               uploaded: true,
               msg: 'The file has been successfully uploaded.'
             });
+            window.location.reload();
           } else {
             this.setState({
               error: res.data.error 

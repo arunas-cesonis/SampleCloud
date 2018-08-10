@@ -9,13 +9,13 @@
 }
 .upload_file_btn .upload_icon {
   position: absolute;
-  top: 4px;
+  top: 14px;
   left: 125px;
   width: 17px;
   height: 17px;
   background-size: cover;
   background-position: center;
-  background-image: url('/img/upload.png');
+  background-image: url('/img/upload-black.png');
 }
 .upload_file_btn {
   position: relative;
@@ -29,8 +29,11 @@
   cursor: pointer;
   transition: all 0.3s;
 }
+.upload_file_btn:hover .upload_icon {
+  background-image: url('/img/upload-green.png');
+}
 .upload_file_name:hover {
-  border-bottom: solid 2px black;
+  border-bottom: solid 2px #6aabb7;
  }
 .upload_submit:hover,
 .upload_file_btn:hover {

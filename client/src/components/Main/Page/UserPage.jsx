@@ -103,7 +103,9 @@ class UserPage extends Component {
             <Paper
               style={{ width: '80%', margin: '0 auto', height: 'auto'}}
             >
-              <Upload />
+              <Upload 
+                user={this.state.user}
+              />
             </Paper>
           </div>
           <div className='user_right'>
