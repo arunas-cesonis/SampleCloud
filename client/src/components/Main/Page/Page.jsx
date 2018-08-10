@@ -5,9 +5,9 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import About from './About.jsx';
 import Browse from './Browse.jsx';
-import Register from './Register.jsx';
-import Profile from './Profile.jsx';
-import UserPage from './UserPage.jsx';
+import Register from './Register';
+import Settings from './Settings';
+import UserPage from './UserPage';
 
 //Basically this is a main Content or Content Loader
 class Page extends Component {
@@ -27,9 +27,9 @@ class Page extends Component {
                 <Browse />} 
           />
           <Route
-            path="/profile"
+            path="/settings"
             render={props => 
-              <Profile 
+              <Settings 
                 user={this.props.user}
               />
             }

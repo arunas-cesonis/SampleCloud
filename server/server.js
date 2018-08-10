@@ -7,9 +7,9 @@ const fs = require('fs');
 const JWT = require('./jwt/Auth.js');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const transporterObject = require('./store.js');
+const store = require('./store.js');
 const app = express();
-const transporter = nodemailer.createTransport(transporterObject);
+const transporter = nodemailer.createTransport(store.transporterObject);
 
 const setHeaders = (link, to) => {
   const mailOptions = {
@@ -89,15 +89,15 @@ app.use(bodyParser.json());
 app.use('/api/*', JWT.verifyJWT_MW);
 
 encrypt = data => {
-  let cipher = crypto.createCipher('aes-256-ecb', 'password');
+  let cipher = crypto.createCipher('aes-256-ecb', store.encryptionSecret);
   return cipher.update(data, 'utf8', 'hex') + cipher.final('hex');
 };
 
 decrypt = data => {
-  let cipher = crypto.createDecipher('aes-256-ecb', 'password');
+  let cipher = crypto.createDecipher('aes-256-ecb', store.encryptionSecret);
   return cipher.update(data, 'hex', 'utf8') + cipher.final('utf8');
 };
-
+console.log('a: ', encrypt('a'));
 
 //My Helper:
 app.get('/', (req, res) => {
@@ -320,7 +320,7 @@ app.post('/api/register', (req, res) => {
   const userMeta = new User({
     username: username,
     email: email,
-    password: password,
+    password: encrypt(password),
     dateCreated: date, 
     admin: false,
     active: false,
@@ -365,10 +365,12 @@ app.post('/api/validate', (req, res) => {
 app.post('/login', (req, res) => {
   const b = req.body;
   const username = b.username.toLowerCase();
-  const password = b.password;
+  const password = encrypt(b.password);
+  console.log('P: ', password);
   User.findOne({ 'username': username, 'password': password }, (err, user) => {
     if(err) throw err;
     if(user){
+      // remove this later.. passwords will be saved encrypted.
       user.password = Math.random().toString(12).slice(2);
       const data = {
         secret: JWT.secret,
@@ -396,6 +398,8 @@ app.get('/api/user/:username', (req, res) => {
   const username = req.params.username;
   console.log('p :',req.params); 
   User.findOne({ 'username': username }, (err, user) => {
+    // remove this later.. passwords will be saved encrypted.
+    user.password = Math.random().toString(12).slice(2);
     console.log('User: ', user);
     if(err) console.log( err);
     const q = {
