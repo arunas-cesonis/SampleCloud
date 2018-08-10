@@ -29,7 +29,8 @@ class UploadFileInput extends Component {
           className='upload_file_btn' 
           style={{ width: w }} 
         >
-          <div className='upload_icon'></div><div className='upload_file_name'>{name}</div>
+          <div className='upload_file_name'>{name}</div>
+          <div className='upload_icon'></div>
         </label>
         <input
           type='file'

@@ -11,10 +11,6 @@ import UserPage from './UserPage.jsx';
 
 //Basically this is a main Content or Content Loader
 class Page extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   // CHECK {...props} - This is the way to pass props using Route module.
   render() {
     if(this.props.user.connected) {

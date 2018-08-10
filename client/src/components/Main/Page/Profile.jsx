@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ProfileRouter from './ProfileRouter.jsx';
-import ProfileMenu from './ProfileMenu.jsx';
 import ParallaxImage from './ParallaxImage.jsx';
 import './profile.css';
 

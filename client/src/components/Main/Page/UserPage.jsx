@@ -101,7 +101,7 @@ class UserPage extends Component {
             </Paper>
             <div className='spacing10'></div>
             <Paper
-              style={{ width: '80%', margin: '0 auto', height: '220px'}}
+              style={{ width: '80%', margin: '0 auto', height: 'auto'}}
             >
               <Upload />
             </Paper>

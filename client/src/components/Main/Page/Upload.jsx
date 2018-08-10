@@ -5,9 +5,6 @@ import InputSelect from './InputSelect.jsx';
 import './upload.css';
 import axios from 'axios';
 
-// Material UI
-import Paper from '@material-ui/core/Paper'
-
 class Upload extends Component {
   constructor(props) {
     super(props);
@@ -169,16 +166,13 @@ class Upload extends Component {
                 items={this.state.categories}
                 value={this.state.category}
               />
-              <div style={{ height: '45px' }} ></div>
-              <div className='upload_btn_cont'>
-                <FileInput
-                  id='file'
-                  label='File:'
-                  upload={this.handleFile}
-                  value='value'
-                />
-                <div className='upload_submit' onClick={this.handleUpload} >Submit</div>
-              </div>
+              <FileInput
+                id='file'
+                label='File:'
+                upload={this.handleFile}
+                value='value'
+              />
+              <div className='upload_submit' onClick={this.handleUpload} >Submit</div>
             </div>
           </form>
         </div>

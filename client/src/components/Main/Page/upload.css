@@ -1,12 +1,16 @@
 .upload_file_btn .upload_file_name {
-  font-size: 14px;
-  margin-left: 20px;
-  color: #6aabb7; 
-  padding: 0 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 30px;
+  border-bottom: solid 1px black;
+  text-align: left;
+  width: 150px;
+  color: rgba(117, 117, 117, 0.87); 
 }
 .upload_file_btn .upload_icon {
   position: absolute;
   top: 4px;
+  left: 125px;
   width: 17px;
   height: 17px;
   background-size: cover;
@@ -18,15 +22,16 @@
   color: red;
   /*background-color: #6aabb7;*/
   top: 5px;
-  padding: 4px;
   text-align: center;
-  min-width: 98px; 
+  min-width: 100px; 
   max-width: 280px;
   height: auto;
   cursor: pointer;
   transition: all 0.3s;
 }
-.upload_file_name:hover,
+.upload_file_name:hover {
+  border-bottom: solid 2px black;
+ }
 .upload_submit:hover,
 .upload_file_btn:hover {
   color: #fba100;
@@ -35,7 +40,9 @@ input[type='file'] {
   display: none;
 }
 .upload_submit {
-  text-align: center;
+  text-align: right;
+  margin-left: 100px;
+  margin-top: 20px;
   width: 97px;
   cursor: pointer;
   transition: all 0.3s;
@@ -47,7 +54,7 @@ input[type='file'] {
 .upload_error {
   color: red;
   font-size: 10px;
-  text-align: center;
+  text-align: left;
 }
 
 /* NEW STYLE */
@@ -67,9 +74,4 @@ input[type='file'] {
   height: 100%;
   margin-left: 20px;
   padding: 10px 0;
-}
-.upload_btn_cont {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
 }

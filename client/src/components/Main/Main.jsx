@@ -3,7 +3,6 @@ import { instanceOf } from 'prop-types';
 import Header from './Header/Header';
 // To review later (auth.js);
 import { verifyJWT } from '../../js/Auth';
-import jwt from 'jsonwebtoken';
 import Page from './Page/Page';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';

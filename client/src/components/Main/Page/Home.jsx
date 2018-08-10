@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MiniPlayer from './MiniPlayer.jsx';
 import './home.css';
-import axios from 'axios';
 
 class Home extends Component {
   constructor(props){

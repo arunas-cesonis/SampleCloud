@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 import classNames from 'classnames';
-import axios from 'axios';
 import './menu.css';
 
 class Menu extends Component {
