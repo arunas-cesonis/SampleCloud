@@ -1,3 +1,6 @@
+.upload_wrap {
+  z-index: 100;
+}
 .upload_file_btn .upload_file_name {
   margin-top: 10px;
   font-size: 16px;

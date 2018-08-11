@@ -167,7 +167,7 @@ app.post('/api/avatar', (req, res) => {
 //Update Pwd in the DB
 app.post('/api/profile/pwd', (req, res) => {
   const username = req.body.user.username;
-  const newPwd = req.body.newPwd;
+  const newPwd = encrypt(req.body.newPwd);
   const email = req.body.user.email;
   console.log('e: ', email);
   const q = { 'username': username, 'email': email };
@@ -310,6 +310,16 @@ app.get('/api/verify/:hash', (req, res) => {
   });
 });
 
+//Password verification
+app.post('/api/verify', (req, res) => {
+  const currentPwd = req.body.password;
+  const encrypted = encrypt(currentPwd);
+  console.log('password: ', encrypted);
+  res.send({
+    encrypted: encrypted
+  }); 
+});
+
 //Handle Register Form + Send a verification email
 app.post('/api/register', (req, res) => {
   const password = req.body.password;
@@ -371,7 +381,6 @@ app.post('/login', (req, res) => {
     if(err) throw err;
     if(user){
       // remove this later.. passwords will be saved encrypted.
-      user.password = Math.random().toString(12).slice(2);
       const data = {
         secret: JWT.secret,
         id: Math.random().toString(12).slice(2),
@@ -399,7 +408,6 @@ app.get('/api/user/:username', (req, res) => {
   console.log('p :',req.params); 
   User.findOne({ 'username': username }, (err, user) => {
     // remove this later.. passwords will be saved encrypted.
-    user.password = Math.random().toString(12).slice(2);
     console.log('User: ', user);
     if(err) console.log( err);
     const q = {

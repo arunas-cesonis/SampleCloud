@@ -4,7 +4,7 @@ import FileInput from './UploadFileInput.jsx';
 
 const styles = {
   btnWidth: {
-    width: '99px',
+    width: '110px',
     marginTop: '2px'
   }
 }
@@ -53,46 +53,36 @@ class AvatarUpload extends Component {
   }
 
   render() {
-    if(this.props.showAvatar){
-      return (
-        <Fragment>
-          <div className='avt_main'>
-            <div className='setting_title'>UPLOAD YOUR AVATAR PICTURE</div>
-            <p
-              style={{
-                color: 'red',
-                fontSize: '10px',
-                padding: '4px',
-                textAlign: 'center'
-              }}
-            >{this.state.errorMsg}</p>
-            <form autoComplete='off' className='avt_cont'>
-              <FileInput 
-                id='avatar'
-                label='Avatar File:'
-                upload={this.handleAvatarFile}
-                value='value'
-                width='200px'
-              />
-              <div className='pwd_buttons_cont' >
-                <div
-                  className='upload_btn'
-                  style={ styles.btnWidth }
-                  onClick={this.handleAvatarUpload}
-                >Submit</div>
-                <div
-                  className='upload_btn'
-                  style={ styles.btnWidth }
-                  onClick={this.props.avatarClose}
-                >Cancel</div>
-              </div>
-            </form>
-          </div>
-        </Fragment>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <Fragment>
+        <div className='avatar_wrap'>
+          <div className='settings_section_title'>Avatar:</div>
+          <p
+            style={{
+              color: 'red',
+              fontSize: '10px',
+              padding: '4px',
+              textAlign: 'center'
+            }}
+          >{this.state.errorMsg}</p>
+          <form autoComplete='off' className='avatar_cont'>
+            <FileInput 
+              id='avatar'
+              label='Avatar File:'
+              upload={this.handleAvatarFile}
+              value='value'
+            />
+            <div className='settings_btn_cont' >
+              <div
+                className='settings_btn'
+                style={ styles.btnWidth }
+                onClick={this.handleAvatarUpload}
+              >Submit</div>
+            </div>
+          </form>
+        </div>
+      </Fragment>
+    );
   }
 }
 

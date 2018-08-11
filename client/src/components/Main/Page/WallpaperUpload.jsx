@@ -4,7 +4,7 @@ import FileInput from './UploadFileInput.jsx';
 
 const styles = {
   btnWidth: {
-    width: '99px',
+    width: '110px',
     marginTop: '2px'
   }
 }
@@ -53,46 +53,37 @@ class WallpaperUpload extends Component {
   }
 
   render() {
-    if(this.props.showWallpaper){
-      return (
-        <Fragment>
-          <div className='avt_main'>
-            <div className='setting_title'>UPLOAD YOUR AVATAR PICTURE</div>
-            <p
-              style={{
-                color: 'red',
-                fontSize: '10px',
-                padding: '4px',
-                textAlign: 'center'
-              }}
-            >{this.state.errorMsg}</p>
-            <form autoComplete='off' className='avt_cont'>
-              <FileInput 
-                id='avatar'
-                label='Avatar File:'
-                upload={this.handleWallpaperFile}
-                value='value'
-                width='200px'
-              />
-              <div className='pwd_buttons_cont' >
-                <div
-                  className='upload_btn'
-                  style={ styles.btnWidth }
-                  onClick={this.handleWallpaperUpload}
-                >Submit</div>
-                <div
-                  className='upload_btn'
-                  style={ styles.btnWidth }
-                  onClick={this.props.wallpaperClose}
-                >Cancel</div>
-              </div>
-            </form>
-          </div>
-        </Fragment>
-      );
-    } else {
-      return null;
-    }
+    return (
+      <Fragment>
+        <div className='wallpaper_wrap'>
+          <div className='settings_section_title'>Wallpaper:</div>
+          <p
+            style={{
+              color: 'red',
+              fontSize: '10px',
+              padding: '4px',
+              textAlign: 'center'
+            }}
+          >{this.state.errorMsg}</p>
+          <form autoComplete='off' className='wallpaper_cont'>
+            <FileInput 
+              id='avatar'
+              label='Avatar File:'
+              upload={this.handleWallpaperFile}
+              value='value'
+              width='200px'
+            />
+            <div className='settings_btn_cont' >
+              <div
+                className='settings_btn'
+                style={ styles.btnWidth }
+                onClick={this.handleWallpaperUpload}
+              >Submit</div>
+            </div>
+          </form>
+        </div>
+      </Fragment>
+    );
   }
 }
 

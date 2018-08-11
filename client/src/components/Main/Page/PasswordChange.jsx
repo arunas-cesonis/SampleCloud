@@ -1,13 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
 import Input from './InputText.jsx';
-
-const styles = {
-  btnWidth: {
-    width: '99px'
-  }
-}
-
 
 class PasswordChange extends Component {
   constructor(props){
@@ -20,7 +14,8 @@ class PasswordChange extends Component {
       invalidNew: false,
       invalidConfirm: false,
       errorMsg: '',
-      errorMatch: ''
+      errorMatch: '',
+      success: false
     }
     this.handleCurrentPwd = this.handleCurrentPwd.bind(this);
     this.handleConfirmPwd = this.handleConfirmPwd.bind(this);
@@ -28,26 +23,29 @@ class PasswordChange extends Component {
     this.handlePwdChange = this.handlePwdChange.bind(this);
     this.checkNewPwd = this.checkNewPwd.bind(this);
     this.postToServer = this.postToServer.bind(this);
+    this.passwordUpdated = this.passwordUpdated.bind(this);
   }
 
   handlePwdChange(){
     const user = this.props.user;
-    const { currentPwd } = this.state;
-    console.log(
-      'Current: ', this.state.currentPwd, '\n',
-      'New: ', this.state.newPwd, '\n',
-      'Confirm: ', this.state.confirmPwd, '\n',
-    );
-    if(user.password === currentPwd){
-      this.setState({ 
-        errorMsg: '',
-        invalidCurrent: false 
-      })
-      this.checkNewPwd();
-    } else {
-      this.setState({
-        errorMsg: 'Password is incorrect.\n',
-        invalidCurrent: true
+    const { success, currentPwd } = this.state;
+    if(!success) {
+      axios.post('/api/verify', {
+        password: currentPwd
+      }).then(res => {
+        if(res.data.encrypted === user.password) {
+          console.log('You got it right, man!');
+          this.setState({ 
+            errorMsg: '',
+            invalidCurrent: false 
+          });
+          this.checkNewPwd();
+        } else {
+          this.setState({
+            errorMsg: 'Password is incorrect.\n',
+            invalidCurrent: true
+          });
+        } 
       });
     }
   }
@@ -55,7 +53,7 @@ class PasswordChange extends Component {
   checkNewPwd(){
     const { newPwd, confirmPwd } = this.state;
     const user = this.props.user;
-    if(confirmPwd === newPwd && newPwd.length > 0 && newPwd.match(/[A-Z]/)){
+    if(confirmPwd === newPwd && newPwd.length > 0 ) { // while testing // && newPwd.match(/[A-Z]/)){
       console.log('good to go!');
       this.setState({
         errorMatch: '',
@@ -78,16 +76,30 @@ class PasswordChange extends Component {
       newPwd: pwd
     }).then(res => {
       if(res.data.updated){
-        this.props.updated();
+        this.passwordUpdated();
       } else {
         this.setState({ errorMsg: 'Could not update your password. Please try again later.' })
       }
     });
   }
 
+  passwordUpdated() {
+    this.setState({
+      currentPwd: '',
+      newPwd: '',
+      confirmPwd: '',
+      notifyMsg: 'Password has been successfully updated. This page will refresh shortly.',
+      success: true
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
+  }
+
   handleCurrentPwd(inputVal){
-    this.setState({ currentPwd: inputVal });
-    console.log('I: ', inputVal); 
+    this.setState({ 
+      currentPwd: inputVal, 
+    });
   }
 
   handleNewPwd(inputVal){
@@ -99,62 +111,60 @@ class PasswordChange extends Component {
   }
 
   render() {
-    if(this.props.pwdChange){
-      return (
-        <Fragment>
-          <div className='pwd_main'>
-            <div className='setting_title'>CHANGE YOUR PASSWORD</div>
-            <div className='pwd_cont'>
-              <p 
-                style={{ 
-                  color: 'red', 
-                  fontSize: '10px', 
-                  padding: '4px' 
-                }} 
-              >{this.state.errorMsg}{this.state.errorMatch}</p>
-              <Input
-                id='currentPwd'
-                label='Current Password'
-                type='password'
-                width='200px'
-                update={this.handleCurrentPwd}
-                valid={this.state.invalidCurrent}
-              />
-              <Input
-                id='newPwd'
-                label='New Password'
-                type='password'
-                width='200px'
-                update={this.handleNewPwd}
-                valid={this.state.invalidNew}
-              />
-              <Input
-                id='confirmPwd'
-                label='Confirm Password'
-                type='password'
-                width='200px'
-                update={this.handleConfirmPwd}
-                valid={this.state.invalidConfirm}
-              />
-            </div>
-            <div className='pwd_buttons_cont'>
-              <div 
-                className='upload_btn' 
-                style={ styles.btnWidth }
-                onClick={this.handlePwdChange}
-              >Submit</div>
-              <div 
-                className='upload_btn' 
-                style={ styles.btnWidth } 
-                onClick={this.props.pwdClose}
-              >Cancel</div>
-            </div>
+    return (
+      <Fragment>
+        <div className='password_wrap'>
+          <div className='settings_section_title'>Change Your Password:</div>
+          <div className='password_cont'>
+            <p 
+              style={{ 
+                color: 'red', 
+                fontSize: '10px', 
+                padding: '4px' 
+              }} 
+            >{this.state.errorMsg}{this.state.errorMatch}</p>
+            <p 
+              style={{ 
+                color: '#fba100', 
+                fontSize: '10px', 
+                padding: '4px' 
+              }} 
+            >{this.state.notifyMsg}</p>
+            <Input
+              id='currentPwd'
+              value={this.state.value}
+              label='Current Password'
+              type='password'
+              width='200px'
+              update={this.handleCurrentPwd}
+              valid={this.state.invalidCurrent}
+            />
+            <Input
+              id='newPwd'
+              label='New Password'
+              type='password'
+              width='200px'
+              update={this.handleNewPwd}
+              valid={this.state.invalidNew}
+            />
+            <Input
+              id='confirmPwd'
+              label='Confirm Password'
+              type='password'
+              width='200px'
+              update={this.handleConfirmPwd}
+              valid={this.state.invalidConfirm}
+            />
           </div>
-        </Fragment>
-      );
-    } else {
-      return null;
-    }
+          <div className='settings_btn_cont'>
+            <div 
+              className={classNames('settings_btn', { disabled: this.state.success })} 
+              onClick={this.handlePwdChange}
+            >Submit</div>
+          </div>
+        </div>
+      </Fragment>
+    );
   }
 }
 

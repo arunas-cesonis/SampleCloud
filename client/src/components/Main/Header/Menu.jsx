@@ -29,7 +29,7 @@ class Menu extends Component {
       navItems = [
         { path: '/userhome', name: 'Home' },
         { path: '/browse', name: 'Browse' }, 
-        { path: '/profile', name: 'Profile' }, 
+        { path: '/settings', name: 'Settings' }, 
         { path: '/about', name: 'About' },
       ];
     }
@@ -63,6 +63,7 @@ const SignOut = props => {
   }
   return null;
 }
+
 const Item = props => (
   <Link
     className={classNames('navItem', { active: props.current === props.to })}

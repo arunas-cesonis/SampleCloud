@@ -1,9 +1,90 @@
 * {
   box-sizing: border-box;
 }
-.profile_main {
+
+/* MAIN SETTINGS */
+.settings_wrap {
   position: relative;
-  z-index: 90;
-  margin: auto;
   /*background-color:  rgba(10, 20, 30, 0.4);*/
+}
+.settings_cont {
+  display: flex;
+  flex-direction: column;
+  width: 650px;
+  height: auto;
+  margin: 0 auto;
+  padding: 5px;
+}
+.settings_title {
+  background-color: #6aabb7;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+}
+.settings_cont .line {
+  width: 97%;
+  margin: 5px auto;
+  box-shadow: 0px 0px 2px rgba(251, 161, 0, 0.5);
+  height: 1px;
+  background-color: #fba100;
+}
+.settings_section_title {
+  font-weight: bold;
+  color: #6aabb7;
+}
+
+/* WALLPAPER UPLOAD */
+.wallpaper_wrap {
+  padding: 10px;
+}
+.wallpaper_wrap .wallpaper_cont {
+  display: flex;
+  flex-direction: row;
+}
+
+/* AVATAR UPLOAD */
+.avatar_wrap {
+  padding: 10px;
+}
+.avatar_wrap .avatar_cont {
+  display: flex;
+  flex-direction: row;
+}
+
+/* PASSWORD CHANGE */
+.password_wrap {
+  padding: 10px;
+}
+.password_wrap .password_cont {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* BUTTON/S */
+.settings_btn_cont {
+  position: relative;
+  top: 10px;
+  padding: 10px;
+  width: 90%;
+}
+.settings_btn_cont .settings_btn:hover {
+  color: #fba100;
+}
+.settings_btn_cont .settings_btn {
+  float: right;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+  color: #6aabb7;
+  line-height: 25px;
+  height: 25px;
+}
+.settings_btn_cont .settings_btn.disabled {
+  float: right;
+  cursor: none;
+  color: #d2d2d2;
+  line-height: 25px;
+  height: 25px;
 }
