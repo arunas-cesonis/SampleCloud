@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import Paper from '@material-ui/core/Paper';
+import classNames from 'classnames';
 import FileInput from './UploadFileInput.jsx';
 
-class AvatarUpload extends Component {
+class FileUpload extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -15,22 +15,22 @@ class AvatarUpload extends Component {
       notifyMsg: '',
       success: false
     }
-    this.handleAvatarFile = this.handleAvatarFile.bind(this);
-    this.handleAvatarUpload = this.handleAvatarUpload.bind(this);
+    this.handleFile = this.handleFile.bind(this);
+    this.handleFileUpload = this.handleFileUpload.bind(this);
   }
 
-  handleAvatarUpload(e) {
+  handleFileUpload(e) {
     e.preventDefault();
     const data = new FormData();
     const file = this.state.uploadData.file;
-    if(file && file.size < 1000000) {
+    if(file && file.size < this.props.maxSize) {
       data.append('file', file);
       data.append('username', this.props.user.username);
       data.append('email', this.props.user.email);
-      axios.post('/api/profile/avatar', data).then(res => {
+      axios.post(this.props.postTo, data).then(res => {
         if(res.data.done) {
           this.setState({
-            notifyMsg: 'Avatar has been successfully uploaded.',
+            notifyMsg: this.props.name + ' has been successfully uploaded.',
             success: true
           });
         } else {
@@ -42,7 +42,7 @@ class AvatarUpload extends Component {
     }
   }
 
-  handleAvatarFile(file){
+  handleFile(file){
     const uploadData = Object.assign({}, this.state.uploadData);
     const types = ['image/jpg', 'image/jpeg', 'image/png'];
 
@@ -58,29 +58,37 @@ class AvatarUpload extends Component {
   render() {
     return (
       <Fragment>
-        <div className='avatar_wrap'>
-          <div className='settings_section_title'>Avatar:</div>
+        <div className='fileupload_wrap'>
+          <div className='settings_section_title'>{this.props.name}:</div>
           <div className='line'></div>
-          <p className='settings_dialog_box'>Recomended size: Width 200px, Height 220px. Accepted file types/extensions jpg, png, jpeg. </p>
-            <p
-              style={{
-                color: 'red',
-                fontSize: '10px',
-                padding: '4px',
-                textAlign: 'center'
-              }}
-            >{this.state.errorMsg}</p>
-          <form autoComplete='off' className='avatar_cont'>
+          <p className='settings_dialog_box'>Recomended size: {this.props.recSize}. Accepted file types/extensions jpg, png, jpeg. </p>
+          <p
+            style={{
+              color: '#6aabb7',
+              fontSize: '10px',
+              padding: '4px',
+              textAlign: 'center'
+            }}
+          >{this.state.notifyMsg}</p>
+          <p
+            style={{
+              color: 'red',
+              fontSize: '10px',
+              padding: '4px',
+              textAlign: 'center'
+            }}
+          >{this.state.errorMsg}</p>
+          <form autoComplete='off' className='fileupload_cont'>
             <FileInput 
-              id='avatar'
+              id={this.props.id}
               label='Avatar File:'
-              upload={this.handleAvatarFile}
+              upload={this.handleFile}
               value='value'
             />
             <div className='settings_btn_cont' >
               <div
-                className='settings_btn'
-                onClick={this.handleAvatarUpload}
+                className={classNames('settings_btn', { disabled: this.state.success })}
+                onClick={this.handleFileUpload}
               >Submit</div>
             </div>
           </form>
@@ -90,4 +98,4 @@ class AvatarUpload extends Component {
   }
 }
 
-export default AvatarUpload;
+export default FileUpload;

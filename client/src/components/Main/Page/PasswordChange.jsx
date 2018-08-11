@@ -115,19 +115,22 @@ class PasswordChange extends Component {
       <Fragment>
         <div className='password_wrap'>
           <div className='settings_section_title'>Change Your Password:</div>
+          <div className='line'></div>
           <div className='password_cont'>
             <p 
               style={{ 
                 color: 'red', 
                 fontSize: '10px', 
-                padding: '4px' 
+                padding: '4px', 
+                textAlign: 'center'
               }} 
             >{this.state.errorMsg}{this.state.errorMatch}</p>
             <p 
               style={{ 
-                color: '#fba100', 
+                color: '#6aabb7', 
                 fontSize: '10px', 
-                padding: '4px' 
+                padding: '4px',
+                textAlign: 'center'
               }} 
             >{this.state.notifyMsg}</p>
             <Input

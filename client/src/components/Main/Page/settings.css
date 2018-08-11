@@ -22,34 +22,28 @@
   text-align: center;
   font-weight: bold;
 }
-.settings_cont .line {
-  width: 97%;
+.line {
+  width: 100%;
   margin: 5px auto;
-  box-shadow: 0px 0px 2px rgba(251, 161, 0, 0.5);
+  box-shadow: 0px 0px 2px rgba(106, 171, 183, 0.5);
   height: 1px;
-  background-color: #fba100;
+  background-color: #6aabb7;
 }
 .settings_section_title {
   font-weight: bold;
   color: #6aabb7;
 }
-
-/* WALLPAPER UPLOAD */
-.wallpaper_wrap {
-  padding: 10px;
-}
-.wallpaper_wrap .wallpaper_cont {
-  display: flex;
-  flex-direction: row;
+.settings_dialog_box {
+  color: rgba(0, 0, 0, 0.7); 
 }
 
-/* AVATAR UPLOAD */
-.avatar_wrap {
+/* FILE UPLOAD */
+.fileupload_wrap {
   padding: 10px;
 }
-.avatar_wrap .avatar_cont {
+.fileupload_wrap .fileupload_cont {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 /* PASSWORD CHANGE */
@@ -70,14 +64,14 @@
   width: 90%;
 }
 .settings_btn_cont .settings_btn:hover {
-  color: #fba100;
+  color: #6aabb7;
 }
 .settings_btn_cont .settings_btn {
   float: right;
   cursor: pointer;
   transition: all 0.3s;
   font-weight: bold;
-  color: #6aabb7;
+  color: #fba100;
   line-height: 25px;
   height: 25px;
 }

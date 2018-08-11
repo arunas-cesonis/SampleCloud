@@ -198,8 +198,11 @@ app.post('/api/profile/wallpaper', (req, res) => {
       if(err) throw err;
       console.log('Data.mv(); called');
       User.update(q, { 'wallpaper': wallpaperURL }, (err, response) => {
+        if(err) throw err;
         console.log('Mongo:', response);
-        res.end();
+        res.send({
+          done: true
+        });
       });
     });
   }
@@ -225,8 +228,11 @@ app.post('/api/profile/avatar', (req, res) => {
       if(err) throw err;
       console.log('Data.mv(); called');
       User.update(q, { 'avatar': avatarURL }, (err, response) => {
+        if(err) throw err;
         console.log('Mongo:', response);
-        res.end();
+        res.send({
+          done: true
+        });
       });
     });
   }

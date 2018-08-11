@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PasswordChange from './PasswordChange';
-import WallpaperUpload from './WallpaperUpload';
-import AvatarUpload from './AvatarUpload';
 import ParallaxImage from './ParallaxImage';
 import Paper from '@material-ui/core/Paper';
+import FileUpload from './FileUpload';
 import './settings.css';
 
 class Settings extends Component {
@@ -21,13 +20,23 @@ class Settings extends Component {
             <PasswordChange
               user={this.props.user}
             />
-            <div className='line'></div>
             <div style={{ height: '10px' }} ></div>
-            <AvatarUpload
+            <FileUpload
+              user={this.props.user}
+              maxSize='1200000'
+              id='avatar'
+              postTo='/api/profile/avatar'
+              name='Avatar'
+              recSize='Width 200px, Height 220px'
             />
-            <div className='line'></div>
             <div style={{ height: '10px' }} ></div>
-            <WallpaperUpload
+            <FileUpload
+              user={this.props.user}
+              maxSize='5200000'
+              id='wallpaper'
+              postTo='/api/profile/wallpaper'
+              name='Wallpaper'
+              recSize='Width 1920px'
             />
           </Paper>
         </div>

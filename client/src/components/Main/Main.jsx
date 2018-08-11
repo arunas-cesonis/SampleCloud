@@ -49,7 +49,6 @@ class Main extends Component {
   render() {
     return (
       <div className='main_cont'>
-        <h1>{this.state.userData.username}</h1>
         <Header 
           serverRes={this.state.userData} 
           alpha={this.state.alpha}
