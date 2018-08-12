@@ -47,10 +47,12 @@ const verifyJWT_MW = (req, res, next) => {
     const token = cookie.token;
     verifyJWT(token).then((decodedToken) => {
       req.user = decodedToken.data;
+      req.user._doc['connected'] = true;
+      console.log('REQ USER: ', req.user);
       next();
     }).catch((err) => {
       console.log('ERROR: ', err.message, '\nExpired At: ', err.expiredAt);
-      res.redirect('/login');
+      res.redirect('/ended');
     });
   } else {
     console.log('Token was not found.');

@@ -37,9 +37,7 @@ class Main extends Component {
     const { cookies } = this.props;
     if(cookies.get('session')) {
       axios.get('/api/session').then(res => {
-        const data = verifyJWT(res.data.token, res.data.secret);
-        console.log('DATA: ', data);
-        this.setState({ userData: data });
+        this.setState({ userData: res.data });
       });
     } else { 
       console.log('Where is my cookie? Get a cookie and come back for more.');

@@ -118,21 +118,14 @@ app.get('/', (req, res) => {
   res.send('hi');
 });
 
-//My test Routes
+//My test Route
 app.get('/api/test', (req, res) => {
   res.send('boo!');
 });
 
-//Main, Sessions - This will go // Review later.
+//Main, Sessions - This will do // Review later.
 app.get('/api/session', (req, res) => {
-  if(req.cookies.session){
-    const data = JSON.parse(req.cookies.session);
-    data.secret = JWT.secret;
-    res.send(data);
-  } else {
-    console.log('/api/session: Token was not found.');
-  }
-  res.end();
+  res.send(req.user._doc);
 });
 
 //User Page
@@ -271,7 +264,7 @@ const createDir = (dir) => {
 }
 
 //New User Verification
-app.get('/api/verify/:hash', (req, res) => {
+app.get('/verify/:hash', (req, res) => {
   const hash = req.params.hash;
   User.findOne({ 'link': hash }, (err, user) => {
     if(err) throw err;
@@ -302,7 +295,7 @@ app.post('/api/verify', (req, res) => {
 });
 
 //Handle Register Form + Send a verification email
-app.post('/api/register', (req, res) => {
+app.post('/register', (req, res) => {
   const password = req.body.password;
   const username = req.body.username;
   const email = req.body.email;
@@ -319,7 +312,7 @@ app.post('/api/register', (req, res) => {
     wallpaper: '',
     link: hash
   });
-  const link = 'http://n3op2.com/api/verify/' + hash;
+  const link = 'http://localhost:3010/verify/' + hash;
   console.log('hash: ', hash);
   userMeta.save(function(err) {
     if(err) throw err;
@@ -332,7 +325,7 @@ app.post('/api/register', (req, res) => {
   });
 
 //Check if username is free
-app.post('/api/validate', (req, res) => {
+app.post('/validate', (req, res) => {
   const b = req.body;
   console.log('/api/checkUsername req: ', b.username);
   // To check against DB if this username is taken or not and return true or false.
@@ -379,7 +372,7 @@ app.post('/login', (req, res) => {
 
 //User Page
 app.get('/api/userhome', (req, res) => {
-  const user = req.user._doc;
+  const user = req.user._doc;  //Set in Auth.js (JWT).
   const q = {
     username: user.username,
     email: user.email
@@ -479,10 +472,15 @@ app.post('/api/browse/getfiles', (req, res) => {
   */
 });
 
-//HOME
+app.get('/ended', (req, res) => {
+  //Something to figure out when session has expired
+  console.log('GET /ended');
+  res.send("")
+});
+
+//HOME // RECENT UPLOADS
 app.get('/home', (req, res) => {
   const maxSamples = 10;
-
   File.find({}).sort({dateAdded: -1}).exec((err, files) => {
     const samples = files.splice(0, maxSamples);
     res.send(samples);

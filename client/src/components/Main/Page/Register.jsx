@@ -66,7 +66,7 @@ class Register extends Component {
       console.log('The form has been submitted.');
       /// POST TO server.js.
       console.log('Push to DB.');
-      axios.post('/api/register', {
+      axios.post('/register', {
         username: username,
         email: email,
         password: password
@@ -121,10 +121,11 @@ class Register extends Component {
 
   handleUsername(usernameInputVal) {
     this.setState({ username: usernameInputVal });
-    axios.post('/api/validate', {
+    axios.post('/validate', {
       username: usernameInputVal
-    }).then(response => {
-      this.setState({ usernameNotValid: response.data.free });
+    }).then(res => {
+      console.log('RES: ', res.data.free);
+      this.setState({ usernameNotValid: res.data.free });
     });
   }
 
