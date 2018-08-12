@@ -23,7 +23,7 @@ class FileUpload extends Component {
     e.preventDefault();
     const data = new FormData();
     const file = this.state.uploadData.file;
-    if(file && file.size < this.props.maxSize && file.size > 2000) {
+    if(file && file.size < this.props.maxSize && file.size > 2048) {
       data.append('file', file);
       data.append('username', this.props.user.username);
       data.append('email', this.props.user.email);
@@ -40,9 +40,10 @@ class FileUpload extends Component {
         }
       }); 
     } else {
+      const inKB = this.props.maxSize / 1024;
       this.setState({ 
-        errorMsg: 'Error uploading file. Please check the file size. Allowed size 2kb to ' + 
-        this.props.maxSize + 'kb.' 
+        errorMsg: 'Error uploading file. Please check the file size. Allowed size 2KB to ' + 
+        inKB + 'KB.' 
       });
     }
   }

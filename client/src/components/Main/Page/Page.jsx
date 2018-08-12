@@ -17,10 +17,10 @@ class Page extends Component {
       return (
         <Switch>
           <Route exact path="/userhome" render={(props) => 
-              <UserPage currentUser={this.props.user.username} />
+              <UserPage user={this.props.user} />
           }/>
           <Route path="/about" component={About} />
-          <Route path='/userpage/:name' component={UserPage} />
+          <Route path='/userpage/:name' component={'a'} />
           <Route 
             path="/browse" 
             render={props => 

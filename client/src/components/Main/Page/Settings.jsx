@@ -16,7 +16,7 @@ class Settings extends Component {
         <div style={{ height: '10px' }} ></div>
         <div className='settings_cont'>
           <Paper>
-            <div className='settings_title'>Settings Page</div>
+            <div className='settings_title'>Settings</div>
             <div style={{ height: '10px' }} ></div>
             <PasswordChange
               user={this.props.user}

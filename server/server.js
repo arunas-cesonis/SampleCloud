@@ -370,12 +370,6 @@ app.post('/login', (req, res) => {
           maxAge: 3600
         })
       }
-      /*
-      console.log('EnCoded Token: ', data.token);
-      console.log('Decoded Token: ', jwt.verify(data.token, 'secret', (err, decodedToken) => {
-        return decodedToken;
-      }));
-      */
       res.send(data);
     } else {
       res.send(null);
@@ -384,12 +378,15 @@ app.post('/login', (req, res) => {
 });
 
 //User Page
-app.get('/api/user/:username', (req, res) => {
-  const username = req.params.username;
-  console.log('p :',req.params); 
-  User.findOne({ 'username': username }, (err, user) => {
+app.post('/api/userhome', (req, res) => {
+  const user = req.user._doc;
+  const q = {
+    username: user.username,
+    email: user.email
+  }
+  User.findOne(q, (err, user) => {
     // remove this later.. passwords will be saved encrypted.
-    console.log('User: ', user);
+    console.log('User viewing his home page: ', user.username);
     if(err) console.log( err);
     const q = {
       username: user.username,

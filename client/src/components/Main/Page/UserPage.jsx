@@ -43,17 +43,9 @@ class UserPage extends Component {
   }
 
   getUser(user) {
-    let userURL;
-    const prefix = '/api/user/';
-    if(!this.props.match){
-      userURL = prefix + user;
-      console.log('this.props.math DID NOT match');
-    } else {
-      userURL = prefix + this.props.match.params.name;
-      console.log('this.props.math DID match');
-    }
-    console.log('User Page: ', userURL);
-    axios.get(userURL).then(res => {
+    axios.post('/api/userhome', {
+      //SHOULD BE GET? No, will be trying to use this component to view other users pages
+    }).then(res => {
       this.setState({ 
         user: res.data.user,
         files: res.data.files,
@@ -66,7 +58,7 @@ class UserPage extends Component {
   /// MOVE CATEGORIES TO ANOTHER COMPONENT LIKE <Upload />
   render() {
     if(this.state.getUser){
-      this.getUser(this.props.currentUser);
+      this.getUser(this.props.user.username);
     }
     return (
       <div className='user_wrap'>
@@ -142,4 +134,4 @@ const Wallpaper = props => {
   );
 }
 
-export default UserPage;
+export default UserPage; 
