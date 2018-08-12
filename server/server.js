@@ -384,20 +384,11 @@ app.post('/api/userhome', (req, res) => {
     username: user.username,
     email: user.email
   }
-  User.findOne(q, (err, user) => {
-    // remove this later.. passwords will be saved encrypted.
-    console.log('User viewing his home page: ', user.username);
-    if(err) console.log( err);
-    const q = {
-      username: user.username,
-      email: user.email
-    };
-    File.find(q, (err, files) => {
-      if(err) throw err;
-      res.send({
-        user: user,
-        files: files
-      });
+  File.find(q, (err, files) => {
+    if(err) throw err;
+    res.send({
+      user: user,
+      files: files
     });
   });
 });
