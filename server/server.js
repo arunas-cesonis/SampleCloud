@@ -378,7 +378,7 @@ app.post('/login', (req, res) => {
 });
 
 //User Page
-app.post('/api/userhome', (req, res) => {
+app.get('/api/userhome', (req, res) => {
   const user = req.user._doc;
   const q = {
     username: user.username,

@@ -16,11 +16,11 @@ class UserPage extends Component {
       catFiles: [],
       getUser: true
     }
-    this.getCategories = this.getCategories.bind(this);
-    this.getUser = this.getUser.bind(this);
     this.handleCatClick = this.handleCatClick.bind(this);
   }
 
+  //Should I consider transferring functions to the another component? 
+  //Something to review later 
   handleCatClick(cat) {
     const { files } = this.state;
     const tmpArr = [];
@@ -32,34 +32,30 @@ class UserPage extends Component {
     this.setState({ catFiles: tmpArr });
   }
   
-  getCategories() {
+  componentDidMount() {
     const { categories, files } = this.state;
-    for(let i in files){
-      if(categories.indexOf(files[i].category) === -1){
-        categories.push(files[i].category);
-      }
-    }
-    this.setState({ categories: categories });
-  }
-
-  getUser(user) {
-    axios.post('/api/userhome', {
-      //SHOULD BE GET? No, will be trying to use this component to view other users pages
-    }).then(res => {
-      this.setState({ 
+    const { user } = this.props;
+    axios.get('/api/userhome').then(res => {
+      this.setState({
         user: res.data.user,
         files: res.data.files,
         catFiles: res.data.files,
-        getUser:  false
       });
-      this.getCategories();
+      if(files.length > -1) {
+        for(let i in files){
+          if(categories.indexOf(files[i].category) === -1){
+            categories.push(files[i].category);
+          }
+        }
+      } else {
+        console.log('ERROR: Files[] is empty');
+      }
     });
   }
+
   /// MOVE CATEGORIES TO ANOTHER COMPONENT LIKE <Upload />
   render() {
-    if(this.state.getUser){
-      this.getUser(this.props.user.username);
-    }
+    console.log('UserPage render(); has been called');
     return (
       <div className='user_wrap'>
         <Wallpaper

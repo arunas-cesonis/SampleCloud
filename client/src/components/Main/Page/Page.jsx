@@ -20,7 +20,7 @@ class Page extends Component {
               <UserPage user={this.props.user} />
           }/>
           <Route path="/about" component={About} />
-          <Route path='/userpage/:name' component={'a'} />
+          <Route path='/userpage/:name' />
           <Route 
             path="/browse" 
             render={props => 
