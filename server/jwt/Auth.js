@@ -50,6 +50,7 @@ const verifyJWT_MW = (req, res, next) => {
       next();
     }).catch((err) => {
       console.log('ERROR: ', err.message, '\nExpired At: ', err.expiredAt);
+      res.redirect('/login');
     });
   } else {
     console.log('Token was not found.');

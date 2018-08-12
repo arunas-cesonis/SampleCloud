@@ -178,16 +178,21 @@ app.post('/api/profile/pwd', (req, res) => {
   }).collation({ locale: 'en', strength: 1 });;
 });
 
-//Handle Wallpaper Upload
-app.post('/api/profile/wallpaper', (req, res) => {
+//Handle Picture Uploads
+app.post('/api/settings/upload', (req, res) => {
   const extTypes = ['.png', '.jpg', '.jpeg'];
   const username = req.body.username.toLowerCase();
   const email = req.body.email;
+  const path = req.body.path;
+  const type = req.body.type;
+  const pathSub = '/' + type + '/' + type;
   const data = req.files.file;
   const dotIndex = data.name.lastIndexOf('.');
   const ext = data.name.slice(dotIndex);
-  const fullPath = '../client/public/uploads/' + username + '/wallpaper/wallpaper' + ext; 
-  const wallpaperURL = '/uploads/' + username + '/wallpaper/wallpaper' + ext;
+  const fullPath = path + pathSub + ext; 
+  const URL = '/uploads/' + username + pathSub + ext;
+  const updateQ = {}
+  updateQ[type] = URL;
   const q = {
     username: username,
     email: email
@@ -197,37 +202,7 @@ app.post('/api/profile/wallpaper', (req, res) => {
     data.mv(fullPath, (err) => {
       if(err) throw err;
       console.log('Data.mv(); called');
-      User.update(q, { 'wallpaper': wallpaperURL }, (err, response) => {
-        if(err) throw err;
-        console.log('Mongo:', response);
-        res.send({
-          done: true
-        });
-      });
-    });
-  }
-});
-
-//Handle Avatar Upload
-app.post('/api/profile/avatar', (req, res) => {
-  const extTypes = ['.png', '.jpg', '.jpeg'];
-  const username = req.body.username.toLowerCase();
-  const email = req.body.email;
-  const data = req.files.file;
-  const dotIndex = data.name.lastIndexOf('.');
-  const ext = data.name.slice(dotIndex);
-  const fullPath = '../client/public/uploads/' + username + '/avatar/avatar' + ext; 
-  const avatarURL = '/uploads/' + username + '/avatar/avatar' + ext;
-  const q = {
-    username: username,
-    email: email
-  };
-
-  if(extTypes.indexOf(ext) > -1) {
-    data.mv(fullPath, (err) => {
-      if(err) throw err;
-      console.log('Data.mv(); called');
-      User.update(q, { 'avatar': avatarURL }, (err, response) => {
+      User.update(q, updateQ, (err, response) => {
         if(err) throw err;
         console.log('Mongo:', response);
         res.send({
