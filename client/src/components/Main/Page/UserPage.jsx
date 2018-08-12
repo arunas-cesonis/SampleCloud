@@ -33,20 +33,22 @@ class UserPage extends Component {
   }
   
   componentDidMount() {
-    const { categories, files } = this.state;
     const { user } = this.props;
+    const tmpArr = [];
     axios.get('/api/userhome').then(res => {
       this.setState({
         user: res.data.user,
         files: res.data.files,
         catFiles: res.data.files,
       });
-      if(files.length > -1) {
-        for(let i in files){
-          if(categories.indexOf(files[i].category) === -1){
-            categories.push(files[i].category);
+      console.log('files: ', res.data.files);
+      if(res.data.files.length > -1) {
+        for(let i in res.data.files){
+          if(tmpArr.indexOf(res.data.files[i].category) === -1){
+            tmpArr.push(res.data.files[i].category);
           }
         }
+        this.setState({ categories: tmpArr });
       } else {
         console.log('ERROR: Files[] is empty');
       }
@@ -78,8 +80,8 @@ class UserPage extends Component {
                   <div 
                     onClick={(e) => this.handleCatClick(item)}
                     className='category_btn' 
-                  key={i}
-                >{item}</div>
+                    key={i}
+                  >{item}</div>
                 )}
               </div>
             </Paper>

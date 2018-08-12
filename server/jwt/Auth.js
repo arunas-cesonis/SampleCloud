@@ -48,7 +48,6 @@ const verifyJWT_MW = (req, res, next) => {
     verifyJWT(token).then((decodedToken) => {
       req.user = decodedToken.data;
       req.user._doc['connected'] = true;
-      console.log('REQ USER: ', req.user);
       next();
     }).catch((err) => {
       console.log('ERROR: ', err.message, '\nExpired At: ', err.expiredAt);
