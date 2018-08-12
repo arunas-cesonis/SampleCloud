@@ -7,6 +7,7 @@ import './settings.css';
 
 class Settings extends Component {
   render() {
+    const path = '../client/public/uploads/' + this.props.user.username;
     return (
       <div className='settings_wrap'>
         <ParallaxImage 
@@ -24,8 +25,9 @@ class Settings extends Component {
             <FileUpload
               user={this.props.user}
               maxSize='1200000'
+              path={path}
+              type='avatar'
               id='avatar'
-              postTo='/api/profile/avatar'
               name='Avatar'
               recSize='Width 200px, Height 220px'
             />
@@ -33,8 +35,9 @@ class Settings extends Component {
             <FileUpload
               user={this.props.user}
               maxSize='5200000'
+              path={path}
+              type='wallpaper'
               id='wallpaper'
-              postTo='/api/profile/wallpaper'
               name='Wallpaper'
               recSize='Width 1920px'
             />

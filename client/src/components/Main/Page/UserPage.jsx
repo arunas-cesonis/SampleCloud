@@ -47,8 +47,10 @@ class UserPage extends Component {
     const prefix = '/api/user/';
     if(!this.props.match){
       userURL = prefix + user;
+      console.log('this.props.math DID NOT match');
     } else {
       userURL = prefix + this.props.match.params.name;
+      console.log('this.props.math DID match');
     }
     console.log('User Page: ', userURL);
     axios.get(userURL).then(res => {

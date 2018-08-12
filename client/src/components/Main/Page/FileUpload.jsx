@@ -23,11 +23,13 @@ class FileUpload extends Component {
     e.preventDefault();
     const data = new FormData();
     const file = this.state.uploadData.file;
-    if(file && file.size < this.props.maxSize) {
+    if(file && file.size < this.props.maxSize && file.size > 2000) {
       data.append('file', file);
       data.append('username', this.props.user.username);
       data.append('email', this.props.user.email);
-      axios.post(this.props.postTo, data).then(res => {
+      data.append('path', this.props.path);
+      data.append('type', this.props.type);
+      axios.post('/api/settings/upload', data).then(res => {
         if(res.data.done) {
           this.setState({
             notifyMsg: this.props.name + ' has been successfully uploaded.',
@@ -38,7 +40,10 @@ class FileUpload extends Component {
         }
       }); 
     } else {
-      this.setState({ errorMsg: 'Error uploading file. File must be below 1Mb.' });
+      this.setState({ 
+        errorMsg: 'Error uploading file. Please check the file size. Allowed size 2kb to ' + 
+        this.props.maxSize + 'kb.' 
+      });
     }
   }
 
