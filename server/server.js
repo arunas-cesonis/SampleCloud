@@ -237,7 +237,7 @@ app.post('/api/profile', (req, res) => {
   });
   console.log('CATEGORY: ', category); 
   console.log('EXTENSION: ', ext); 
-  if(files.length === 0 && extTypes.indexOf(ext) > -1){
+  if(files.length === 0 && extTypes.indexOf(ext.toLowerCase()) > -1){
     console.log('File Meta: ', fileMeta);
     fileMeta.save(function(err) {
       if(err) return console.log(err);
